@@ -2,10 +2,14 @@
 
 :root {
   --bg-color: #ffffff;
+  --second-bg: #f8f8f8;
   --primary-color: #167cfb;
   --secondary-color: #1264ca;
   --black: #000000;
   --grey: #4e4e4e;
+  --grey2: #cacaca;
+  --heading: #2e2e2e;
+  --dark-blue: #071c36;
 }
 
 * {
