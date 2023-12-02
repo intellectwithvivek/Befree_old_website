@@ -1,13 +1,113 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap");
+
+:root {
+  --bg-color: #ffffff;
+  --primary-color: #58cc02;
+  --secondary-color: #1cb0f6;
+  --black: #000000;
+  --grey: #4b4b4b;
+  --red: rgb(231, 0, 8);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: inherit;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: var(--bg-color);
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  line-height: 1.4;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+button {
+  font-family: "Nunito";
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+input {
+  font-family: "Nunito";
+  font-weight: 500;
+}
+
+textarea {
+  font-family: "Nunito";
+  font-weight: 500;
+}
+
+select {
+  font-family: "Nunito";
+  font-weight: 500;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 1rem;
+  position: absolute;
+  right: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.flex {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dangerText {
+  color: var(--red);
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.primaryText {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+/* 
+@media only screen and (max-width: 480px) {
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 1440px) {
+}
+
+@media only screen and (max-width: 2570px) {
+}
+
+@media (min-width: 1920px) and (max-height: 1080px) {
+} */
