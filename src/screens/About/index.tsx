@@ -3,19 +3,15 @@ import styles from "./index.module.css";
 
 // Components Here
 import Header from "../../components/Header";
-import Hero from "../../components/Hero";
-import Footer from "../../components/Footer";
 
-const Home: React.FC = () => {
+const About: React.FC = () => {
   return (
     <>
       <div className={styles.container}>
         <Header />
-        <Hero />
-        <Footer />
       </div>
     </>
   );
 };
 
-export default Home;
+export default About;

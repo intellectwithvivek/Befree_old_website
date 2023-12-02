@@ -1,0 +1,122 @@
+.container {
+  height: fit-content;
+  background-color: var(--dark-blue);
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem;
+}
+
+.logo {
+  color: var(--bg-color);
+  font-size: 3.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  filter: brightness(0) invert(1) grayscale(1);
+}
+
+.first_content {
+  color: var(--grey2);
+  font-family: Inter;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  width: 20vw;
+  margin-top: 5rem;
+}
+
+.logos {
+  display: flex;
+  gap: 4rem;
+  margin-top: 2rem;
+  margin-left: -0.7rem;
+}
+
+.link_icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: var(--bg-color);
+  cursor: pointer;
+}
+
+.second {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.second a {
+  color: var(--grey2);
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+}
+
+.second a.active {
+  color: var(--bg-color);
+}
+
+.second a:before {
+  content: "";
+  position: absolute;
+  bottom: -0.3rem;
+  left: 0;
+  width: 0;
+  height: 0.2rem;
+  background-color: var(--bg-color);
+  transition: width 0.3s ease;
+}
+
+.second a:hover:before {
+  width: 100%;
+}
+
+.third {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact h1 {
+  color: var(--bg-color);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.contact p {
+  color: var(--grey2);
+  font-size: 1.8rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.address h1 {
+  color: var(--bg-color);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.address p {
+  color: var(--grey2);
+  font-size: 1.8rem;
+  font-weight: 400;
+}
