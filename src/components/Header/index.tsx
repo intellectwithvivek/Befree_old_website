@@ -200,8 +200,6 @@ const style = {
   outline: "none",
   boxShadow: 24,
   p: 2,
-  width: "27vw",
-  height: "30vh",
 };
 
 export default Header;
