@@ -5,7 +5,10 @@ import styles from "./index.module.css";
 import {
   Box,
   Button,
+  FormControlLabel,
   Modal,
+  Radio,
+  RadioGroup,
   Step,
   StepLabel,
   Stepper,
@@ -24,6 +27,7 @@ const Header: React.FC = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
+  const [loginMethod, setLoginMethod] = useState("phone");
 
   const handleMobileNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -61,6 +65,9 @@ const Header: React.FC = () => {
     }
   };
 
+  const handleLoginMethodChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLoginMethod(e.target.value as "phone" | "google");
+  };
   const handleLogoClick = () => {
     navigate("/");
   };
@@ -103,33 +110,64 @@ const Header: React.FC = () => {
             <Typography variant="h5" component="h2" mb={2}>
               Sign Up
             </Typography>
-            <Stepper activeStep={step} alternativeLabel>
-              <Step>
-                <StepLabel>Enter your mobile number</StepLabel>
-                <TextField
-                  type="tel"
-                  label="+91"
-                  value={mobileNumber}
-                  onChange={handleMobileNumberChange}
-                  inputProps={{
-                    inputMode: "numeric",
-                  }}
+            <RadioGroup
+              aria-label="login-method"
+              name="login-method"
+              value={loginMethod}
+              onChange={handleLoginMethodChange}
+            >
+              <div className={styles.radio}>
+                <FormControlLabel
+                  value="phone"
+                  control={<Radio />}
+                  label="Login with Phone Number"
                 />
-              </Step>
-              <Step>
-                <StepLabel>Submit OTP</StepLabel>
-                <TextField
-                  type="tel"
-                  label="Enter OTP"
-                  value={otp}
-                  onChange={handleOtpChange}
-                  inputProps={{
-                    inputMode: "numeric",
-                  }}
-                  disabled={!otpSent}
+                <FormControlLabel
+                  value="google"
+                  control={<Radio />}
+                  label="Login with Google"
                 />
-              </Step>
-            </Stepper>
+              </div>
+            </RadioGroup>
+
+            {loginMethod === "phone" && (
+              <Stepper activeStep={step} alternativeLabel>
+                <Step>
+                  <StepLabel>Enter your mobile number</StepLabel>
+                  <TextField
+                    type="tel"
+                    label="+91"
+                    value={mobileNumber}
+                    onChange={handleMobileNumberChange}
+                    inputProps={{
+                      inputMode: "numeric",
+                    }}
+                  />
+                </Step>
+                <Step>
+                  <StepLabel>Submit OTP</StepLabel>
+                  <TextField
+                    type="tel"
+                    label="Enter OTP"
+                    value={otp}
+                    onChange={handleOtpChange}
+                    inputProps={{
+                      inputMode: "numeric",
+                    }}
+                    disabled={!otpSent}
+                  />
+                </Step>
+              </Stepper>
+            )}
+
+            {loginMethod === "google" && (
+              <div>
+                <Typography variant="body1">
+                  This is the content for Login with Google.
+                </Typography>
+              </div>
+            )}
+
             <Box mt={2}>
               <Button
                 variant="contained"
