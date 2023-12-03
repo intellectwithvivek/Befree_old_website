@@ -5,12 +5,14 @@ import styles from "./index.module.css";
 import Header from "../../components/Header";
 import Hero from "../../components/Hero";
 import Footer from "../../components/Footer";
+import Partner from "../../components/Partner";
 
 const Home: React.FC = () => {
   return (
     <>
       <div className={styles.container}>
         <Hero />
+        <Partner/>
         <Footer />
       </div>
     </>
