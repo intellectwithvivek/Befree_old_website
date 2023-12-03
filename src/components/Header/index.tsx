@@ -132,33 +132,48 @@ const Header: React.FC = () => {
             </RadioGroup>
 
             {loginMethod === "phone" && (
-              <Stepper activeStep={step} alternativeLabel>
-                <Step>
-                  <StepLabel>Enter your mobile number</StepLabel>
-                  <TextField
-                    type="tel"
-                    label="+91"
-                    value={mobileNumber}
-                    onChange={handleMobileNumberChange}
-                    inputProps={{
-                      inputMode: "numeric",
-                    }}
-                  />
-                </Step>
-                <Step>
-                  <StepLabel>Submit OTP</StepLabel>
-                  <TextField
-                    type="tel"
-                    label="Enter OTP"
-                    value={otp}
-                    onChange={handleOtpChange}
-                    inputProps={{
-                      inputMode: "numeric",
-                    }}
-                    disabled={!otpSent}
-                  />
-                </Step>
-              </Stepper>
+              <>
+                <Stepper activeStep={step} alternativeLabel>
+                  <Step>
+                    <StepLabel>Enter your mobile number</StepLabel>
+                    <TextField
+                      type="tel"
+                      label="+91"
+                      value={mobileNumber}
+                      onChange={handleMobileNumberChange}
+                      inputProps={{
+                        inputMode: "numeric",
+                      }}
+                    />
+                  </Step>
+                  <Step>
+                    <StepLabel>Submit OTP</StepLabel>
+                    <TextField
+                      type="tel"
+                      label="Enter OTP"
+                      value={otp}
+                      onChange={handleOtpChange}
+                      inputProps={{
+                        inputMode: "numeric",
+                      }}
+                      disabled={!otpSent}
+                    />
+                  </Step>
+                </Stepper>
+                <Box mt={2}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    disabled={
+                      (step === 0 && mobileNumber.length !== 10) ||
+                      (step === 1 && !otpSent)
+                    }
+                  >
+                    {step === 0 ? "Submit Mobile Number" : "Verify OTP"}
+                  </Button>
+                </Box>
+              </>
             )}
 
             {loginMethod === "google" && (
@@ -168,20 +183,6 @@ const Header: React.FC = () => {
                 </Typography>
               </div>
             )}
-
-            <Box mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                disabled={
-                  (step === 0 && mobileNumber.length !== 10) ||
-                  (step === 1 && !otpSent)
-                }
-              >
-                {step === 0 ? "Submit Mobile Number" : "Verify OTP"}
-              </Button>
-            </Box>
           </Box>
         </Modal>
       </div>
