@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
-
 import {
   Box,
   Button,
@@ -14,13 +13,24 @@ import {
   Stepper,
   TextField,
   Typography,
+  Avatar,
+  IconButton,
+  Menu, MenuItem, Tooltip
 } from "@mui/material";
+// import { Alert,  Card, CardContent, CircularProgress, InputAdornment, } from '@mui/material';
 
 import logo from "../../assets/svg/logo.svg";
+import SignInwithGoogle from "../SignInWithGoogle";
+import { useAppDispatch, useAppSelector } from "../../store/store/store";
+import { setLogoutModal } from "../../store/reducer/user";
+import { stringAvatar } from "../../utils/Image";
+
+const settings = ['Account', 'Logout'];
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userInfo, isVerifying, loading, verificationError, imageLoading , verificationSuccess , logoutModal} = useAppSelector(state => state.user)
 
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
@@ -28,6 +38,8 @@ const Header: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
   const [loginMethod, setLoginMethod] = useState("phone");
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useAppDispatch()
 
   const handleMobileNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -73,6 +85,23 @@ const Header: React.FC = () => {
     navigate("/");
   };
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = (item) => {
+    console.log(item)
+    setAnchorElUser(null);
+    if(item === 'Account')
+       {
+         navigate('/account');
+        
+        }
+     else if(item === 'Logout'){
+      dispatch(setLogoutModal(true));
+     }     
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -102,9 +131,38 @@ const Header: React.FC = () => {
           </Link>
         </div>
 
-        <button className={styles.login} onClick={handleOpen}>
+        {!userInfo ?<button className={styles.login} onClick={handleOpen}>
           Login
-        </button>
+        </button>:
+        <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    {userInfo?.name && <Avatar {...stringAvatar(userInfo?.name)} />}
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>}
 
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
@@ -177,11 +235,7 @@ const Header: React.FC = () => {
             )}
 
             {loginMethod === "google" && (
-              <div>
-                <Typography variant="body1">
-                  This is the content for Login with Google.
-                </Typography>
-              </div>
+              <SignInwithGoogle/>
             )}
           </Box>
         </Modal>
