@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
