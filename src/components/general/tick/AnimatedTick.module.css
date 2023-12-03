@@ -1,0 +1,18 @@
+.animated_tick_container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .tick_icon {
+    font-size: 50px;
+    animation: scaleUp 0.5s ease-in-out;
+  }
+  
+  @keyframes scaleUp {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

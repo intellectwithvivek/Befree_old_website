@@ -1,21 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Screens Here
 import Home from "./screens/Home";
 import About from "./screens/About";
 import ContactUs from "./screens/Contact";
+import Error from "./screens/Error/Error";
+import Root from "./screens/Root";
+
+import { store } from "./store/store/store"; 
+import { Provider } from 'react-redux';
+
+const router = createBrowserRouter([
+  {path:'/',element: <Root/>,
+  errorElement:<Error/>,
+    children:[
+    {path:'/',element: <Home/>},
+    {path:'/contact',element:<ContactUs/>},
+    {path:'/about',element:<About/>},
+  ]},
+])  
+
 
 const App: React.FC = () => {
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactUs />} />
-        </Routes>
-      </Router>
+       <Provider store={store}>
+      {/* <Toaster toastOptions={{ duration: 2500 }} /> */}
+       <RouterProvider router={router}/>
+    </Provider>
     </div>
   );
 };
