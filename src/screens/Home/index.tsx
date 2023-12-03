@@ -10,7 +10,6 @@ const Home: React.FC = () => {
   return (
     <>
       <div className={styles.container}>
-        <Header />
         <Hero />
         <Footer />
       </div>
