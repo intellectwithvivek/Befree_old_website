@@ -68,6 +68,7 @@ const Header: React.FC = () => {
   const handleLoginMethodChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginMethod(e.target.value as "phone" | "google");
   };
+
   const handleLogoClick = () => {
     navigate("/");
   };
