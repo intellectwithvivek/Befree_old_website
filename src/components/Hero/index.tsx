@@ -8,7 +8,7 @@ import hero from "../../assets/svg/hero.png";
 const Hero: React.FC = () => {
   const [typedText, setTypedText] = useState("");
   const textToType =
-    "Effortlessly create and organize various activities using our pre-set elements. From sports events to book club meetings, set up in minutes. Connect with nearby enthusiasts and join the fun!";
+    "Maximize Profits, Increase Visibility, and Build Lasting Connections 🚀 - Your Venue, Your Offers, Your Success! 💼✨";
 
   useEffect(() => {
     let index = 0;
@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-          <h1>A title that is short & sweet.</h1>
+          <h1>Transform Your Venue into a Hotspot with BeFree.</h1>
           <p>{typedText}</p>
           <button>
             Join Now
