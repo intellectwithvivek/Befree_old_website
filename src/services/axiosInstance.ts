@@ -17,7 +17,7 @@ const headers = {
 
 //
 export const axiosInstance = axios.create({
-  // baseURL:"https://befree340.online", //"http://befreebeta-env.eba-qjt4qnff.ap-south-1.elasticbeanstalk.com",//"http://192.168.1.10:5000",//Config.BASE_URL,
+  baseURL:"https://befree340.online", //"http://befreebeta-env.eba-qjt4qnff.ap-south-1.elasticbeanstalk.com",//"http://192.168.1.10:5000",//Config.BASE_URL,
   headers,
   withCredentials: true, // Enable credentials (cookies, HTTP authentication)
 });
