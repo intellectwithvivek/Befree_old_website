@@ -1,0 +1,21 @@
+.container {
+  padding: 5rem 35rem;
+  justify-content: center;
+  align-items: center;
+  background: var(--second-bg);
+}
+
+.container h2 {
+  color: var(--heading);
+  text-align: center;
+  font-size: 3.6rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: inherit;
+}

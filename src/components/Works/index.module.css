@@ -1,0 +1,41 @@
+.container {
+  background: var(--bg-color);
+  padding: 100px 162px 100px 200px;
+  height: 50rem;
+}
+
+.container h2 {
+  color: var(--heading);
+  font-size: 3.6rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  width: 20vw;
+}
+
+.card h2 {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.card p {
+  color: var(--black);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
