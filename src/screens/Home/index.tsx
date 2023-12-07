@@ -7,6 +7,7 @@ import Hero from "../../components/Hero";
 import Footer from "../../components/Footer";
 import Partner from "../../components/Partner";
 import Works from "../../components/Works";
+import FAQ from "../../components/FAQ";
 
 const Home: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Home: React.FC = () => {
         <Hero />
         <Partner />
         <Works />
+        <FAQ />
         <Footer />
       </div>
     </>
