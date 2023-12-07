@@ -30,9 +30,11 @@ const FAQ: React.FC = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography style={interFontStyle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                At Befree, you have the option to organize your activities by
+                choosing from a variety of categories we provide. Additionally,
+                you can connect with other individuals who have similar
+                interests, making it a great platform for networking and meeting
+                new people.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -49,9 +51,11 @@ const FAQ: React.FC = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography style={interFontStyle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                No, Befree is not a dating app. It is a platform that focuses on
+                helping users plan their activities based on various categories
+                and connect with others who share similar interests. It promotes
+                social interactions and networking but does not specifically
+                target dating.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -66,9 +70,8 @@ const FAQ: React.FC = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography style={interFontStyle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                Befree can be downloaded at no cost, and as of now, there are no
+                charges applied to access any of its features.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -85,9 +88,10 @@ const FAQ: React.FC = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography style={interFontStyle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                Undoubtedly, Befree can be extremely useful in expanding your
+                social networks and connecting with like-minded individuals. It
+                provides an opportunity to explore society beyond the confines
+                of social media platforms.
               </Typography>
             </AccordionDetails>
           </Accordion>

@@ -7,6 +7,10 @@ import android from "../../assets/svg/android.svg";
 // Components Here
 
 const Final: React.FC = () => {
+  const openLinkInNewPage = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -23,8 +27,24 @@ const Final: React.FC = () => {
         </button>
         <h3>Download Befree app</h3>
         <div className={styles.download}>
-          <img src={apple} alt="apple" />
-          <img src={android} alt="android" />
+          <img
+            src={apple}
+            alt="apple"
+            onClick={() =>
+              openLinkInNewPage(
+                "https://apps.apple.com/in/app/befree/id6463606840"
+              )
+            }
+          />
+          <img
+            src={android}
+            alt="android"
+            onClick={() =>
+              openLinkInNewPage(
+                "https://play.google.com/store/apps/details?id=com.befree"
+              )
+            }
+          />
         </div>
       </div>
     </>
