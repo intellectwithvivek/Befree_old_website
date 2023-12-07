@@ -5,8 +5,7 @@ import styles from "./index.module.css";
 const ContactUs: React.FC = () => {
   return (
     <>
-      <div className={styles.container}>
-      </div>
+      <div className={styles.container}></div>
     </>
   );
 };

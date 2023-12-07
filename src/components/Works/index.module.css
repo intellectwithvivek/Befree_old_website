@@ -1,0 +1,5 @@
+.container {
+  background: var(--bg-color);
+  padding: 10rem 20rem;
+  height: 48rem;
+}
