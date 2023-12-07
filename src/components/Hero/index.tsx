@@ -8,7 +8,7 @@ import hero from "../../assets/svg/hero.png";
 const Hero: React.FC = () => {
   const [typedText, setTypedText] = useState("");
   const textToType =
-    "Maximize Profits, Increase Visibility, and Build Lasting Connections 🚀 - Your Venue, Your Offers, Your Success! 💼✨";
+    "Maaximize Profits, Increase Visibility, and Build Lasting Connections 🚀 - Your Venue, Your Offers, Your Success! 💼✨";
 
   useEffect(() => {
     let index = 0;
