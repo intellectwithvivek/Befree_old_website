@@ -11,15 +11,14 @@ interface CustomRequestConfig extends AxiosRequestConfig {
 }
 
 const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-};
-
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+  };
 //
 export const axiosInstance = axios.create({
   baseURL:"https://befree340.online", //"http://befreebeta-env.eba-qjt4qnff.ap-south-1.elasticbeanstalk.com",//"http://192.168.1.10:5000",//Config.BASE_URL,
   headers,
-  withCredentials: true, // Enable credentials (cookies, HTTP authentication)
+  // withCredentials: true, // Enable credentials (cookies, HTTP authentication)
 });
 
 axiosInstance.interceptors.request.use(async (request) => {
