@@ -60,3 +60,11 @@
 .download img {
   cursor: pointer;
 }
+
+.enlargeOnHover {
+  transition: transform 0.3s ease-in-out;
+}
+
+.enlargeOnHover:hover {
+  transform: scale(1.2);
+}

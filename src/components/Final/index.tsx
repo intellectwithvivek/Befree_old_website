@@ -35,6 +35,7 @@ const Final: React.FC = () => {
                 "https://apps.apple.com/in/app/befree/id6463606840"
               )
             }
+            className={styles.enlargeOnHover}
           />
           <img
             src={android}
@@ -44,6 +45,7 @@ const Final: React.FC = () => {
                 "https://play.google.com/store/apps/details?id=com.befree"
               )
             }
+            className={styles.enlargeOnHover}
           />
         </div>
       </div>
