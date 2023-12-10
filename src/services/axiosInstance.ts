@@ -28,13 +28,11 @@ axiosInstance.interceptors.request.use(async (request) => {
       request.headers.Authorization = `Bearer ${idTokenResult.token}`;
   } else {
     const token = getAccesstokenStorage();
-    console.log("token", token);
     if (request?.url && request?.headers) {
       if (request.url.startsWith("/public/refreshToken")) {
         request.headers.Authorization = `Bearer ${token}`;
         request.headers.isRefreshToken = "true";
       } else if (request.url.startsWith("/private")) {
-        console.log("dasdadsasdascxvxcvcvbctgf", token);
         request.headers.Authorization = `Bearer ${token}`;
         request.headers["Access-Control-Allow-Origin"] = "*";
       } else {
@@ -42,8 +40,6 @@ axiosInstance.interceptors.request.use(async (request) => {
       }
     }
   }
-
-  console.log("asdasd", request.headers.Authorization);
 
   return request;
 });
