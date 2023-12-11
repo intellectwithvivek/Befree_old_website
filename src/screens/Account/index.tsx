@@ -1,42 +1,36 @@
 
-import styles from './index.module.css'
-import SearchIcon from '@mui/icons-material/Search';
-
-import React, { useEffect, useRef, useState } from 'react'
-
-import { basicLocationInfo, getLocDataOnLatAndLng } from '../../utils/location';
-import { Merchant } from '../../@types/interfaces/merchant';
-import { Avatar, Box, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { validateIntializationMerchantInfo } from '../../utils/validation';
-import { useAppDispatch, useAppSelector } from '../../store/store/store';
-import { initializeMerchantInfo } from '../../store/reducer/user/action';
-import { setPopup } from '../../store/reducer/app-data';
-import { addPlaceInstructions, placestypes } from '../../constants/app_constants';
-import { stringAvatar } from '../../utils/Image';
-import EditIcon from '@mui/icons-material/Edit';
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
-import { storage } from '../../firebase';
-import { setImageUploading, setPlay } from '../../store/reducer/user';
-import { colors } from '../../constants/colors';
-import axios from 'axios';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import SearchIcon from '@mui/icons-material/Search';
+import { Avatar, Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import axios from 'axios';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+// import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
+import React, { useEffect, useRef, useState } from 'react';
 import Lottie from 'react-lottie';
-import accountInfo  from '../../assets/lottie/accountInfo.json'
-import created  from '../../assets/lottie/accountsetup.json'
+import { Merchant } from '../../@types/interfaces/merchant';
+import accountInfo from '../../assets/lottie/accountInfo.json';
+import created from '../../assets/lottie/accountsetup.json';
+import { addPlaceInstructions, placestypes } from '../../constants/app_constants';
+import { colors } from '../../constants/colors';
+import { storage } from '../../firebase';
+import { setPopup } from '../../store/reducer/app-data';
+import { setImageUploading, setPlay } from '../../store/reducer/user';
+import { initializeMerchantInfo } from '../../store/reducer/user/action';
+import { useAppDispatch, useAppSelector } from '../../store/store/store';
+import { basicLocationInfo, getLocDataOnLatAndLng } from '../../utils/location';
+import { validateIntializationMerchantInfo } from '../../utils/validation';
+import styles from './index.module.css';
 
 const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: accountInfo,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
+        preserveAspectRatio: 'xMidYMid slice'
     },
-  };
-
+};
 
 type Props = {}
-
 
 const apiKey = "AIzaSyCPeMZGBtqJzmbkNixvRP1V2nQyu1Ik3rk";
 const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
@@ -69,8 +63,8 @@ const options = {
 };
 
 
-export default function Account({ }: Props) {
-    const { userInfo, isInitializing , play} = useAppSelector(state => state.user)
+  const Account = () => {
+    const { userInfo, isInitializing, play } = useAppSelector(state => state.user)
     const { isInitialized, isAuth } = useAppSelector(state => state.appData)
     const searchInput = useRef(null);
     const [merchantInfo, setAddress] = useState(userInfo) as Merchant | any;
@@ -78,16 +72,16 @@ export default function Account({ }: Props) {
     const dispatch = useAppDispatch();
     const fileInputRef = useRef();
     const [uploading, setUploading] = useState(false);
-   
+
     const createOptions = {
         loop: false,
         autoplay: true,
         animationData: created,
         rendererSettings: {
-          preserveAspectRatio: 'xMidYMid slice'
+            preserveAspectRatio: 'xMidYMid slice'
         },
-      };
-    
+    };
+
 
     const handleAvatarClick = () => {
         if (isAuth) {
@@ -193,7 +187,6 @@ export default function Account({ }: Props) {
     }
 
 
-
     const findMyLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -249,7 +242,6 @@ export default function Account({ }: Props) {
                 console.log(res.data)
             }).catch(err => console.log(err))
     }
-
 
     const onSubmit = () => {
         console.log(userInfo)
@@ -308,7 +300,7 @@ export default function Account({ }: Props) {
                 severity: "error"
             }))
         }
-       
+
     }
 
     // load map script after mounted
@@ -352,40 +344,40 @@ export default function Account({ }: Props) {
     return (
         <div className={styles.container}>
 
-{play && <div className={styles.popper}>
-      <Lottie
-        options={createOptions}
-        eventListeners={
-          [
-            {
-              eventName: 'complete',
-              callback: () => {
-                console.log('Animation completed');
-                dispatch(setPlay(false))
-              },
-            },
-            {
-              eventName: 'loopComplete',
-              callback: () => {
-                console.log('Loop completed');
-              },
-            }]
-        }
-      />
-    </div>}
+            {play && <div className={styles.popper}>
+                <Lottie
+                    options={createOptions}
+                    eventListeners={
+                        [
+                            {
+                                eventName: 'complete',
+                                callback: () => {
+                                    console.log('Animation completed');
+                                    dispatch(setPlay(false))
+                                },
+                            },
+                            {
+                                eventName: 'loopComplete',
+                                callback: () => {
+                                    console.log('Loop completed');
+                                },
+                            }]
+                    }
+                />
+            </div>}
             <div className={styles.innerContainer}>
                 <h3>Instructions</h3>
                 <div className={styles.lottie}>
                     <Lottie
-                    options={defaultOptions}
-                    width={'100%'}
-                    height={'100%'}
+                        options={defaultOptions}
+                        width={'100%'}
+                        height={'100%'}
                     />
                 </div>
                 <ul className={styles.instructions}>
-                        {addPlaceInstructions.map(ele=>{
-                           return( <li>{ele}</li>)
-                        })}
+                    {addPlaceInstructions.map(ele => {
+                        return (<li>{ele}</li>)
+                    })}
                 </ul>
             </div>
 
@@ -397,18 +389,23 @@ export default function Account({ }: Props) {
                     {/* <button onClick={findMyLocation}><FaSearchLocation /></button> */}
                 </div>
 
-                <div>
+                <div style={styles.imageUpload}>
                     {merchantInfo?.image ?
                         <Avatar
                             onClick={handleAvatarClick}
                             alt={merchantInfo?.place || ''}
                             sx={{
                                 width: 140, height: 140,
-                                borderRadius: 10, backgroundColor: colors.greyText, alignSelf: 'center'
+                                borderRadius: 10,
+                                 backgroundColor: colors.greyText,
+                                  alignSelf: 'center'
                             }}
                             src={merchantInfo?.image} /> :
                         <Avatar onClick={handleAvatarClick}
-                            sx={{ width: 100, height: 100, borderRadius: '50%', alignSelf: 'center' }}>
+                            sx={{ width: 100,
+                                 height: 100,
+                                  borderRadius: '50%',
+                                   alignSelf: 'center' }}>
                             <FileUploadOutlinedIcon />
                         </Avatar>}
                     <input
@@ -463,7 +460,7 @@ export default function Account({ }: Props) {
 
 
                 <div className={styles.inside}>
-                    <FormControl sx={{  minWidth: '48vh' }}>
+                    <FormControl sx={{ minWidth: '48vh' }}>
                         <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
                         <Select
                             labelId="demo-simple-select-helper-label"
@@ -486,7 +483,7 @@ export default function Account({ }: Props) {
                             if (errors?.district) setErrors({ ...errors, district: undefined })
                             setAddress({ ...merchantInfo, district: e.target.value })
                         }}
-                        sx={{ width: '50vh',paddingBottom:'1rem' }}
+                        sx={{ width: '50vh', paddingBottom: '1rem' }}
                         margin="normal"
                         error={!!errors.district}
                         helperText={errors?.district}
@@ -576,12 +573,35 @@ export default function Account({ }: Props) {
                 </div>
 
                 <Button
-                            onClick={onSubmit}
-                            type="submit" variant="contained" color="primary"
-                            style={{ width: '30ch', marginBottom: 20, marginTop: 20 }}>
-                            Submit
-                        </Button>
+                    onClick={onSubmit}
+                    type="submit" variant="contained" color="primary"
+                    style={{ width: '30ch', marginBottom: 20, marginTop: 20 }}>
+                    Submit
+                </Button>
+
+                {/* {merchantInfo?.lat && merchantInfo?.lng &&
+                        <div style={{ width: '50%', height: 300, marginBottom: 20 }}>
+                            <Map google={props.google}
+                                initialCenter={{
+                                    lat: merchantInfo?.lat,
+                                    lng: merchantInfo?.lng
+                                }}
+                                zoom={15}
+                                containerStyle={{ width: '50%', height: 400 }}
+                                style={{ width: '100%', height: '100%' }}
+                            // style={{}}
+                            >
+                                <Marker name={'Current location'} />
+
+                            </Map>
+                        </div>} */}
             </div>
         </div>
     )
 }
+
+// export default GoogleApiWrapper({
+//     apiKey: 'AIzaSyCPeMZGBtqJzmbkNixvRP1V2nQyu1Ik3rk'
+// })(Account);
+
+export default Account
