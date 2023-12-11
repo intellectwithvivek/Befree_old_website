@@ -1,0 +1,109 @@
+.faqs {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+
+
+.faq {
+    margin-top: 30px;
+}
+
+.faq h2 {
+     color:var(--grey);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.faqCard {
+    position: relative;
+    width: 20%;
+    height: 250px;
+    background-color: lightblue;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.faqCard h3 {
+    position: absolute;
+    top: 70%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+}
+
+
+
+.faqCard p {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%) translateX(-100%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1;
+    color: #2b89fc;
+    font-size: 1.6rem;
+}
+
+.faqCard :hover{
+    background-color: white;
+}
+
+.faqCard:hover h3 {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
+}
+
+.faqCard:hover p {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0%);
+}
+
+@media (max-width: 767px) {
+    .faqCard{
+        width: 40%; 
+        margin: 10px;
+        height: 250px;
+        overflow: auto;
+    }
+
+    .faqCard p {
+        top: 10%;
+        transform: translateX(-100%);
+    }
+
+
+    .faqCard:hover p {
+        opacity: 1;
+        transform:  translateX(0%);
+    }
+
+    .faqCard:hover h3 {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    .faqCard:hover h3 {
+        opacity: 0;
+        transform:  translateX(100%);
+    }
+    
+    .faqCard:hover p {
+        opacity: 1;
+        transform:  translateX(0%);
+    }
+
+  }

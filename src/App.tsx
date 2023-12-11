@@ -7,9 +7,11 @@ import About from "./screens/About";
 import ContactUs from "./screens/Contact";
 import Error from "./screens/Error/Error";
 import Root from "./screens/Root";
+import Offer from "./screens/Offers/Offer"
 
 import { store } from "./store/store/store"; 
 import { Provider } from 'react-redux';
+import Account from "./screens/Account";
 
 const router = createBrowserRouter([
   {path:'/',element: <Root/>,
@@ -18,6 +20,8 @@ const router = createBrowserRouter([
     {path:'/',element: <Home/>},
     {path:'/contact',element:<ContactUs/>},
     {path:'/about',element:<About/>},
+    {path:'/offers',element:<Offer/>},
+    {path:'/account',element:<Account/>},
   ]},
 ])  
 

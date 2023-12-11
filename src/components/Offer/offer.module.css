@@ -1,0 +1,68 @@
+.header {
+    color: var(--heading);
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.popper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.main {
+    display: flex;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    padding:3rem 5rem;
+    width: 100vh;
+
+}
+
+.input {
+    width: 35vh;
+}
+
+.title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.cardContainer {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom right, #4a90e2, #63d8ff); /* Adjust gradient colors */
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+    border-radius: 2rem;
+  }
+  
+  .cardContainer:hover {
+    transform: scale(1.05); /* Scale up on hover */
+  }
+  
+  .preview {
+    /* Add any styles you need for the content inside the card */
+  }
+  
+  .cardContainer h4 {
+    color: #ffffff; /* Adjust font color */
+    font-size: 1.5rem; /* Adjust font size */
+    margin-bottom: 10px; /* Add margin as needed */
+  }
+  
+  .cardContainer h5 {
+    color: #ffcc00; /* Adjust font color for h3 */
+    font-size: 1.6rem; /* Adjust font size for h3 */
+    margin-bottom: 10px; /* Add margin as needed */
+  }

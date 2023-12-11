@@ -3,6 +3,7 @@
   justify-content: space-around;
   width: 100vw;
   margin-top: 5vh;
+  align-items: center
 }
 
 .left {
@@ -53,6 +54,9 @@
 
 .right {
   animation: fadeIn 2.5s ease-in-out;
+  width: 58rem;
+  height: 32rem;
+  padding-right: 4rem;
 }
 
 @keyframes fadeIn {

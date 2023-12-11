@@ -1,5 +1,6 @@
-import { Offer } from "../../@types/interfaces/offer";
-import { discount_color } from "../constants/app_constants";
+import { Offer } from "../@types/interfaces/offer";
+import { discount_color, discount_styles } from "../constants/app_constants";
+import { colors } from "../constants/colors";
 
 export const subtitle = (offer: Offer) => {
   if (offer.minOrderType === "value") {
@@ -14,7 +15,7 @@ export const subtitle = (offer: Offer) => {
       if (offer.limit == "No Limit")
         return `Flat ${offer.discount}% on buying ${offer.minOrder} item.`;
       else
-        return `GET ${offer.discount}% upto ${offer.limit} on buying ${offer.minOrder} item.`;
+        return `GET ${offer.discount}% ${offer.limit} on buying ${offer.minOrder} item.`;
     } else if (offer.offer_type === "Complimentary") {
       return `Buy ${offer.minOrder} & GET ${offer.quantity} ${offer.complimentaryItem}`;
     }
@@ -22,17 +23,16 @@ export const subtitle = (offer: Offer) => {
 };
 
 export const getOfferColor = (discount: number) => {
-  if (discount >= 10 && discount < 20) {
-    return discount_color[discount];
-  } else if (discount >= 10 && discount < 20) {
-    return discount_color[discount];
-  } else if (discount >= 20 && discount < 30) {
-    return discount_color[discount];
-  } else if (discount >= 30 && discount < 40) {
-    return discount_color[discount];
-  } else if (discount >= 40 && discount < 50) {
-    return discount_color[discount];
-  } else if (discount >= 50 && discount < 60) {
-    return discount_color[discount];
-  } else return discount_color[discount];
+  if (discount >= 10 && discount <= 60) {
+    return discount_styles[discount].color;
+  }
+  else return colors.primary
+};
+
+
+export const getOfferFont = (discount: number) => {
+  if (discount >= 10 && discount <= 60) {
+    return discount_styles[discount].fontSize;
+  }
+  else return '1.5rem'
 };

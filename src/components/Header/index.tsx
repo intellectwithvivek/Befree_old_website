@@ -175,7 +175,7 @@ const Header: React.FC = () => {
         auth,
         "recaptcha-container",
         {
-          size: "invisible",
+          size: "normal",
           callback: (response) => {
             onSignup();
           },
@@ -200,7 +200,7 @@ const Header: React.FC = () => {
           window.confirmationResult = confirmationResult;
           setConfirmation(confirmationResult);
           setSending(false);
-          setShowOTP(true);
+          // setShowOTP(true);
           // toast.success("OTP sended successfully!");
         })
         .catch((error) => {
@@ -263,11 +263,11 @@ const Header: React.FC = () => {
 
       // dispatch(setMerchantInfo(JSON.parse(userInfo)))
       if (userInfo) {
-        const merchant = JSON.parse(userInfo);
-        console.log(merchant?.username);
-        if (merchant?.username) {
-          dispatch(getMerchantInfo(merchant));
-        } else dispatch(registerUser(user, via, "Auth"));
+        // const merchant = JSON.parse(userInfo);
+        // console.log(merchant?.username);
+        // if (merchant?.username) {
+        //   dispatch(getMerchantInfo(merchant));
+        // } else dispatch(registerUser(user, via, "Auth"));
       } else dispatch(registerUser(user, via, "Auth"));
     }
   };

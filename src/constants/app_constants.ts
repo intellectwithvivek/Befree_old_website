@@ -1,5 +1,85 @@
 import { colors } from "./colors";
 
+export const Offer_Types = {
+  DISCOUNT: {
+    title: "Discount Based",
+    subtitle: "Reward customers with discounts.",
+    eg: "eg.Flat 20%  or 40% OFF upto 100 ...etc"
+  },
+  COMPLIMENTARY: {
+    title: "Complimentary  Based",
+    subtitle: "Delight customers with complimentary items.",
+    eg: " Buy 2 get 1 / Spend Rs150 and get free appetizer!"
+  }
+}
+
+export const boostYourBusinessContent = [
+  {
+    title: "Unlock New Opportunities with Befree:",
+    description: [
+      "Showcase your exclusive discounts and complimentary offers on our app.",
+      "Gain visibility among a vast user base in your local region."
+    ]
+  },
+  {
+    title: "Attract New Customers:",
+    description: [
+      "Reach potential customers actively seeking local deals and experiences.",
+      "Increase foot traffic to your establishment through app-driven discovery."
+    ]
+  },
+  // {
+  //   title: "Leverage Limited-Time Offers:",
+  //   description: [
+  //     "Create a sense of urgency by featuring limited-time offers.",
+  //     "Encourage customers to take immediate action and visit your business."
+  //   ]
+  // },
+  // {
+  //   title: "Promote Offers on Social Media:",
+  //   description: [
+  //     "Amplify your reach by having your offers promoted through our social media channels.",
+  //     "Connect with a broader audience and drive engagement."
+  //   ]
+  // },
+  // {
+  //   title: "Encourage Repeat Business:",
+  //   description: [
+  //     "Provide attractive deals to incentivize repeat visits from satisfied customers.",
+  //     "Enhance customer loyalty through rewarding and delightful experiences."
+  //   ]
+  // },
+  {
+    title: "Plan Events at Your Place:",
+    description: [
+      "Enable users to plan events at your establishment directly through the app.",
+      "Increase reservations and bookings for parties, gatherings, and special occasions."
+    ]
+  },
+  // {
+  //   title: "By partnering with BeFree",
+  //   description: [
+  //     "you not only gain exposure to a wider audience but also establish a direct connection with users looking for unique and enticing experiences.",
+  //     "Together, let's elevate your business and create memorable moments for our community!"
+  //   ]
+  // }
+];
+
+
+export const OffersWork = {
+  Discount: ["Specify the Discount Percentage (min 10%, max 60%).%",
+    "Decide whether there's a limit on the discount amount or if it's unlimited.",
+    "Set the timing for when the discount offer is active, including start date.",
+    "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the discount."],
+
+    Complimentary:[
+      "Specify the Complimentary Item (eg tea,pizza,coffe,drinks,mojito ...etc).",
+      "Set the Quantity of the complimentary item.",
+      "Choose the timing for when the complimentary offer is active, including the start date.",
+      "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the complimentary item."],
+    
+  }
+
 export const FAQS = {
   "What is Befree ?":
     "At Befree, you have the option to organize your activities by choosing from a variety of categories we provide. Additionally, you can connect with other individuals who have similar interests, making it a great platform for networking and meeting new people.",
@@ -147,11 +227,72 @@ export const indianSweets = [
 
 export const placestypes = ["Restaurant", "Pub", "Bar", "Cafe", "Fast Food"];
 
-export const discount_color = {
-  10: "#ffbf00",
-  20: "#1E90FF",
-  30: "#FFD700",
-  40: "#DC143C",
-  50: "#CE2029",
-  60: "#39FF14",
+export const discount_styles = {
+  10: { color: "#FFEB3B", fontSize: "1.4rem" }, // Less green yellowish
+  15: { color: "#FFD54F", fontSize: "1.6rem" },
+  20: { color: "#CDDC39", fontSize: "1.8rem" },
+  25: { color: "#AFB42B", fontSize: "2.0rem" },
+  30: { color: "#8BC34A", fontSize: "2.2rem" },
+  35: { color: "#7CB342", fontSize: "2.4rem" },
+  40: { color: "#4CAF50", fontSize: "2.6rem" },
+  45: { color: "#43A047", fontSize: "2.8rem" },
+  50: { color: "#388E3C", fontSize: "2.8rem" },
+  55: { color: "#2E7D32", fontSize: "2.9rem" }, // Increased by 1rem
+  60: { color: "#2E7D32", fontSize: "3.0rem" }, // Increased by 1rem
 };
+
+
+export const addPlaceInstructions = ["Search your place or nearby location",
+  "Upload an image of your place",
+  "Add Place Name and Owners name",
+   "Select Type of place (restaurant/bar/pub/cafe ..etc)"
+  ,"Check the remaining details (state,region,country,zipcode) & submit"]
+
+  export const beFreeInformation = {
+    "About BeFree": {
+      content:
+        "At BeFree, we've reimagined the way people connect and plan their outings. Founded by a group of passionate and visionary individuals, our platform goes beyond discovering offers — it's a space where users can plan events at their favorite places and invite others to join them. We believe in creating meaningful connections and unforgettable experiences for both users and merchants.",
+    },
+    "Mission": {
+      content:
+        "Our mission is to revolutionize the way people experience their cities. By providing a platform where users can not only discover great deals but also plan and host events, we're shaping a community where connections flourish, and experiences are cherished.",
+    },
+    "What Sets Us Apart?": {
+      content: [
+        {
+          title: "Event Planning Redefined",
+          description: "BeFree empowers users to take charge of their social calendar by seamlessly planning events at their preferred places. Whether it's a casual meet-up at a local cafe or a lively night out at a pub, our platform makes event planning effortless",
+          url:require('../assets/images/event.png')  
+        },
+        {
+          title: "Building Connections",
+          description: "We're more than just a deals platform; we're a community hub. BeFree facilitates connections between people, making every event an opportunity to forge new friendships.",
+          url:require('../assets/images/connection.png')
+        },
+        {
+          title: "Empowering Merchants",
+          description: "From a merchant's perspective, BeFree provides a unique platform. Showcase your venue for events, attract a dynamic crowd, and enhance visibility. Utilize our tools and insights to create engaging experiences, maximizing your business potential and fostering customer loyalty.",
+          url:require('../assets/images/growth.png')
+        },
+      ],
+    },
+    "Meet the Team": {
+      content:
+        "BeFree is the brainchild of a passionate individual - me! I am Akshay, the founder and developer, working tirelessly to bring this platform to life. Committed to expanding the reach and ensuring that every event on our platform is a success. As a solo creator, I'm dedicated to providing you with the best experience on BeFree."
+    },
+    "Get Involved": {
+      content:
+        "Join us on this exciting journey of connection and experience creation. Merchants, showcase your venue for events and attract a dynamic crowd. Users, plan your next memorable event and invite others to join you. Together, let's build a community where every event is an opportunity to connect and create lasting memories.",
+    },
+    "Contact Us": {
+      content:
+        "Have questions or feedback? Reach out to us at [Your Email Address]. Follow us on [Social Media Links] for the latest updates and special announcements.",
+    },
+    "Thank You": {
+      content:
+        "Thank you for being a part of BeFree. Let's connect, plan, and create experiences together!",
+    },
+  };
+  
+  
+
