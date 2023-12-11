@@ -1,36 +1,38 @@
-import React, { ChangeEvent, useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "./index.module.css";
 import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  Divider,
   Avatar,
+  Box,
   IconButton,
   Menu,
   MenuItem,
+  Modal,
   Tooltip,
-  CircularProgress,
+  Typography
 } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import styles from "./index.module.css";
 // import { Alert,  Card, CardContent, CircularProgress, InputAdornment, } from '@mui/material';
-import India from "../../assets/svg/India.svg";
+import { GoogleAuthProvider, RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
 import logo from "../../assets/svg/logo.svg";
-import SignInwithGoogle from "../SignInWithGoogle";
-import { useAppDispatch, useAppSelector } from "../../store/store/store";
-import { setLogoutModal } from "../../store/reducer/user";
-import { stringAvatar } from "../../utils/Image";
-import OrDivider from "../general/OrDivider";
-import { otpValidator, phoneValidator } from "../../utils/validation";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../../firebase";
-import { load } from "recaptcha-v3";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getMerchantInfo, registerUser } from "../../store/reducer/user/action";
 import { VIA } from "../../constants/app_constants";
-import { colors } from "../../constants/colors";
+import { auth } from "../../firebase";
+import { setLogoutModal } from "../../store/reducer/user";
+import { getMerchantInfo, registerUser } from "../../store/reducer/user/action";
+import { useAppDispatch, useAppSelector } from "../../store/store/store";
+import { stringAvatar } from "../../utils/Image";
+import { phoneValidator } from "../../utils/validation";
+import SignInwithGoogle from "../SignInWithGoogle";
+import Lottie from 'react-lottie';
+import hello from '../../assets/lottie/loginn.json'
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: hello,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  },
+};
 
 import { useTheme } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
@@ -143,6 +145,8 @@ const Header: React.FC = () => {
     if (loginErrors?.phone) setLoginError(null);
   };
 
+  console.log(userInfo)
+
   const handleBackPress = (e) => {
     if (e.key === "Backspace" && e.target.value.length == 1) {
       setPhoneNumber("");
@@ -182,7 +186,7 @@ const Header: React.FC = () => {
           callback: (response) => {
             onSignup();
           },
-          "expired-callback": () => {},
+          "expired-callback": () => { },
         }
       );
     }
@@ -266,11 +270,11 @@ const Header: React.FC = () => {
 
       // dispatch(setMerchantInfo(JSON.parse(userInfo)))
       if (userInfo) {
-        // const merchant = JSON.parse(userInfo);
-        // console.log(merchant?.username);
-        // if (merchant?.username) {
-        //   dispatch(getMerchantInfo(merchant));
-        // } else dispatch(registerUser(user, via, "Auth"));
+        const merchant = JSON.parse(userInfo);
+        console.log(merchant?.username);
+        if (merchant?.username) {
+          dispatch(getMerchantInfo(merchant));
+        } else dispatch(registerUser(user, via, "Auth"));
       } else dispatch(registerUser(user, via, "Auth"));
     }
   };
@@ -403,164 +407,12 @@ const Header: React.FC = () => {
 
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
-            <Typography
-              variant="h5"
-              component="h2"
-              mb={2}
-              sx={{ color: colors.primary, fontWeight: 700 }}
-            >
-              Login
-            </Typography>
-
-            {confirmation && (
-              <h6 className={styles.sentNumber}>OTP sent to +91-{phone}</h6>
-            )}
-
-            <Box display="flex" flexDirection={"column"} alignItems={"center"}>
-              <TextField
-                error={loginErrors?.phone ? true : false}
-                label="Phone Number"
-                variant="outlined"
-                placeholder="Enter Your Phone Number"
-                type="tel"
-                fullWidth
-                value={phone}
-                onChange={handlePhoneInput}
-                onKeyUp={handleBackPress}
-                inputProps={{
-                  maxLength: 10,
-                  style: { fontSize: "1.5rem" },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      sx={{ marginRight: "1rem" }}
-                    >
-                      <img src={India} width={15} height={15} />
-                      <Typography
-                        variant="inherit"
-                        sx={{ marginLeft: ".5rem", fontSize: "1.2rem" }}
-                      >
-                        +91
-                      </Typography>
-                      {/* Add your flag icon here */}
-                    </Box>
-                  ),
-                }}
-                helperText={
-                  loginErrors?.phone ? "Please check your number." : null
-                }
-              />
-
-              <div id="recaptcha-container"></div>
-
-              {/* Button for Send OTP */}
-              {!confirmation ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={sending}
-                  onClick={onSignup}
-                  sx={{ marginTop: "1.5rem" }}
-                >
-                  {sending && (
-                    <CircularProgress size={15} sx={{ marginRight: ".5rem" }} />
-                  )}{" "}
-                  Send OTP
-                </Button>
-              ) : (
-                <div>
-                  <Box
-                    display="flex"
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                  >
-                    {otp.map((digit, index) => (
-                      <TextField
-                        key={index}
-                        variant="outlined"
-                        type="text"
-                        value={digit}
-                        onChange={(e) => handleChange(e.target.value, index)}
-                        onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
-                        style={{
-                          width: "5rem",
-                          marginBottom: "3.5rem",
-                          margin: "2rem",
-                          fontSize: "1.5rem",
-                        }}
-                        inputRef={otpInputRefs.current[index]}
-                        inputProps={{
-                          maxLength: 1,
-                          style: { fontSize: "1.3rem", fontWeight: 400 },
-                        }}
-                      />
-                    ))}
-                  </Box>
-                  {loginErrors?.otp && (
-                    <Typography
-                      variant="inherit"
-                      sx={{
-                        color: colors.error,
-                        fontSize: "1.2rem",
-                        marginTop: "0.8rem",
-                        marginBottom: "0.8rem",
-                      }}
-                    >
-                      OTP is not correct
-                    </Typography>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={onOTPVerify}
-                    disabled={!otpValidator(otp.join("")) || verifying}
-                    sx={{ textAlign: "center", marginTop: "1rem" }} // Add marginTop for spacing
-                  >
-                    {verifying && (
-                      <CircularProgress
-                        size={15}
-                        sx={{ marginRight: ".5rem" }}
-                      />
-                    )}{" "}
-                    {verifying ? "Verifying .." : "Verify OTP"}
-                  </Button>
-
-                  {/* Resend OTP and Timer */}
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <div></div>
-                    <Typography variant="body2" color="textSecondary">
-                      {resendTimer > 0 ? (
-                        `Resend in ${resendTimer} seconds`
-                      ) : (
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          disabled={resendTimer > 0}
-                          onClick={handleResendOTP}
-                        >
-                          Resend OTP
-                        </Button>
-                      )}
-                    </Typography>
-                  </Box>
-                </div>
-              )}
-            </Box>
-
-            {/* Divider */}
-            <OrDivider />
-
-            {/* Sign In with Google Button */}
+          <Lottie
+            options={defaultOptions}/>
             <SignInwithGoogle signInWithGoogle={SignInWithGoogle} />
           </Box>
         </Modal>
+
       </div>
     </>
   );

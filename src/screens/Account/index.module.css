@@ -99,3 +99,7 @@
     left: 30%;
     z-index: 100;
 }
+
+.imageUpload {
+  margin-top: 1rem;
+}
