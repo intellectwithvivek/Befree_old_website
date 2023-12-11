@@ -1,108 +1,110 @@
 .container {
-    padding: 1rem;
 }
+
 
 .heading {
-    text-align: center;
-    font-size: 2.4rem;
-    color: var(--primary-color);
+  text-align: center;
+  font-size: 2.4rem;
+  color: var(--primary-color);
 }
 
-
-
 .innerContainer {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .aboutContainer {
-    margin-top: 2rem;
-    align-items: center;
+  margin-top: 2rem;
+  align-items: center;
 }
 
-.aboutContainer  h2 {
-    color:var(--grey);
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-size: 2rem;
+.aboutContainer h2 {
+  color: var(--grey);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
 }
 
-.aboutContainer  div  {
-    width: 80%; /* Adjust the width as needed */
-    padding: 20px;
-    border-radius: 15px; /* Adjust the border radius */
-    border: 1px solid #dddddd; /* Border color and width */
-    background-color: #ffffff; /* Adjust the background color as needed */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Box shadow for a more prominent effect */
-    margin-left: 10%;
-    margin-bottom: 2rem;
-  }
-
-.aboutContainer  div h3{
-    text-align: center;
-    font-size: 2.1rem;
-    color: var(--grey);
-    margin-bottom: 2rem;
-    font-weight: 700;
+.aboutContainer div {
+  width: 80%; /* Adjust the width as needed */
+  padding: 20px;
+  border-radius: 15px; /* Adjust the border radius */
+  border: 1px solid #dddddd; /* Border color and width */
+  background-color: #ffffff; /* Adjust the background color as needed */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Box shadow for a more prominent effect */
+  margin-left: 10%;
+  margin-bottom: 2rem;
 }
 
-
-.aboutContainer  div h6{
-    text-align: center;
-    font-size: 1.8rem;
-    color: #287feb;
-    margin-bottom: 2rem;
-    font-weight: 500;
+.aboutContainer div h3 {
+  text-align: center;
+  font-size: 2.1rem;
+  color: var(--grey);
+  margin-bottom: 2rem;
+  font-weight: 700;
 }
 
+.aboutContainer div h6 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #287feb;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
 
 .innerContainer h4 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: var(--grey);
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--grey);
 }
-
 
 .feature {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-image: url('../../assets/images/houseparty.png');
-    width: '100%';
-    height: 185vh;
-    padding-left: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-image: url("../../assets/images/houseparty.png");
+  width: "100%";
+  height: 185vh;
+  padding-left: 10rem;
 }
 
-
-
 .missionContainer {
-
 }
 
 .mission {
-    display: flex;
-    padding-left: 10rem;
-    padding-right: 10rem;
-    align-items: center;
+  display: flex;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  align-items: center;
 }
 
-.mission div{
-    width: 55rem;
-    height: 30rem;
+.mission div {
+  width: 55rem;
+  height: 30rem;
 }
 
-.mission p{
-    font-size: 1.8rem;
-    color:var(--grey);
-    margin-left: 2rem;
-    text-align: center;
+.mission p {
+  font-size: 1.8rem;
+  color: var(--grey);
+  margin-left: 2rem;
+  text-align: center;
 }
-
 
 @media (max-width: 767px) {
-    .feature div img {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 0px;
-        margin-top: 0px;
-    }
+  .feature div img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+}
+
+
+
+@media only screen and (max-width: 480px) {
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 1024px) {
 }
