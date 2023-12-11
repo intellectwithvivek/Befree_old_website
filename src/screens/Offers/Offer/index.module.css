@@ -1,112 +1,107 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
 }
 
 .container h2 {
-    text-align: center;
+  text-align: center;
 }
 
 .center {
-    align-self: center;
+  align-self: center;
 }
 
 .offerContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top:1.5rem;
-    margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .offerContainerCenter {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top:1.5rem;
-    margin-bottom: 2rem;
-    align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  align-self: center;
 }
 
 .offerInnersection {
-    background: linear-gradient(to right, #1264ca, #96bded );
-    padding: 2rem;
-    align-items: center;
-    border-radius: 1.2rem;
-    margin-right: 1.5rem;
-    height: 28rem;
+  background: linear-gradient(to right, #1264ca, #96bded);
+  padding: 2rem;
+  align-items: center;
+  border-radius: 1.2rem;
+  margin-right: 1.5rem;
+  height: 28rem;
 }
 
-
-
 .offerInnersection h2 {
-    text-align: center;
-    color: var(--second-bg);
-    font-size: 2rem;
+  text-align: center;
+  color: var(--second-bg);
+  font-size: 2rem;
 }
 
 .gradientDiv {
-    padding: 2rem;
+  padding: 2rem;
 }
 
-.gradientDiv li{
-    /* Replace the color codes with your desired colors */
-    color: var(--second-bg);
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-top: .8rem;
-  }
+.gradientDiv li {
+  /* Replace the color codes with your desired colors */
+  color: var(--second-bg);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+}
 
+.boostContainer {
+  width: 100%;
+}
 
+.boostContainer h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--grey);
+}
 
-  .boostContainer {
-     width: 100%;
-  }
+.boostContainer ul {
+  padding: 1rem;
+}
 
-  .boostContainer h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color:var(--grey)
-  }
+.boostContainer ul li {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--grey);
+  margin-left: 2rem;
+  margin-top: 1.5rem;
+}
 
-  .boostContainer ul {
-    padding: 1rem;
-    
-  }
+.anime {
+  margin-left: 4rem;
+  background-color: #1264ca;
+  width: 50rem;
+}
 
-  .boostContainer ul li {
-    font-size: 1.6rem; 
-    font-weight: 500;
-    color:var(--grey);
-    margin-left: 2rem;
-    margin-top: 1.5rem ;
-  }
+.boostItem {
+  display: flex;
+  align-items: center;
+  padding-left: 4rem;
+  margin-top: 2rem;
+}
 
-  .anime {
-    margin-left: 4rem;
-    background-color: #1264ca;
-    width: 50rem;
-  }
+.boostItem1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4rem;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+}
 
-  .boostItem {
-    display: flex;
-    align-items: center;
-    padding-left: 4rem;
-    margin-top: 2rem;
-  }
-
-  .boostItem1{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 4rem;
-    margin-bottom: 4rem;
-    margin-top: 4rem;
-  }
-
-  .video {
-    align-self: center;
-    margin-top: 3rem;
-    margin-bottom: 5rem;
-  }
+.video {
+  align-self: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
