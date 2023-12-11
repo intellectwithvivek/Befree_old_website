@@ -46,7 +46,8 @@ auth.settings.appVerificationDisabledForTesting = true;
 
 const recaptcha_site_key = "6LdZ7yUpAAAAAJYf_mCpCLwwJDug23F6zHrPn_R4";
 
-const settings = ["Account", "Logout"];
+const settings = ["Account","Track Offers", "Logout"];
+
 const numberOfDigits = 6;
 
 const Header: React.FC = () => {
@@ -61,6 +62,7 @@ const Header: React.FC = () => {
     verificationSuccess,
     logoutModal,
   } = useAppSelector((state) => state.user);
+  const {isAuth,isInitialized} = useAppSelector(state=>state.appData)
   const [resendTimer, setResendTimer] = useState(60);
 
   const [open, setOpen] = useState(false);
@@ -117,7 +119,11 @@ const Header: React.FC = () => {
     setAnchorElUser(null);
     if (item === "Account") {
       navigate("/account");
-    } else if (item === "Logout") {
+    }
+    if (item === "Track Offers") {
+      navigate("/trackOffers");
+    } 
+    else if (item === "Logout") {
       dispatch(setLogoutModal(true));
     }
   };
@@ -331,17 +337,31 @@ const Header: React.FC = () => {
                 </MenuItem>
                 <MenuItem
                   component={Link}
+                  to="/"
+                  selected={location.pathname === "/"}
+                >
+                  Offers
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/"
+                  selected={location.pathname === "/"}
+                >
+                  Account
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/trackOffer"
+                  selected={location.pathname === "/"}
+                >
+                  Track Offers
+                </MenuItem>
+                <MenuItem
+                  component={Link}
                   to="/about"
                   selected={location.pathname === "/about"}
                 >
                   About
-                </MenuItem>
-                <MenuItem
-                  component={Link}
-                  to="/contact"
-                  selected={location.pathname === "/contact"}
-                >
-                  Contact Us
                 </MenuItem>
               </Menu>
             </div>
@@ -359,14 +379,21 @@ const Header: React.FC = () => {
               >
                 About
               </Link>
-              <Link
+              {isAuth?<Link
+                to="/offers"
+                className={
+                  location.pathname === "/offers" ? styles.active : ""
+                }
+              >
+                Offers
+              </Link>:<Link
                 to="/contact"
                 className={
                   location.pathname === "/contact" ? styles.active : ""
                 }
               >
                 Contact Us
-              </Link>
+              </Link>}
             </div>
           )}
         </div>

@@ -21,7 +21,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { validateIntializationMerchantInfo } from "../../utils/validation";
 import { useAppDispatch, useAppSelector } from "../../store/store/store";
 import { initializeMerchantInfo } from "../../store/reducer/user/action";
-import { setPopup } from "../../store/reducer/app-data";
+import { setAppLoading, setPopup } from "../../store/reducer/app-data";
 import {
   addPlaceInstructions,
   placestypes,
@@ -53,6 +53,7 @@ type Props = {};
 const apiKey = "AIzaSyCPeMZGBtqJzmbkNixvRP1V2nQyu1Ik3rk";
 const mapApiJs = "https://maps.googleapis.com/maps/api/js";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
+const url = "https://us-central1-befree-prod.cloudfunctions.net/getPlaceDetails";
 
 // load google map api js
 
@@ -80,10 +81,13 @@ const options = {
   },
 };
 
-export default function Account({}: Props) {
-  const { userInfo, isInitializing, play } = useAppSelector(
-    (state) => state.user
-  );
+export function getRefrencePicUrl(photoReference: string) {
+  if (photoReference)
+    return `https://dhhht6n2wd.execute-api.us-west-2.amazonaws.com/staging/place/photo?maxwidth=400&photoreference=${photoReference}`
+}
+
+export default function Account({ }: Props) {
+  const { userInfo, isInitializing, play } = useAppSelector((state) => state.user);
   const { isInitialized, isAuth } = useAppSelector((state) => state.appData);
   const searchInput = useRef(null);
   const [merchantInfo, setAddress] = useState(userInfo) as Merchant | any;
@@ -129,21 +133,37 @@ export default function Account({}: Props) {
 
   // do something on address change
   const onChangeAddress = (autocomplete) => {
+    dispatch(setAppLoading(true));
     const place = autocomplete.getPlace();
 
     const locationInfo = basicLocationInfo(place);
-    console.log("locationInfo", locationInfo);
-    setErrors({});
-    setAddress({
-      ...merchantInfo,
-      ...locationInfo,
-      place: place.name,
-      place_id: place?.place_id,
-      lat: place?.geometry?.location.lat(),
-      lng: place?.geometry?.location.lng(),
-      formatted_address: place?.formatted_address,
-      rating: place?.rating ?? -1,
-    });
+    if (place?.place_id) {
+      axios
+        .get(url, {
+          params: {
+            place_id: place?.place_id,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.result)
+          setErrors({});
+          setAddress({
+            ...merchantInfo,
+            ...locationInfo,
+            place: place.name,
+            place_id: place?.place_id,
+            lat: place?.geometry?.location.lat(),
+            lng: place?.geometry?.location.lng(),
+            formatted_address: place?.formatted_address,
+            rating: place?.rating ?? -1,
+            photo_refrence:response.data.result?.photos.length>0?response.data.result.photos[0].photo_reference:null,
+          });
+        })
+        .catch((err) => console.log(err)).finally(() => {
+          dispatch(setAppLoading(false));
+        });
+    }
+
   };
 
   // init autocomplete
@@ -166,37 +186,6 @@ export default function Account({}: Props) {
     autocomplete.addListener("place_changed", () =>
       onChangeAddress(autocomplete)
     );
-  };
-
-  const getPlacedetails = () => {
-    // 'key=AIzaSyCPeMZGBtqJzmbkNixvRP1V2nQyu1Ik3rk'
-    // const url = `https://maps.googleapis.com/maps/api/place/details/json?fields=photos&place_id=ChIJZxzrmCO25zsRJUTEco_Lj6Y&?key=${apiKey}`;
-    // searchInput.current.value = "Getting your location...";
-    // setErrors({})
-    const url =
-      "https://us-central1-befree-prod.cloudfunctions.net/getPlaceDetails";
-    axios
-      .get(url, {
-        params: {
-          place_id: "ChIJZxzrmCO25zsRJUTEco_Lj6Y",
-        },
-      })
-      .then((response) => console.log(response.data.result))
-      .catch((err) => console.log(err));
-
-    // const getData = httpsCallableFromURL(
-    //     functions,
-    //     // the URL of the function
-    //     url
-    //   );
-    //   console.log("dafada")
-    //   getData()
-    //     .then((result) => {
-    //         // Read result of the Cloud Function.
-    //         const data = result.data;
-    //         console.log(data);
-    //         // const sanitizedMessage = data.text;
-    //     }).catch(err=>console.log(err));
   };
 
   const reverseGeocode = ({ latitude: lat, longitude: lng }) => {
@@ -232,7 +221,6 @@ export default function Account({}: Props) {
   };
 
   const onSubmitOld = () => {
-    console.log(userInfo);
     if (isAuth) {
       if (validateIntializationMerchantInfo(merchantInfo)) {
         const initInfo = { username: userInfo?.username, ...merchantInfo };
@@ -277,83 +265,10 @@ export default function Account({}: Props) {
     }
   };
 
-  const getDetails = () => {
-    axios
-      .get()
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const onSubmit = () => {
-    console.log(userInfo);
-    if (isAuth) {
-      if (validateIntializationMerchantInfo(merchantInfo)) {
-        axios
-          .get("/place/details/json?place_id=ChIJZxzrmCO25zsRJUTEco_Lj6Y")
-          .then((response) => {
-            const result = response?.data?.result;
-
-            const photo_refrences = result?.photos
-              ? result.photos.map((photo) => photo.photo_reference)
-              : [];
-
-            if (photo_refrences?.length > 0) {
-              const initInfo = {
-                username: userInfo?.username,
-                photo_refrence: photo_refrences[0],
-                ...merchantInfo,
-              };
-              dispatch(initializeMerchantInfo(initInfo));
-            } else {
-              const initInfo = {
-                username: userInfo?.username,
-                ...merchantInfo,
-              };
-              dispatch(initializeMerchantInfo(initInfo));
-            }
-          })
-          .catch((err) => console.log(err));
-      } else {
-        if (!merchantInfo?.place)
-          setErrors({ ...errors, place: "Place Required Parameter." });
-        else if (!merchantInfo?.district)
-          setErrors({ ...errors, district: "District Required Parameter." });
-        else if (!merchantInfo?.formatted_address)
-          setErrors({
-            ...errors,
-            formatted_address: "District Required Parameter.",
-          });
-        else if (!merchantInfo?.type)
-          setErrors({ ...errors, type: "Type Required Parameter." });
-        else if (!merchantInfo?.division)
-          setErrors({ ...errors, division: "Division Required Parameter." });
-        else if (!merchantInfo?.region)
-          setErrors({ ...errors, region: "Region Required Parameter." });
-        else if (!merchantInfo?.state)
-          setErrors({ ...errors, state: "State Required Parameter." });
-        else if (!merchantInfo?.postal_code)
-          setErrors({ ...errors, postal_code: "Zip-Code Required Parameter." });
-        // alert("Please check all details are filled?")
-        dispatch(
-          setPopup({
-            open: true,
-            message: "Please check all details are filled.",
-            severity: "error",
-          })
-        );
-      }
-    } else {
-      dispatch(
-        setPopup({
-          open: true,
-          message: "Please Login First",
-          severity: "error",
-        })
-      );
-    }
-  };
+  const inputStyle = {
+    fontSize: '1.3rem',
+    color: colors.black
+  }
 
   // load map script after mounted
   useEffect(() => {
@@ -449,26 +364,39 @@ export default function Account({}: Props) {
             {/* <button onClick={findMyLocation}><FaSearchLocation /></button> */}
           </div>
 
-          <div>
+          <div className={styles.uploadImage}>
             {merchantInfo?.image ? (
               <Avatar
                 onClick={handleAvatarClick}
                 alt={merchantInfo?.place || ""}
                 sx={{
-                  width: 140,
-                  height: 140,
-                  borderRadius: 10,
+                  width: 150,
+                  height: 150,
+                  borderRadius: 5,
                   backgroundColor: colors.greyText,
                   alignSelf: "center",
                 }}
                 src={merchantInfo?.image}
               />
-            ) : (
+            ) : merchantInfo?.photo_refrence?
+            <Avatar
+            onClick={handleAvatarClick}
+            alt={merchantInfo?.place || ""}
+            sx={{
+              width: '30vw',
+              height: '30vh',
+              borderRadius: 5,
+              backgroundColor: colors.greyText,
+              alignSelf: "center",
+            }}
+            src={getRefrencePicUrl(merchantInfo?.photo_refrence)}
+          />
+            :(
               <Avatar
                 onClick={handleAvatarClick}
                 sx={{
-                  width: 100,
-                  height: 100,
+                  width: 120,
+                  height: 120,
                   borderRadius: "50%",
                   alignSelf: "center",
                 }}
@@ -483,8 +411,8 @@ export default function Account({}: Props) {
               style={{ display: "none" }}
               ref={fileInputRef}
             />
-            {uploading && <CircularProgress size={16} />}
-            <p>upload a picture</p>
+            {uploading && <CircularProgress size={16} sx={{ alignSelf: 'center' }} />}
+            {!userInfo?.image && <p>Upload a picture</p>}
           </div>
 
           <TextField
@@ -503,6 +431,9 @@ export default function Account({}: Props) {
                 borderColor: errors.place ? "red" : "blue",
                 width: "100%",
               },
+            }}
+            inputProps={{
+              style: inputStyle
             }}
           />
 
@@ -523,6 +454,9 @@ export default function Account({}: Props) {
                 width: "100%",
               },
             }}
+            inputProps={{
+              style: inputStyle
+            }}
           />
 
           <div className={styles.inside}>
@@ -534,10 +468,21 @@ export default function Account({}: Props) {
                 value={merchantInfo?.type || "Select"}
                 label="Type"
                 onChange={handleSelectChange}
+                MenuProps={{
+                  style: {
+                    fontSize: '1.8rem', // Adjust the font size as needed
+                    color: 'red', // Adjust the color as needed
+                  },
+                }}
+                sx={{ fontSize: '1.4rem' }}
               >
                 {placestypes?.map((item) => {
                   return (
-                    <MenuItem key={item} value={item}>
+                    <MenuItem key={item} value={item}
+                      sx={{
+                        fontSize: '1.4rem',
+                        color: item === merchantInfo?.type ? 'red' : colors.black, // Customize the color for the selected item
+                      }}>
                       {item}
                     </MenuItem>
                   );
@@ -562,6 +507,9 @@ export default function Account({}: Props) {
                   borderColor: errors.district ? "red" : "blue",
                 },
               }}
+              inputProps={{
+                style: inputStyle
+              }}
             />
           </div>
 
@@ -580,7 +528,11 @@ export default function Account({}: Props) {
               InputProps={{
                 style: {
                   borderColor: errors?.region ? "red" : "blue",
+                  width: '95%'
                 },
+              }}
+              inputProps={{
+                style: inputStyle
               }}
             />
 
@@ -598,7 +550,11 @@ export default function Account({}: Props) {
               InputProps={{
                 style: {
                   borderColor: errors?.state ? "red" : "blue",
+
                 },
+              }}
+              inputProps={{
+                style: inputStyle
               }}
             />
           </div>
@@ -619,7 +575,11 @@ export default function Account({}: Props) {
               InputProps={{
                 style: {
                   borderColor: errors?.country ? "red" : "blue",
+                  width: '95%'
                 },
+              }}
+              inputProps={{
+                style: inputStyle
               }}
             />
 
@@ -640,11 +600,15 @@ export default function Account({}: Props) {
                   borderColor: errors?.zipcode ? "red" : "blue",
                 },
               }}
+
+              inputProps={{
+                style: inputStyle
+              }}
             />
           </div>
 
           <Button
-            onClick={onSubmit}
+            onClick={onSubmitOld}
             type="submit"
             variant="contained"
             color="primary"

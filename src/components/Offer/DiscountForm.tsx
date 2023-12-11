@@ -27,9 +27,6 @@ import offerAdded from '../../assets/lottie/offeradded.json';
 // Components Here
 
 
-
-
-
 type Props = {
   onBack: () => void
 }
@@ -52,7 +49,7 @@ const DiscountForm = ({ onBack }: Props) => {
 
   const { userInfo } = useAppSelector(state => state.user) as { userInfo: Merchant };
 
-  const offerCollection = collection(db, 'offers')//collection(db, 'offers', userInfo?.country, userInfo?.state, userInfo?.division,userInfo?.district,userInfo?.username,'alloffers');
+  const offerCollection = collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '',userInfo?.district|| '',userInfo?.username || '','alloffers');
   const dispatch = useAppDispatch();
   const [adding, setAdding] = useState(false);
   const [play,setPlayAnimation] = useState(false);
@@ -134,6 +131,7 @@ const DiscountForm = ({ onBack }: Props) => {
         setTiming('All Day (24 hrs)');
         setStartDate('');
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
+        playAnimation();
       }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
         .finally(() => {
           setAdding(false);
@@ -145,24 +143,15 @@ const DiscountForm = ({ onBack }: Props) => {
 
   const playAnimation = () => {
     setPlayAnimation(true)
-    // if (lottieRef.current) {
-    //   lottieRef.current.play();
-    // }
+  
   };
 
-  const pauseAnimation = () => {
-    if (lottieRef.current) {
-      lottieRef.current.pause();
-    }
-  };
+ 
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Basic validation
-
-    playAnimation()
-    return;
 
     const offer = {
       title: discount + " % Off ",

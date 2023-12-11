@@ -15,6 +15,13 @@ import Animation4 from "../../../assets/lottie/event.json";
 import Footer from "../../../components/Footer";
 import DiscountForm from "../../../components/Offer/DiscountForm";
 import ComplimentaryForm from "../../../components/Offer/ComplimentaryForm";
+import { useAppDispatch, useAppSelector } from "../../../store/store/store";
+import { setPopup } from "../../../store/reducer/app-data";
+import { NavLink } from "react-router-dom";
+import { Typography } from "@mui/material";
+import { colors } from "../../../constants/colors";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 type Props = {};
 
@@ -49,13 +56,34 @@ const containerStyle = {
   height: "200px", // Set the desired height
 };
 export default function Offer({}: Props) {
-  const [offer_type, setOfferType] = useState<string>("");
 
-  console.log(offer_type);
+  const [offer_type, setOfferType] = useState<string>("");
+  const [isScaled, setIsScaled] = useState(false);
+
+    const [activeTab,setActiveTab] = useState('Add Offers');
+    const {userInfo} = useAppSelector(state=>state.user)
+    const { isAuth , isInitialized , isVerified } = useAppSelector(state => state.appData)
+    const dispatch = useAppDispatch();
+
 
   const onBack = () => {
     setOfferType("");
   };
+
+  const onSelectType=(type:string)=>{
+    if(isInitialized)
+         setOfferType(type)
+    else
+    {   dispatch(setPopup({open:true,severity:'error',message:'Please Initialize yourself before adding offers.'})) 
+          setIsScaled(true);
+        setTimeout(() => {
+        setIsScaled(false);
+        }, 200); // Adjust the delay as needed.
+    }
+  }
+
+
+  const scaleFactor = isScaled ? 1.2 : 1;
 
   if (
     offer_type.trim().toLowerCase() ===
@@ -67,6 +95,20 @@ export default function Offer({}: Props) {
   }
   return (
     <div className={styles.container}>
+      {!isInitialized && <NavLink to={"/account"} style={{
+            transform: `scale(${scaleFactor})`,
+            transition: "transform 0.2s ease-in-out",
+                textDecoration:'none',
+                    marginBottom:10,
+                    alignItems:'center',
+                    display:'flex',
+                    justifyContent:'center'}}>
+                    <ArrowBackIosIcon size={16} style={{color:colors.orange}}/>
+                    <Typography variant='h4' 
+                    sx={{textAlign:'center',
+                    color:colors.orange,alignItems:'center'}}>Initialize Yourself </Typography>
+                    <ArrowForwardIosIcon size={16} style={{marginRight:10,color:colors.orange}}/>
+                    </NavLink>}
       <OfferHeader title="Select Your Offer Type" />
 
       <div className={styles.offerContainerCenter}>
@@ -76,7 +118,7 @@ export default function Offer({}: Props) {
               offerType={Offer_Types?.[item]}
               onSelect={() => {
                 console.log(Offer_Types?.[item].title);
-                setOfferType(Offer_Types?.[item].title);
+                onSelectType(Offer_Types?.[item].title);
               }}
             />
           );

@@ -46,7 +46,8 @@ export const validateIntializationMerchantInfo = (merchant: Merchant) => {
     merchant.state &&
     merchant.formatted_address &&
     merchant.postal_code &&
-    merchant.place_id
+    merchant.place_id && 
+    merchant.name
   )
     return true;
   else return false;

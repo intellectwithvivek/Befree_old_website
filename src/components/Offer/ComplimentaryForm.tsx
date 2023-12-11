@@ -39,7 +39,7 @@ const ComplimentaryForm = ({ onBack }: Props) => {
   const [errors, setErrors] = useState({});
 
   const { userInfo } = useAppSelector(state => state.user)
-  const offerCollection = collection(db, 'offers');//collection(db, 'offers', userInfo?.country, userInfo?.state, userInfo?.division,userInfo?.district, userInfo?.username,'alloffers');
+  const offerCollection = collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '',userInfo?.district|| '',userInfo?.username || '','alloffers');
   const dispatch = useAppDispatch();
   const [adding, setAdding] = useState(false)
   const [play,setPlayAnimation] = useState(false);
@@ -65,8 +65,11 @@ const ComplimentaryForm = ({ onBack }: Props) => {
         setTiming('All Day (24 hrs)')
         setStartDate('')
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
-
-      }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
+        setPlayAnimation(true);
+      }).catch(err => 
+          {
+            dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" }))
+            })
         .finally(() => {
           setAdding(false)
         });
@@ -351,8 +354,6 @@ const ComplimentaryForm = ({ onBack }: Props) => {
             </div>
           </div>
         </div>
-
-
 
       </form></>
 
