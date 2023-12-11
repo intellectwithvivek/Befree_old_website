@@ -1,7 +1,6 @@
 .container {
 }
 
-
 .heading {
   text-align: center;
   font-size: 2.4rem;
@@ -98,9 +97,23 @@
   }
 }
 
-
-
 @media only screen and (max-width: 480px) {
+  .mission {
+    padding: 0;
+    flex-direction: column;
+  }
+
+  .mission p {
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .mission_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 }
 
 @media only screen and (max-width: 768px) {

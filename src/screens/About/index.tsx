@@ -45,7 +45,7 @@ const About: React.FC = () => {
         <div className={styles.innerContainer}>
           <h4>Our Mission</h4>
           <section className={styles.mission}>
-            <div>
+            <div className={styles.mission_img}>
               <img src={require("../../assets/images/mission.png")} />
             </div>
 
