@@ -18,6 +18,7 @@ type initialStateI = {
   imageLoading?: boolean;
   verificationSuccess?: boolean;
   logoutModal: boolean;
+  play:boolean
 };
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   isDeletedUser: false,
   isVerifying: false,
   logoutModal: false,
+  play:false
 } as initialStateI;
 
 const userSlice = createSlice({
@@ -70,6 +72,9 @@ const userSlice = createSlice({
     setLogoutModal(state, action: PayloadAction<boolean>) {
       state.logoutModal = action.payload;
     },
+    setPlay(state, action: PayloadAction<boolean>) {
+      state.play = action.payload;
+    },
   },
 });
 
@@ -85,6 +90,7 @@ export const {
   setImageUploading,
   setVerificationSuccess,
   setLogoutModal,
+  setPlay
 } = userSlice.actions;
 
 export default userSlice.reducer;

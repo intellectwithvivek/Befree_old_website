@@ -17,12 +17,13 @@ import { stringAvatar } from '../../utils/Image';
 import EditIcon from '@mui/icons-material/Edit';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from '../../firebase';
-import { setImageUploading } from '../../store/reducer/user';
+import { setImageUploading, setPlay } from '../../store/reducer/user';
 import { colors } from '../../constants/colors';
 import axios from 'axios';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Lottie from 'react-lottie';
 import accountInfo  from '../../assets/lottie/accountInfo.json'
+import created  from '../../assets/lottie/accountsetup.json'
 
 const defaultOptions = {
     loop: true,
@@ -69,7 +70,7 @@ const options = {
 
 
 export default function Account({ }: Props) {
-    const { userInfo, isInitializing } = useAppSelector(state => state.user)
+    const { userInfo, isInitializing , play} = useAppSelector(state => state.user)
     const { isInitialized, isAuth } = useAppSelector(state => state.appData)
     const searchInput = useRef(null);
     const [merchantInfo, setAddress] = useState(userInfo) as Merchant | any;
@@ -77,6 +78,16 @@ export default function Account({ }: Props) {
     const dispatch = useAppDispatch();
     const fileInputRef = useRef();
     const [uploading, setUploading] = useState(false);
+   
+    const createOptions = {
+        loop: false,
+        autoplay: true,
+        animationData: created,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice'
+        },
+      };
+    
 
     const handleAvatarClick = () => {
         if (isAuth) {
@@ -297,6 +308,7 @@ export default function Account({ }: Props) {
                 severity: "error"
             }))
         }
+       
     }
 
     // load map script after mounted
@@ -339,6 +351,28 @@ export default function Account({ }: Props) {
 
     return (
         <div className={styles.container}>
+
+{play && <div className={styles.popper}>
+      <Lottie
+        options={createOptions}
+        eventListeners={
+          [
+            {
+              eventName: 'complete',
+              callback: () => {
+                console.log('Animation completed');
+                dispatch(setPlay(false))
+              },
+            },
+            {
+              eventName: 'loopComplete',
+              callback: () => {
+                console.log('Loop completed');
+              },
+            }]
+        }
+      />
+    </div>}
             <div className={styles.innerContainer}>
                 <h3>Instructions</h3>
                 <div className={styles.lottie}>

@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import {
   setIsDeletedUser,
   setMerchantInfo,
+  setPlay,
   setUserError,
   setUserLoading,
   setUsername,
@@ -113,6 +114,7 @@ export const initializeMerchantInfo =
 
         if (response.status == 200) {
           dispatch(setMerchantInfo(response.data));
+          dispatch(setPlay(true))
           dispatch(setIsInitialized(true));
           dispatch(
             setPopup({
