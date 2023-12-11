@@ -32,6 +32,9 @@ import { getMerchantInfo, registerUser } from "../../store/reducer/user/action";
 import { VIA } from "../../constants/app_constants";
 import { colors } from "../../constants/colors";
 
+import { useTheme } from "@mui/system";
+import { useMediaQuery } from "@mui/material";
+
 auth.settings.appVerificationDisabledForTesting = true;
 
 const recaptcha_site_key = "6LdZ7yUpAAAAAJYf_mCpCLwwJDug23F6zHrPn_R4";
@@ -279,6 +282,18 @@ const Header: React.FC = () => {
     };
   }, [via]);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloses = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -287,25 +302,64 @@ const Header: React.FC = () => {
           BeFree
         </div>
 
-        <div className={styles.navigation}>
-          <Link
-            to="/"
-            className={location.pathname === "/" ? styles.active : ""}
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className={location.pathname === "/about" ? styles.active : ""}
-          >
-            About
-          </Link>
-          <Link
-            to="/contact"
-            className={location.pathname === "/contact" ? styles.active : ""}
-          >
-            Contact Us
-          </Link>
+        <div>
+          {isMobile ? (
+            <div>
+              <button className={styles.login} onClick={handleClick}>
+                Menu
+              </button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleCloses}
+              >
+                <MenuItem
+                  component={Link}
+                  to="/"
+                  selected={location.pathname === "/"}
+                >
+                  Home
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/about"
+                  selected={location.pathname === "/about"}
+                >
+                  About
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/contact"
+                  selected={location.pathname === "/contact"}
+                >
+                  Contact Us
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <div className={styles.navigation}>
+              <Link
+                to="/"
+                className={location.pathname === "/" ? styles.active : ""}
+              >
+                Home
+              </Link>
+              <Link
+                to="/about"
+                className={location.pathname === "/about" ? styles.active : ""}
+              >
+                About
+              </Link>
+              <Link
+                to="/contact"
+                className={
+                  location.pathname === "/contact" ? styles.active : ""
+                }
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
         </div>
 
         {!userInfo ? (

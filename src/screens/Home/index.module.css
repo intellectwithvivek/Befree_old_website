@@ -1,3 +1,7 @@
+.container {
+  overflow: hidden;
+}
+
 .animate {
   animation-name: fadeIn;
   animation-duration: 2s;

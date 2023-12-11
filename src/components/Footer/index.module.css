@@ -120,3 +120,15 @@
   font-size: 1.8rem;
   font-weight: 400;
 }
+
+@media only screen and (max-width: 480px) {
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 1024px) {
+  .third {
+    width: 20vw;
+  }
+}
