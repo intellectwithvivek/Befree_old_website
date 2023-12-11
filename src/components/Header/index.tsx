@@ -6,13 +6,18 @@ import {
   MenuItem,
   Modal,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
 // import { Alert,  Card, CardContent, CircularProgress, InputAdornment, } from '@mui/material';
-import { GoogleAuthProvider, RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  signInWithPopup,
+} from "firebase/auth";
 import logo from "../../assets/svg/logo.svg";
 import { VIA } from "../../constants/app_constants";
 import { auth } from "../../firebase";
@@ -22,20 +27,20 @@ import { useAppDispatch, useAppSelector } from "../../store/store/store";
 import { stringAvatar } from "../../utils/Image";
 import { phoneValidator } from "../../utils/validation";
 import SignInwithGoogle from "../SignInWithGoogle";
-import Lottie from 'react-lottie';
-import hello from '../../assets/lottie/loginn.json'
+import Lottie from "react-lottie";
+import hello from "../../assets/lottie/loginn.json";
+
+import { useTheme } from "@mui/system";
+import { useMediaQuery } from "@mui/material";
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
   animationData: hello,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
+    preserveAspectRatio: "xMidYMid slice",
   },
 };
-
-import { useTheme } from "@mui/system";
-import { useMediaQuery } from "@mui/material";
 
 auth.settings.appVerificationDisabledForTesting = true;
 
@@ -145,7 +150,7 @@ const Header: React.FC = () => {
     if (loginErrors?.phone) setLoginError(null);
   };
 
-  console.log(userInfo)
+  console.log(userInfo);
 
   const handleBackPress = (e) => {
     if (e.key === "Backspace" && e.target.value.length == 1) {
@@ -186,7 +191,7 @@ const Header: React.FC = () => {
           callback: (response) => {
             onSignup();
           },
-          "expired-callback": () => { },
+          "expired-callback": () => {},
         }
       );
     }
@@ -407,12 +412,10 @@ const Header: React.FC = () => {
 
         <Modal open={open} onClose={handleClose}>
           <Box sx={style}>
-          <Lottie
-            options={defaultOptions}/>
+            <Lottie options={defaultOptions} />
             <SignInwithGoogle signInWithGoogle={SignInWithGoogle} />
           </Box>
         </Modal>
-
       </div>
     </>
   );
