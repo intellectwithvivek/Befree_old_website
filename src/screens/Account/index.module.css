@@ -1,0 +1,93 @@
+.container {
+    display:flex;
+    /* align-items: center; */
+
+}
+
+.innerContainer {
+    width: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.search {
+    position: relative;
+  }
+  
+  .search button,
+  .search span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .search > * > svg {
+    display: block;
+  }
+  
+  .search span {
+    left: 20px;
+    opacity: .5;
+    margin-top: 1px;
+  }
+  
+  .search button {
+    right: 20px;
+    left: auto;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .search button:hover {
+    color:var(--primary-color);
+  }
+  
+  .search input {
+    box-sizing: border-box;
+    display: block;
+    width: 60rem;
+    height: 50px;
+    border-radius: 5px;
+    padding: 0 50px 0 45px;
+    font-size: 20px;
+    outline: none;
+    border: 2px solid var(--secondary-color);;
+    background: white;
+  }
+
+
+  .inside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vh;
+  }
+
+  .insideElement {
+    width: 48vh;
+  } 
+
+  .lottie {
+    height: 20rem;
+    width: 20rem;
+  }
+
+  .instructions {
+    padding: 2rem;
+  }
+
+  .instructions li {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color:var(--grey)
+  }
+
+  .innerContainer h3 {
+    font-size: 2rem;
+    color: var(--secondary-color);
+  }

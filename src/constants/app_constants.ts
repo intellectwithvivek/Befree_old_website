@@ -242,4 +242,57 @@ export const discount_styles = {
 };
 
 
+export const addPlaceInstructions = ["Search your place or nearby location",
+  "Upload an image of your place",
+  "Add Place Name and Owners name",
+   "Select Type of place (restaurant/bar/pub/cafe ..etc)"
+  ,"Check the remaining details (state,region,country,zipcode) & submit"]
+
+  export const beFreeInformation = {
+    "About BeFree": {
+      content:
+        "At BeFree, we've reimagined the way people connect and plan their outings. Founded by a group of passionate and visionary individuals, our platform goes beyond discovering offers — it's a space where users can plan events at their favorite places and invite others to join them. We believe in creating meaningful connections and unforgettable experiences for both users and merchants.",
+    },
+    "Mission": {
+      content:
+        "Our mission is to revolutionize the way people experience their cities. By providing a platform where users can not only discover great deals but also plan and host events, we're shaping a community where connections flourish, and experiences are cherished.",
+    },
+    "What Sets Us Apart?": {
+      content: [
+        {
+          title: "Event Planning Redefined",
+          description: "BeFree empowers users to take charge of their social calendar by seamlessly planning events at their preferred places. Whether it's a casual meet-up at a local cafe or a lively night out at a pub, our platform makes event planning effortless",
+          url:require('../assets/images/event.png')  
+        },
+        {
+          title: "Building Connections",
+          description: "We're more than just a deals platform; we're a community hub. BeFree facilitates connections between people, making every event an opportunity to forge new friendships.",
+          url:require('../assets/images/connection.png')
+        },
+        {
+          title: "Empowering Merchants",
+          description: "From a merchant's perspective, BeFree provides a unique platform. Showcase your venue for events, attract a dynamic crowd, and enhance visibility. Utilize our tools and insights to create engaging experiences, maximizing your business potential and fostering customer loyalty.",
+          url:require('../assets/images/growth.png')
+        },
+      ],
+    },
+    "Meet the Team": {
+      content:
+        "BeFree is the brainchild of a passionate individual - me! I am Akshay, the founder and developer, working tirelessly to bring this platform to life. Committed to expanding the reach and ensuring that every event on our platform is a success. As a solo creator, I'm dedicated to providing you with the best experience on BeFree."
+    },
+    "Get Involved": {
+      content:
+        "Join us on this exciting journey of connection and experience creation. Merchants, showcase your venue for events and attract a dynamic crowd. Users, plan your next memorable event and invite others to join you. Together, let's build a community where every event is an opportunity to connect and create lasting memories.",
+    },
+    "Contact Us": {
+      content:
+        "Have questions or feedback? Reach out to us at [Your Email Address]. Follow us on [Social Media Links] for the latest updates and special announcements.",
+    },
+    "Thank You": {
+      content:
+        "Thank you for being a part of BeFree. Let's connect, plan, and create experiences together!",
+    },
+  };
+  
+  
 

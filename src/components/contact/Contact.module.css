@@ -1,0 +1,22 @@
+.contactHeader {
+    background-color: aliceblue;
+    padding: 10px;
+}
+
+.contactHeader p {
+    color: #167CFB;
+}
+
+.contact {
+    background-color: var(--bg-color);
+}
+
+.contact h3 {
+   font-size: 2rem;
+   color: var(--grey);
+}
+
+.contactHeader div {
+    display: flex;
+    
+}
