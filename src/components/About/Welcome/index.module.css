@@ -1,5 +1,5 @@
 .container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .heading {
@@ -61,7 +61,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-image: url("../../assets/images/houseparty.png");
+  background-image: url("../../../assets/images/houseparty.png");
   width: "100%";
   height: 185vh;
   padding-left: 10rem;
@@ -88,23 +88,6 @@
   margin-left: 2rem;
   text-align: center;
 }
-
-.animate {
-  animation-name: fadeIn;
-  animation-duration: 2s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 
 @media (max-width: 767px) {
   .feature div img {
