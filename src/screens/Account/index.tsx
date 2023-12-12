@@ -354,7 +354,7 @@ export default function Account({ }: Props) {
         <div className={styles.innerContainer}>
           <div className={styles.search}>
             <span>
-              <SearchIcon />
+              <SearchIcon/>
             </span>
             <input
               ref={searchInput}
@@ -370,8 +370,8 @@ export default function Account({ }: Props) {
                 onClick={handleAvatarClick}
                 alt={merchantInfo?.place || ""}
                 sx={{
-                  width: 150,
-                  height: 150,
+                  width: '30vw',
+                  height: '30vh',
                   borderRadius: 5,
                   backgroundColor: colors.greyText,
                   alignSelf: "center",
@@ -415,6 +415,7 @@ export default function Account({ }: Props) {
             {!userInfo?.image && <p>Upload a picture</p>}
           </div>
 
+          <div className={styles.searchContainer}>
           <TextField
             label="Place Name"
             value={merchantInfo?.place || ""}
@@ -429,7 +430,7 @@ export default function Account({ }: Props) {
             InputProps={{
               style: {
                 borderColor: errors.place ? "red" : "blue",
-                width: "100%",
+                width: "95%",
               },
             }}
             inputProps={{
@@ -451,16 +452,17 @@ export default function Account({ }: Props) {
             InputProps={{
               style: {
                 borderColor: errors.name ? "red" : "blue",
-                width: "100%",
+                width: "95%",
               },
             }}
             inputProps={{
               style: inputStyle
             }}
           />
+          </div>
 
           <div className={styles.inside}>
-            <FormControl sx={{ minWidth: "48vh" }}>
+            <FormControl sx={{ minWidth: "50%" }}>
               <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
@@ -474,7 +476,7 @@ export default function Account({ }: Props) {
                     color: 'red', // Adjust the color as needed
                   },
                 }}
-                sx={{ fontSize: '1.4rem' }}
+                sx={{ fontSize: '1.4rem' ,width:'95%'}}
               >
                 {placestypes?.map((item) => {
                   return (
@@ -498,13 +500,14 @@ export default function Account({ }: Props) {
                   setErrors({ ...errors, district: undefined });
                 setAddress({ ...merchantInfo, district: e.target.value });
               }}
-              sx={{ width: "50vh", paddingBottom: "1rem" }}
+              sx={{ width: "50%", paddingBottom: "1rem" }}
               margin="normal"
               error={!!errors.district}
               helperText={errors?.district}
               InputProps={{
                 style: {
                   borderColor: errors.district ? "red" : "blue",
+                  width:'95%'
                 },
               }}
               inputProps={{
@@ -550,7 +553,7 @@ export default function Account({ }: Props) {
               InputProps={{
                 style: {
                   borderColor: errors?.state ? "red" : "blue",
-
+                  width: '95%'
                 },
               }}
               inputProps={{
@@ -598,9 +601,9 @@ export default function Account({ }: Props) {
               InputProps={{
                 style: {
                   borderColor: errors?.zipcode ? "red" : "blue",
+                  width:'95%'
                 },
               }}
-
               inputProps={{
                 style: inputStyle
               }}
@@ -612,7 +615,8 @@ export default function Account({ }: Props) {
             type="submit"
             variant="contained"
             color="primary"
-            style={{ width: "30ch", marginBottom: 20, marginTop: 20 }}
+            style={{ width: "20vw", marginBottom: 20, marginTop: 20,padding:'0.7rem',
+            fontSize:'1.2rem' }}
           >
             Submit
           </Button>
