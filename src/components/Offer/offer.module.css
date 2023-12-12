@@ -66,3 +66,9 @@
     font-size: 1.6rem; /* Adjust font size for h3 */
     margin-bottom: 10px; /* Add margin as needed */
   }
+
+  .trackContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

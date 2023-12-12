@@ -12,6 +12,7 @@ import Offer from "./screens/Offers/Offer"
 import { store } from "./store/store/store"; 
 import { Provider } from 'react-redux';
 import Account from "./screens/Account";
+import TrackOffers from "./components/Offer/TrackOffers";
 
 const router = createBrowserRouter([
   {path:'/',element: <Root/>,
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     {path:'/about',element:<About/>},
     {path:'/offers',element:<Offer/>},
     {path:'/account',element:<Account/>},
+    {path:'/trackOffers',element:<TrackOffers/>},
   ]},
 ])  
 

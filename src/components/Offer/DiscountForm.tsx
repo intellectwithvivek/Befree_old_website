@@ -131,7 +131,7 @@ const DiscountForm = ({ onBack }: Props) => {
         setTiming('All Day (24 hrs)');
         setStartDate('');
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
-        playAnimation();
+        setPlayAnimation(true)
       }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
         .finally(() => {
           setAdding(false);
@@ -139,12 +139,6 @@ const DiscountForm = ({ onBack }: Props) => {
     }
   }
 
-  const lottieRef = useRef(null);
-
-  const playAnimation = () => {
-    setPlayAnimation(true)
-  
-  };
 
  
 

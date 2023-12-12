@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/store/store'
 import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import OfferCard from './OfferCard';
+import OfferCard from './TrackOfferCard';
 import { Button, Dialog, DialogActions, DialogTitle, Modal } from '@mui/material';
 import ConfirmationDialog from './ConfirmationDialog';
 import { deleteDoc } from 'firebase/firestore';
@@ -11,6 +11,8 @@ import EditComplimentaryForm from './EditComplimentary';
 import { Offer } from '../../@types/interfaces/offer';
 import { Merchant } from '../../@types/interfaces/merchant';
 import { setAppLoading, setPopup } from '../../store/reducer/app-data';
+import styles from './offer.module.css'
+import Footer from '../Footer';
 
 type Props = {}
 
@@ -143,7 +145,8 @@ export default function TrackOffers({ }: Props) {
 
     if (offers?.length > 0) {
         return (
-            <div>
+            <>
+            <div className={styles.trackContainer}>
                 {offers.map((offer) => (
                     <OfferCard
                         key={offer.id}
@@ -176,6 +179,8 @@ export default function TrackOffers({ }: Props) {
                     offer={offerToDelete}
                 />
             </div>
+            <Footer/>
+            </>
         )
     }
     else {

@@ -16,6 +16,7 @@ import { Offer } from '../../@types/interfaces/offer';
 import { colors } from '../../constants/colors';
 import { getCurrentDate } from '../../utils/date';
 import { getOfferColor, subtitle } from '../../utils/offer';
+import { editHeading, lableStyle, subeditHead } from './commonStyles';
 
 
 type Props={
@@ -167,17 +168,17 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
   return (
     <form onSubmit={handleSubmit} >
       <Grid item xs={12}>
-          <Typography variant="h4" align="center" color={colors.primary}>
+          <Typography variant="h4" align="center" color={colors.primary} style={editHeading}>
             {offer.title}
           </Typography>
-          <Typography variant="body2" align="center" color={colors.lightblue}>
+          <Typography variant="body2" align="center" color={colors.lightblue} style={subeditHead}>
             {subtitle(offer)}
           </Typography>
         </Grid>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="discount">Discount (%)</InputLabel>
+            <InputLabel htmlFor="discount"  sx={lableStyle}>Discount (%)</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -194,7 +195,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="maxCap">Maximum Upto</InputLabel>
+            <InputLabel htmlFor="maxCap"  sx={lableStyle}>Maximum Upto</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -207,7 +208,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="timing">Timing</InputLabel>
+            <InputLabel htmlFor="timing"  sx={lableStyle}>Timing</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -223,7 +224,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="startDate">Start Date</InputLabel>
+            <InputLabel htmlFor="startDate"  sx={lableStyle}>Start Date</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -245,7 +246,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="minOrderType">Minimum Order</InputLabel>
+            <InputLabel htmlFor="minOrderType"  sx={lableStyle}>Minimum Order</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -298,7 +299,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
           <CircularProgress size={20}/></div> :
       <div style={{display:'flex',flexDirection:'row',
             alignItems:'center',justifyContent:'space-around',marginTop:20,marginBottom:20}}>
-      <Button type="button" variant="outlined" color="secondary" onClick={onAbort}>
+      <Button type="button" variant="outlined" color="primary" onClick={onAbort}>
         Cancel
       </Button>
       <Button type="submit" variant="contained" color="info">
