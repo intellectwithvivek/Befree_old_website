@@ -20,8 +20,8 @@ import { setPopup } from "../../../store/reducer/app-data";
 import { NavLink } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { colors } from "../../../constants/colors";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 type Props = {};
 
@@ -56,32 +56,36 @@ const containerStyle = {
   height: "200px", // Set the desired height
 };
 export default function Offer({}: Props) {
-
   const [offer_type, setOfferType] = useState<string>("");
   const [isScaled, setIsScaled] = useState(false);
 
-    const [activeTab,setActiveTab] = useState('Add Offers');
-    const {userInfo} = useAppSelector(state=>state.user)
-    const { isAuth , isInitialized , isVerified } = useAppSelector(state => state.appData)
-    const dispatch = useAppDispatch();
-
+  const [activeTab, setActiveTab] = useState("Add Offers");
+  const { userInfo } = useAppSelector((state) => state.user);
+  const { isAuth, isInitialized, isVerified } = useAppSelector(
+    (state) => state.appData
+  );
+  const dispatch = useAppDispatch();
 
   const onBack = () => {
     setOfferType("");
   };
 
-  const onSelectType=(type:string)=>{
-    if(isInitialized)
-         setOfferType(type)
-    else
-    {   dispatch(setPopup({open:true,severity:'error',message:'Please Initialize yourself before adding offers.'})) 
-          setIsScaled(true);
-        setTimeout(() => {
+  const onSelectType = (type: string) => {
+    if (isInitialized) setOfferType(type);
+    else {
+      dispatch(
+        setPopup({
+          open: true,
+          severity: "error",
+          message: "Please Initialize yourself before adding offers.",
+        })
+      );
+      setIsScaled(true);
+      setTimeout(() => {
         setIsScaled(false);
-        }, 200); // Adjust the delay as needed.
+      }, 200); // Adjust the delay as needed.
     }
-  }
-
+  };
 
   const scaleFactor = isScaled ? 1.2 : 1;
 
@@ -94,109 +98,126 @@ export default function Offer({}: Props) {
     return <ComplimentaryForm onBack={onBack} />;
   }
   return (
-    <div className={styles.container}>
-      {!isInitialized && <NavLink to={"/account"} style={{
-            transform: `scale(${scaleFactor})`,
-            transition: "transform 0.2s ease-in-out",
-                textDecoration:'none',
-                    marginBottom:10,
-                    alignItems:'center',
-                    display:'flex',
-                    justifyContent:'center'}}>
-                    <ArrowBackIosIcon size={16} style={{color:colors.orange}}/>
-                    <Typography variant='h4' 
-                    sx={{textAlign:'center',
-                    color:colors.orange,alignItems:'center'}}>Initialize Yourself </Typography>
-                    <ArrowForwardIosIcon size={16} style={{marginRight:10,color:colors.orange}}/>
-                    </NavLink>}
-      <OfferHeader title="Select Your Offer Type" />
-
-      <div className={styles.offerContainerCenter}>
-        {Object.keys(Offer_Types).map((item) => {
-          return (
-            <OfferCard
-              offerType={Offer_Types?.[item]}
-              onSelect={() => {
-                console.log(Offer_Types?.[item].title);
-                onSelectType(Offer_Types?.[item].title);
+    <>
+      <div className={styles.container}>
+        {!isInitialized && (
+          <NavLink
+            to={"/account"}
+            style={{
+              transform: `scale(${scaleFactor})`,
+              transition: "transform 0.2s ease-in-out",
+              textDecoration: "none",
+              marginBottom: 10,
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ArrowBackIosIcon size={16} style={{ color: colors.orange }} />
+            <Typography
+              variant="h4"
+              sx={{
+                textAlign: "center",
+                color: colors.orange,
+                alignItems: "center",
               }}
+            >
+              Initialize Yourself{" "}
+            </Typography>
+            <ArrowForwardIosIcon
+              size={16}
+              style={{ marginRight: 10, color: colors.orange }}
             />
-          );
-          // return(<OfferType offerType={Offer_Types?.[item]}/>)
-        })}
-      </div>
+          </NavLink>
+        )}
+        <OfferHeader title="Select Your Offer Type" />
 
-      <OfferHeader title="How Offers Work!" />
-
-      <div className={styles.offerContainer}>
-        <div className={styles.offerInnersection}>
-          <h2>Discount Based(%)</h2>
-          <div className={styles.gradientDiv}>
-            <ul>
-              {OffersWork?.Discount.map((item, index) => {
-                return <li key={index}> {item} </li>;
-              })}
-            </ul>
-          </div>
-        </div>
-        <div className={styles.offerInnersection}>
-          <h2>Complimentary Based(any appetizer!)</h2>
-          <div className={styles.gradientDiv}>
-            <ul>
-              {OffersWork?.Complimentary.map((item) => {
-                return <li> {item} </li>;
-              })}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <OfferHeader title="Boost Your Business Growth" />
-
-      <div className={styles.offerContainer}>
-        <div className={styles.boostContainer}>
-          {boostYourBusinessContent?.map((item, index) => {
+        <div className={styles.offerContainerCenter}>
+          {Object.keys(Offer_Types).map((item) => {
             return (
-              <div
-                key={index}
-                className={index == 1 ? styles.boostItem1 : styles.boostItem}
-              >
-                <div>
-                  <h3>{item.title}</h3>
-                  <ul>
-                    {item.description.map((ele, index) => {
-                      return <li>{ele}</li>;
-                    })}
-                  </ul>
-                </div>
-                <div style={containerStyle}>
-                  <Lottie
-                    options={boostAnimeOptions[index]}
-                    // height={300}
-                    // width={300}
-                    height="100%"
-                    width="100%"
-                  />
-                </div>
-              </div>
+              <OfferCard
+                offerType={Offer_Types?.[item]}
+                onSelect={() => {
+                  console.log(Offer_Types?.[item].title);
+                  onSelectType(Offer_Types?.[item].title);
+                }}
+              />
             );
+            // return(<OfferType offerType={Offer_Types?.[item]}/>)
           })}
         </div>
-      </div>
 
-      <div className={styles.video}>
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/nqUN530Rgtw?si=eMQMFZG-zq5-pviR"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
-      </div>
+        <OfferHeader title="How Offers Work!" />
 
+        <div className={styles.offerContainer}>
+          <div className={styles.offerInnersection}>
+            <h2>Discount Based(%)</h2>
+            <div className={styles.gradientDiv}>
+              <ul>
+                {OffersWork?.Discount.map((item, index) => {
+                  return <li key={index}> {item} </li>;
+                })}
+              </ul>
+            </div>
+          </div>
+          <div className={styles.offerInnersection}>
+            <h2>Complimentary Based(any appetizer!)</h2>
+            <div className={styles.gradientDiv}>
+              <ul>
+                {OffersWork?.Complimentary.map((item) => {
+                  return <li> {item} </li>;
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <OfferHeader title="Boost Your Business Growth" />
+
+        <div className={styles.offerContainer}>
+          <div className={styles.boostContainer}>
+            {boostYourBusinessContent?.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className={index == 1 ? styles.boostItem1 : styles.boostItem}
+                >
+                  <div>
+                    <h3>{item.title}</h3>
+                    <ul>
+                      {item.description.map((ele, index) => {
+                        return <li>{ele}</li>;
+                      })}
+                    </ul>
+                  </div>
+                  <div style={containerStyle}>
+                    <Lottie
+                      options={boostAnimeOptions[index]}
+                      // height={300}
+                      // width={300}
+                      height="100%"
+                      width="100%"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={styles.video}>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/nqUN530Rgtw?si=eMQMFZG-zq5-pviR"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
