@@ -14,6 +14,7 @@ const initialState = {
   loading: false,
   snackTransitionState: { open: false },
   popup: { open: false },
+  loginModal:false
 };
 export type AllStatus = {
   isAuth: boolean;
@@ -48,6 +49,9 @@ const appSlice = createSlice({
     setPopup(state, action: PayloadAction<SnackTransitionState>) {
       state.popup = action.payload;
     },
+    setLoginModal(state,action:PayloadAction<boolean>){
+      state.loginModal = action.payload
+    }
   },
 });
 
@@ -59,5 +63,6 @@ export const {
   setAppLoading,
   setSnackBarVisible,
   setPopup,
+  setLoginModal
 } = appSlice.actions;
 export default appSlice.reducer;

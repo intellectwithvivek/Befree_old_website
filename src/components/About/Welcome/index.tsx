@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./index.module.css";
+import { colors } from "../../../constants/colors";
 
 // Components Here
 
@@ -14,9 +15,9 @@ const Welcome: React.FC = () => {
         <div className={styles.aboutContainer}>
           <h2>About Befree</h2>
           <div>
-            <h3 style={{ color: "#2c2c2cd1" }}>
-              Plan & Connect <br />
-              with Enormous Activities that blow your Mind
+            <h3 style={{fontWeight:'500',color:colors.primary,fontSize:'2rem'}}>
+              Plan Events & Connect <br />
+              with nearby people with enormous activities🤩.
             </h3>
             <h6>
               It's a space where users can plan events at their favorite places
@@ -29,7 +30,7 @@ const Welcome: React.FC = () => {
         </div>
 
         <div className={styles.innerContainer}>
-          <h4>Our Mission</h4>
+          <h2>Our Mission</h2>
           <section className={styles.mission}>
             <div className={styles.mission_img}>
               <img src={require("../../../assets/images/mission.png")} />

@@ -81,7 +81,8 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
       minOrderType,
       minOrder,
       active:true,
-      offer_type:"Complimentary"
+      offer_type:"Complimentary",
+      id:offer.id
   } as Offer
 
   console.log("offer",updatedOffer)

@@ -23,6 +23,7 @@ import {
   setAppLoading,
   setIsAuthenticated,
   setIsInitialized,
+  setLoginModal,
   setPopup,
   setValidtyForBoth,
   setVerified,
@@ -58,11 +59,13 @@ export const registerUser =
         //dispatch userData to store
         //set isAuth to true
       }
+      dispatch(setLoginModal(false))
     } catch (error: any) {
       dispatch(setUserError(error)); // dispatch an action to inform the component that an error occurred while fetching the location data
     } finally {
       dispatch(setUserLoading(false));
       dispatch(setAppLoading(false));
+      
     }
   };
 

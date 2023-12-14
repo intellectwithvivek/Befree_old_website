@@ -11,27 +11,28 @@ import Select from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { Merchant } from '../../@types/interfaces/merchant';
 import { colors } from '../../constants/colors';
 import { db } from '../../firebase';
 import { setPopup } from '../../store/reducer/app-data';
 import { useAppDispatch, useAppSelector } from '../../store/store/store';
-import { getCurrentDate } from '../../utils/date';
+import { generateUniqueString, getCurrentDate } from '../../utils/date';
 import { getOfferColor, getOfferFont, subtitle } from '../../utils/offer';
 import styles from './offer.module.css';
 
 import Lottie from 'react-lottie';
 import offerAdded from '../../assets/lottie/offeradded.json';
+import { inputStyle, primaryButton } from './commonStyles';
 // Components Here
 
-
+export const timings = ["All Day (24 hrs)", "Morning (7am - 12pm)", "Afternoon (12pm - 4pm)", "Evening (4pm - 8pm)", "Night (8pm - 12pm)"]
 type Props = {
   onBack: () => void
 }
 
-export const label = { color: colors.black, fontWeight: '600' }
+export const label = { color: colors.black, fontWeight: '600' ,fontSize:'1.3rem' }
 
 
 const DiscountForm = ({ onBack }: Props) => {
@@ -49,10 +50,14 @@ const DiscountForm = ({ onBack }: Props) => {
 
   const { userInfo } = useAppSelector(state => state.user) as { userInfo: Merchant };
 
-  const offerCollection = collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '',userInfo?.district|| '',userInfo?.username || '','alloffers');
+  const offerCollection = collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '', userInfo?.district || '', userInfo?.username || '', 'alloffers');
+  const usernameRef = doc(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '', userInfo?.district || '',userInfo?.username || '');
+  
+  const addRef= collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '', userInfo?.district || '');
+  
   const dispatch = useAppDispatch();
   const [adding, setAdding] = useState(false);
-  const [play,setPlayAnimation] = useState(false);
+  const [play, setPlayAnimation] = useState(false);
   // const [options,]
 
   const defaultOptions = {
@@ -74,6 +79,7 @@ const DiscountForm = ({ onBack }: Props) => {
   };
 
   const handleMinOrderChange = (event) => {
+    event.preventDefault();
     setMinOrder(event.target.value);
   };
 
@@ -91,8 +97,8 @@ const DiscountForm = ({ onBack }: Props) => {
   };
 
   const handleTimingChange = (event) => {
-    setTiming(event.target.value);
-
+    event.preventDefault();
+    setTiming(event.target.value.trim());
   };
 
   const handleStartDateChange = (event) => {
@@ -139,8 +145,47 @@ const DiscountForm = ({ onBack }: Props) => {
     }
   }
 
+  const handleDataSaveUpdated=(offerData)=>{
+    if(offerData)
+    {
+      setAdding(true);
+      getDoc(usernameRef)
+      .then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          // Document data is available
+          const data = docSnapshot.data();
+          console.log("Document data:", data);
+          const currentOffers = data.offers || [];
+          // Update the array with the new offer
+          currentOffers.push(offerData);
+    
+          // Update the 'offers' field in the username document
+          return updateDoc(usernameRef, { offers: currentOffers });
+        } else {
+          console.log("Document does not exist");
+          // const usernameDocRef = doc(addRef, userInfo?.username);
 
- 
+          // return addDoc(addRef, { offers: [offerData] });
+          return setDoc(usernameRef,{ offers: [offerData] })
+        }
+      }).then(()=>{
+        console.log('Document added successfully');
+        setTiming('All Day (24 hrs)');
+        setStartDate('');
+        dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
+        setPlayAnimation(true)
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+      }).finally(()=>{
+        setAdding(false);
+      });
+    }
+   
+  }
+
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -157,7 +202,8 @@ const DiscountForm = ({ onBack }: Props) => {
       limit: maxCap,
       active: true,
       offer_type: "Discount",
-      place_type: userInfo?.type
+      place_type: userInfo?.type,
+      id:generateUniqueString()
     }
 
     const newErrors = {};
@@ -173,42 +219,43 @@ const DiscountForm = ({ onBack }: Props) => {
     console.log(newErrors)
     if (Object.keys(newErrors).length === 0) {
       // Submit the form or perform other actions here
-      handleDataSave(offer)
+      // handleDataSave(offer)
+      handleDataSaveUpdated(offer)
     }
     else {
       setErrors(newErrors);
     }
   };
-  
+
 
 
 
 
   return (
     <>
-    
-     {play &&  <div className={styles.popper}>
+
+      {play && <div className={styles.popper}>
         <Lottie
-      options={defaultOptions}
-      eventListeners={
-        [
-          {
-            eventName: 'complete',
-            callback: () => {
-              console.log('Animation completed');
-              setPlayAnimation(false)
-            },
-          },
-          {
-            eventName: 'loopComplete',
-            callback: () => {
-              console.log('Loop completed');
-            },
-          }]
-      } 
-    />
+          options={defaultOptions}
+          eventListeners={
+            [
+              {
+                eventName: 'complete',
+                callback: () => {
+                  console.log('Animation completed');
+                  setPlayAnimation(false)
+                },
+              },
+              {
+                eventName: 'loopComplete',
+                callback: () => {
+                  console.log('Loop completed');
+                },
+              }]
+          }
+        />
       </div>}
-     
+
       <form onSubmit={handleSubmit}>
 
         <div>
@@ -243,6 +290,7 @@ const DiscountForm = ({ onBack }: Props) => {
                     valueLabelDisplay="auto"
                     valueLabelFormat={(value) => `${value}%`}
                     onChange={handleDiscountChange}
+                    sx={{width:'70%'}}
                   />
                   <Typography variant='h4' color={getOfferColor(discount)}
                     sx={{ fontSize: getOfferFont(discount) }}>{discount}%</Typography></div>
@@ -254,8 +302,20 @@ const DiscountForm = ({ onBack }: Props) => {
                   <Select
                     value={maxCap}
                     onChange={handleMaxCapChange}
+                    MenuProps={{
+                      style: {
+                        fontSize: '1.8rem', // Adjust the font size as needed
+                        color: 'red', // Adjust the color as needed
+                      },
+                    }}
+                    sx={{ fontSize: '1.4rem' }}
                   >
-                    {capValues?.map(item => <MenuItem value={item}>{item}</MenuItem>)}
+                    {capValues?.map(item => <MenuItem
+                      sx={{
+                        fontSize: '1.4rem',
+                        color: item.trim() === maxCap.trim() ? 'red' : colors.black, // Customize the color for the selected item
+                      }}
+                      value={item}>{item}</MenuItem>)}
                     <MenuItem value="Add your own">Add your own</MenuItem>
                   </Select></div>
 
@@ -267,12 +327,22 @@ const DiscountForm = ({ onBack }: Props) => {
                   <Select
                     value={timing}
                     onChange={handleTimingChange}
+                    MenuProps={{
+                      style: {
+                        fontSize: '1.8rem', // Adjust the font size as needed
+                        color: 'red', // Adjust the color as needed
+                      },
+                    }}
+                    sx={{ fontSize: '1.4rem' }}
                   >
-                    <MenuItem value="All Day (24 hrs)">All Day (24 hrs)</MenuItem>
-                    <MenuItem value="Morning (7am - 12pm)">Morning (7 - 12)</MenuItem>
-                    <MenuItem value="Afternoon (12pm - 4pm)">Afternoon (12 - 4)</MenuItem>
-                    <MenuItem value="Evening (4pm - 8pm)">Evening (4 - 8)</MenuItem>
-                    <MenuItem value="Night (8pm - 12pm)">Night (8 - 12)</MenuItem>
+                    {timings?.map(item => {
+                      return (<MenuItem
+                        sx={{
+                          fontSize: '1.4rem',
+                          color: item.trim() === timing.trim() ? 'red' : colors.black, // Customize the color for the selected item
+                        }}
+                        value={item}>{item}</MenuItem>)
+                    })}
                   </Select></div>
               </div>
 
@@ -292,6 +362,10 @@ const DiscountForm = ({ onBack }: Props) => {
                       inputProps: { min: getCurrentDate() }, // Pass the minimum date
                     }}
                     helperText={errors.startDate ? "Start Date is Required." : null}
+                    inputProps={{
+                      style: inputStyle
+                    }}
+                    
                   /></div>
                 {/* {errors.startDate && <Typo>{errors.startDate}</div>} */}
               </div>
@@ -331,6 +405,9 @@ const DiscountForm = ({ onBack }: Props) => {
                           </InputAdornment>
                         ),
                       }}
+                      inputProps={{
+                        style: inputStyle
+                      }}
                     />
                   )}
                   {minOrderType === 'quantity' && (
@@ -340,6 +417,9 @@ const DiscountForm = ({ onBack }: Props) => {
                       label="Minimum Order Quantity"
                       value={minOrder}
                       onChange={handleMinOrderChange}
+                      inputProps={{
+                        style: inputStyle
+                      }}
                     />
                   )}
                   {errors.minOrder && <div>{errors.minOrder}</div>}
@@ -347,7 +427,8 @@ const DiscountForm = ({ onBack }: Props) => {
               </div>
 
               <div style={{ textAlign: 'center', marginTop: '1.3rem' }}>
-                <Button type="submit" variant="contained" color="primary" disabled={adding} style={{ width: '20%' }}>
+                <Button type="submit" variant="contained"
+                   color="primary" disabled={adding} style={primaryButton}>
                   {adding ? <CircularProgress size={16} /> : 'Submit'}
                 </Button>
               </div>

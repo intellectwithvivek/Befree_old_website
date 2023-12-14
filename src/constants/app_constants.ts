@@ -278,7 +278,7 @@ export const addPlaceInstructions = ["Search your place or nearby location",
     },
     "Meet the Team": {
       content:
-        "BeFree is the brainchild of a passionate individual - me! I am Akshay, the founder and developer, working tirelessly to bring this platform to life. Committed to expanding the reach and ensuring that every event on our platform is a success. As a solo creator, I'm dedicated to providing you with the best experience on BeFree."
+        "BeFree is the brainchild of a team of passionate individuals led by Akshay. We're a group of crazy, hardworking individuals committed to expanding our reach and ensuring that every Event on our platform is a success."
     },
     "Get Involved": {
       content:

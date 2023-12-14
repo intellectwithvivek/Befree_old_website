@@ -38,6 +38,8 @@ import Lottie from "react-lottie";
 import accountInfo from "../../assets/lottie/accountInfo.json";
 import created from "../../assets/lottie/accountsetup.json";
 import Footer from "../../components/Footer";
+import { avatarStyles } from "../../components/Offer/commonStyles";
+import { NavLink } from "react-router-dom";
 
 const defaultOptions = {
   loop: true,
@@ -265,6 +267,7 @@ export default function Account({ }: Props) {
     }
   };
 
+
   const inputStyle = {
     fontSize: '1.3rem',
     color: colors.black
@@ -296,7 +299,7 @@ export default function Account({ }: Props) {
           getDownloadURL(ref(storage, response.metadata.fullPath))
             .then((url) => {
               console.log("getDownloadURL", url);
-              setAddress({ ...merchantInfo, image: url });
+              setAddress({ ...merchantInfo, image: url ,place_image:url});
             })
             .catch((err) => {
               console.log(err);
@@ -349,10 +352,13 @@ export default function Account({ }: Props) {
               return <li>{ele}</li>;
             })}
           </ul>
+          <h3>If any issue then <span><NavLink to="/contact">Contact Us</NavLink></span></h3>
+          <h4>Note : Once the Venue  is Initialized then you can't change it's location So please check twice before submit.</h4>
+            
         </div>
 
         <div className={styles.innerContainer}>
-          <div className={styles.search}>
+          {!isInitialized && <div className={styles.search}>
             <span>
               <SearchIcon/>
             </span>
@@ -362,36 +368,30 @@ export default function Account({ }: Props) {
               placeholder="Search your location...."
             />
             {/* <button onClick={findMyLocation}><FaSearchLocation /></button> */}
-          </div>
+          </div>}
 
           <div className={styles.uploadImage}>
-            {merchantInfo?.image ? (
+            {merchantInfo?.place_image ? (
               <Avatar
                 onClick={handleAvatarClick}
                 alt={merchantInfo?.place || ""}
-                sx={{
-                  width: '30vw',
-                  height: '30vh',
-                  borderRadius: 5,
-                  backgroundColor: colors.greyText,
-                  alignSelf: "center",
-                }}
+                sx={avatarStyles}
                 src={merchantInfo?.image}
               />
             ) : merchantInfo?.photo_refrence?
             <Avatar
             onClick={handleAvatarClick}
             alt={merchantInfo?.place || ""}
-            sx={{
-              width: '30vw',
-              height: '30vh',
-              borderRadius: 5,
-              backgroundColor: colors.greyText,
-              alignSelf: "center",
-            }}
+            sx={avatarStyles}
             src={getRefrencePicUrl(merchantInfo?.photo_refrence)}
           />
-            :(
+            :merchantInfo?.image ? (
+              <Avatar
+                onClick={handleAvatarClick}
+                alt={merchantInfo?.place || ""}
+                sx={avatarStyles}
+                src={merchantInfo?.image}
+              />):(
               <Avatar
                 onClick={handleAvatarClick}
                 sx={{
@@ -411,7 +411,8 @@ export default function Account({ }: Props) {
               style={{ display: "none" }}
               ref={fileInputRef}
             />
-            {uploading && <CircularProgress size={16} sx={{ alignSelf: 'center' }} />}
+            {uploading && <CircularProgress size={16}  
+              sx={{ position:"relative",zIndex:100,bottom:'50%',left:'45%'}} />}
             {!userInfo?.image && <p>Upload a picture</p>}
           </div>
 
@@ -494,6 +495,7 @@ export default function Account({ }: Props) {
 
             <TextField
               label="City"
+              disabled={isInitialized}
               value={merchantInfo?.district || ""}
               onChange={(e) => {
                 if (errors?.district)
@@ -519,6 +521,7 @@ export default function Account({ }: Props) {
           <div className={styles.inside}>
             <TextField
               label="Region"
+              disabled={isInitialized}
               value={merchantInfo?.region || ""}
               onChange={(e) => {
                 if (errors?.region) setErrors({ ...errors, region: undefined });
@@ -541,6 +544,7 @@ export default function Account({ }: Props) {
 
             <TextField
               label="State"
+              disabled={isInitialized}
               value={merchantInfo?.state || ""}
               onChange={(e) => {
                 if (errors?.state) setErrors({ ...errors, state: undefined });
@@ -565,6 +569,7 @@ export default function Account({ }: Props) {
           <div className={styles.inside}>
             <TextField
               label="Country"
+              disabled={isInitialized}
               value={merchantInfo?.country || ""}
               onChange={(e) => {
                 if (errors?.country)
@@ -588,6 +593,7 @@ export default function Account({ }: Props) {
 
             <TextField
               label="Zip Code"
+              disabled={isInitialized}
               value={merchantInfo?.postal_code || ""}
               onChange={(e) => {
                 if (errors?.postal_code)

@@ -30,8 +30,13 @@ import SignInwithGoogle from "../SignInWithGoogle";
 import Lottie from "react-lottie";
 import hello from "../../assets/lottie/loginn.json";
 
+
+
 import { useTheme } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
+import { setLoginModal } from "../../store/reducer/app-data";
+
+const menuItemStyles = {fontSize:'1.4rem',fontWeight:'500'}
 
 const defaultOptions = {
   loop: true,
@@ -55,14 +60,14 @@ const Header: React.FC = () => {
   const location = useLocation();
   const {
     userInfo,
-    isVerifying,
-    loading,
-    verificationError,
-    imageLoading,
-    verificationSuccess,
-    logoutModal,
+    // isVerifying,
+    // loading,
+    // verificationError,
+    // imageLoading,
+    // verificationSuccess,
+    // logoutModal,
   } = useAppSelector((state) => state.user);
-  const {isAuth,isInitialized} = useAppSelector(state=>state.appData)
+  const {isAuth,isInitialized ,loginModal} = useAppSelector(state=>state.appData)
   const [resendTimer, setResendTimer] = useState(60);
 
   const [open, setOpen] = useState(false);
@@ -74,11 +79,11 @@ const Header: React.FC = () => {
   const otpInputRefs = useRef(
     Array.from({ length: 6 }, () => React.createRef())
   );
-  const [sending, setSending] = useState(false);
-  const [verifying, setVerifying] = useState(false);
-  const [confirmation, setConfirmation] = useState(null);
+  // const [sending, setSending] = useState(false);
+  // const [verifying, setVerifying] = useState(false);
+  // const [confirmation, setConfirmation] = useState(null);
   const [via, setVia] = useState<VIA>(VIA.GOOGLE);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   const dispatch = useAppDispatch();
   // const handleOtpChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +108,10 @@ const Header: React.FC = () => {
 
   //Login modal
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () =>{
+     dispatch(setLoginModal(true));
+    }
+  const handleClose = () => dispatch(setLoginModal(false));
 
   const handleLogoClick = () => {
     navigate("/");
@@ -329,6 +336,7 @@ const Header: React.FC = () => {
                 onClose={handleCloses}
               >
                 <MenuItem
+                sx={menuItemStyles}
                   component={Link}
                   to="/"
                   selected={location.pathname === "/"}
@@ -336,27 +344,15 @@ const Header: React.FC = () => {
                   Home
                 </MenuItem>
                 <MenuItem
+                  sx={menuItemStyles}
                   component={Link}
-                  to="/"
+                  to="/offers"
                   selected={location.pathname === "/"}
                 >
                   Offers
                 </MenuItem>
                 <MenuItem
-                  component={Link}
-                  to="/"
-                  selected={location.pathname === "/"}
-                >
-                  Account
-                </MenuItem>
-                <MenuItem
-                  component={Link}
-                  to="/trackOffer"
-                  selected={location.pathname === "/"}
-                >
-                  Track Offers
-                </MenuItem>
-                <MenuItem
+                sx={menuItemStyles}
                   component={Link}
                   to="/about"
                   selected={location.pathname === "/about"}
@@ -429,15 +425,16 @@ const Header: React.FC = () => {
                 <MenuItem
                   key={setting}
                   onClick={() => handleCloseUserMenu(setting)}
+                  sx={menuItemStyles}
                 >
-                  <Typography textAlign="center">{setting}</Typography>
+                  {setting}
                 </MenuItem>
               ))}
             </Menu>
           </Box>
         )}
 
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={loginModal} onClose={handleClose}>
           <Box sx={style}>
             <Lottie options={defaultOptions} />
             <SignInwithGoogle signInWithGoogle={SignInWithGoogle} />

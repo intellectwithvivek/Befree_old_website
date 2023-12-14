@@ -3,6 +3,10 @@ import styles from "./index.module.css";
 import hero from "../../assets/svg/hero.png";
 import Lottie from "react-lottie";
 import hotspot from "../../assets/lottie/hotspot.json";
+import { useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/store/store";
+import { useNavigate } from "react-router-dom";
+import { setLoginModal } from "../../store/reducer/app-data";
 // Components Here
 
 const defaultOptions = {
@@ -13,11 +17,46 @@ const defaultOptions = {
     preserveAspectRatio: "xMidYMid slice",
   },
 };
+const textToType =
+"Maaximize Profits, Increase Visibility, and Build Lasting Connections 🚀 - Your Venue, Your Offers, Your Success! 💼✨";
+
 
 const Hero: React.FC = () => {
   const [typedText, setTypedText] = useState("");
-  const textToType =
-    "Maaximize Profits, Increase Visibility, and Build Lasting Connections 🚀 - Your Venue, Your Offers, Your Success! 💼✨";
+  const {isAuth,isInitialized} = useAppSelector(state=>state.appData)
+  const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const onClick=(e)=>{
+      e.preventDefault();
+      
+      if(!isAuth)
+        {
+          dispatch(setLoginModal(true));
+        }
+      else if(!isInitialized)
+        {
+          navigate("/account")
+        }
+        else {
+          navigate("/offers")
+        }  
+    }
+
+    const buttonText=()=>{
+      if(!isAuth)
+        {
+            return "Join Now"
+        }
+      else if(!isInitialized)
+        {
+          return "Initialized Account"
+        }
+        else {
+          return "Add Offers"
+        }
+    }
+ 
 
   useEffect(() => {
     let index = 0;
@@ -37,10 +76,10 @@ const Hero: React.FC = () => {
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-          <h1>Transform Your Venue into a Hotspot with BeFree.</h1>
+          <h1>Transform Your Venue into a Hotspot🔥 with BeFree.</h1>
           <p>{typedText}</p>
-          <button>
-            Join Now
+          <button onClick={onClick}>
+               {buttonText()}
             <svg className={styles.link_icon}>
               <use xlinkHref="/sprite.svg#icon-chevron-right" />
             </svg>

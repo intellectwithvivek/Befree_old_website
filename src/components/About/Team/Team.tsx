@@ -13,31 +13,28 @@ export default function Team({}: Props) {
   return (
     <section className={styles.teamcontainer}>
       <h2>Meet the Team</h2>
-      <div>
-        <img
+      <div className={styles.imageContainer}>
+
+         <div className={styles.image1}>
+         <img
           alt="Akshay"
           src={
             "https://firebasestorage.googleapis.com/v0/b/befree-prod.appspot.com/o/me.jpg?alt=media&token=11b96282-7808-4be3-9aa0-182416ca7fe6"
           }
-          width={300}
-          height={300}
-        />
-        <p>{beFreeInformation["Meet the Team"]?.content}</p>
+          width={'100%'} height={'80%'} 
+          />
+          <p className={styles.overlayText1}>Akshay <br/>[Founder / Developer]</p>
+        </div> 
+
+        <div  className={styles.image2}>
+          <img alt="Vivek" src={vivek} width={'100%'} height={'80%'} 
+                  />
+                  <p className={styles.overlayText2}>Vivek <br/>[Developer]</p>
+        </div>
+            
       </div>
 
-      <div>
-        <img alt="Vivek" src={vivek} width={300} height={300} />
-        <p>
-          Meet Vivek Kumar Singh, the technological virtuoso at the heart of
-          BeFree. As a dedicated software engineer, Vivek contributes his
-          expertise to ensure the seamless and innovative functionality of our
-          platform. With a passion for coding and a commitment to excellence,
-          Vivek plays a pivotal role in shaping the technological landscape of
-          BeFree. Get ready to experience events like never before, thanks to
-          Vivek's skillful craftsmanship. Welcome to the technological
-          brilliance of BeFree, crafted by Vivek Kumar Singh.
-        </p>
-      </div>
+      <p>{beFreeInformation["Meet the Team"]?.content}</p>
     </section>
   );
 }

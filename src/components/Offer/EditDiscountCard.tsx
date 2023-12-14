@@ -139,6 +139,7 @@ const EditDiscountForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         limit:maxCap,
         active:true,
         offer_type:"Discount",
+        id:offer.id
     } as Offer
 
     console.log("Offer",offer)
