@@ -25,6 +25,7 @@ import styles from './offer.module.css';
 import Lottie from 'react-lottie';
 import offerAdded from '../../assets/lottie/offeradded.json';
 import { inputStyle, primaryButton } from './commonStyles';
+import userDetailsService from '../../services/apis/userDetailsService';
 // Components Here
 
 export const timings = ["All Day (24 hrs)", "Morning (7am - 12pm)", "Afternoon (12pm - 4pm)", "Evening (4pm - 8pm)", "Night (8pm - 12pm)"]
@@ -126,24 +127,24 @@ const DiscountForm = ({ onBack }: Props) => {
     }
   };
 
-  const handleDataSave = (data) => {
-    // const docRef = doc(db, docRefrenc,);
-    if (data) {
-      setAdding(true);
-      addDoc(offerCollection, data).then(async (response) => {
-        //setting to original
-        console.log({ ...userInfo, image: subtitle(data) })
-        // await userDetailsService.broadcast({...userInfo,image:subtitle(data)});
-        setTiming('All Day (24 hrs)');
-        setStartDate('');
-        dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
-        setPlayAnimation(true)
-      }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
-        .finally(() => {
-          setAdding(false);
-        });
-    }
-  }
+  // const handleDataSave = (data) => {
+  //   // const docRef = doc(db, docRefrenc,);
+  //   if (data) {
+  //     setAdding(true);
+  //     addDoc(offerCollection, data).then(async (response) => {
+  //       //setting to original
+  //       console.log({ ...userInfo, image: subtitle(data) })
+  //       await userDetailsService.broadcast({...userInfo,image:subtitle(data)});
+  //       setTiming('All Day (24 hrs)');
+  //       setStartDate('');
+  //       dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
+  //       setPlayAnimation(true)
+  //     }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
+  //       .finally(() => {
+  //         setAdding(false);
+  //       });
+  //   }
+  // }
 
   const handleDataSaveUpdated=(offerData)=>{
     if(offerData)
@@ -168,8 +169,9 @@ const DiscountForm = ({ onBack }: Props) => {
           // return addDoc(addRef, { offers: [offerData] });
           return setDoc(usernameRef,{ offers: [offerData] })
         }
-      }).then(()=>{
+      }).then(async()=>{
         console.log('Document added successfully');
+        await userDetailsService.broadcast({...userInfo,image:subtitle(offerData)});
         setTiming('All Day (24 hrs)');
         setStartDate('');
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));

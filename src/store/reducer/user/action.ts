@@ -46,6 +46,8 @@ export const registerUser =
           dispatch(setMerchantInfo(data.user));
           dispatch(setUsername(data?.user?.username ?? user?.username));
           savetokenStorage(data.token);
+          // const {username,email,name,image} = data.user
+          // const newUserVariables = { username, email, name, image };
           localStorage.setItem("@user", JSON.stringify(data.user));
 
           if (data.user.deleted) {

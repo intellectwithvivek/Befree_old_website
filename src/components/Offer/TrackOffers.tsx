@@ -274,9 +274,11 @@ export default function TrackOffers({ }: Props) {
                     </Dialog>
 
                     <ConfirmationDialog
+                        title={`Are you sure you want to delete the '${offerToDelete?.title}' offer?`}
                         open={deleteConfirmationOpen}
                         onClose={() => setDeleteConfirmationOpen(false)}
                         onConfirm={confirmDeleteOfferUpdated}
+                        oktitle={"Delete"}
                         offer={offerToDelete}
                     />
                 </div>

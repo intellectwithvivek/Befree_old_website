@@ -34,7 +34,8 @@ import hello from "../../assets/lottie/loginn.json";
 
 import { useTheme } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
-import { setLoginModal } from "../../store/reducer/app-data";
+import { setAppLoading, setLoginModal } from "../../store/reducer/app-data";
+import ConfirmationDialog from "../Offer/ConfirmationDialog";
 
 const menuItemStyles = {fontSize:'1.4rem',fontWeight:'500'}
 
@@ -65,9 +66,9 @@ const Header: React.FC = () => {
     // verificationError,
     // imageLoading,
     // verificationSuccess,
-    // logoutModal,
+    logoutModal,
   } = useAppSelector((state) => state.user);
-  const {isAuth,isInitialized ,loginModal} = useAppSelector(state=>state.appData)
+  const {isAuth,isInitialized ,loginModal } = useAppSelector(state=>state.appData)
   const [resendTimer, setResendTimer] = useState(60);
 
   const [open, setOpen] = useState(false);
@@ -86,6 +87,9 @@ const Header: React.FC = () => {
   // const [user, setUser] = useState(null);
 
   const dispatch = useAppDispatch();
+  const [headerClassName,setHeaderClassname] = useState(styles.container)
+  
+  
   // const handleOtpChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   const inputValue = e.target.value;
 
@@ -99,12 +103,28 @@ const Header: React.FC = () => {
   //   // setOtp(sanitizedValue);
   // };
 
-  const handleResendOTP = () => {
-    setResendTimer(60);
-    // Clear existing OTP values
-    setOtp(["", "", "", "", "", ""]);
-    otpInputRefs.current[0].current.focus();
-  };
+
+  const handleLogout =() => {
+      dispatch(setAppLoading(true))
+       auth.signOut().then(()=>{
+          console.log('sign out successfully');
+          localStorage.clear(); 
+          navigate("/")
+          dispatch({ type: 'RESET_APP' })
+       }).catch(error=>{
+      console.error('Error during logout:', error);
+    }).finally(()=>{
+      dispatch(setAppLoading(false))
+    }) 
+}
+
+
+  // const handleResendOTP = () => {
+  //   setResendTimer(60);
+  //   // Clear existing OTP values
+  //   setOtp(["", "", "", "", "", ""]);
+  //   otpInputRefs.current[0].current.focus();
+  // };
 
   //Login modal
 
@@ -163,7 +183,6 @@ const Header: React.FC = () => {
     if (loginErrors?.phone) setLoginError(null);
   };
 
-  console.log(userInfo);
 
   const handleBackPress = (e) => {
     if (e.key === "Backspace" && e.target.value.length == 1) {
@@ -194,66 +213,67 @@ const Header: React.FC = () => {
   };
 
   // Phone Signin Handlers
-  function onCaptchVerify() {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "normal",
-          callback: (response) => {
-            onSignup();
-          },
-          "expired-callback": () => {},
-        }
-      );
-    }
-  }
+  // function onCaptchVerify() {
+  //   if (!window.recaptchaVerifier) {
+  //     window.recaptchaVerifier = new RecaptchaVerifier(
+  //       auth,
+  //       "recaptcha-container",
+  //       {
+  //         size: "normal",
+  //         callback: (response) => {
+  //           onSignup();
+  //         },
+  //         "expired-callback": () => {},
+  //       }
+  //     );
+  //   }
+  // }
 
-  function onSignup() {
-    if (phoneValidator(phone)) {
-      setSending(true);
-      onCaptchVerify();
+  // function onSignup() {
+  //   if (phoneValidator(phone)) {
+  //     setSending(true);
+  //     onCaptchVerify();
 
-      const appVerifier = window.recaptchaVerifier;
+  //     const appVerifier = window.recaptchaVerifier;
 
-      const formatPh = "+91" + phone;
-      console.log(formatPh);
+  //     const formatPh = "+91" + phone;
+  //     console.log(formatPh);
 
-      signInWithPhoneNumber(auth, formatPh, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setConfirmation(confirmationResult);
-          setSending(false);
-          // setShowOTP(true);
-          // toast.success("OTP sended successfully!");
-        })
-        .catch((error) => {
-          console.log(error);
-          setSending(false);
-        });
-    } else setLoginError({ phone: "Please Check your number." });
-  }
+  //     signInWithPhoneNumber(auth, formatPh, appVerifier)
+  //       .then((confirmationResult) => {
+  //         window.confirmationResult = confirmationResult;
+  //         setConfirmation(confirmationResult);
+  //         setSending(false);
+  //         // setShowOTP(true);
+  //         // toast.success("OTP sended successfully!");
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         setSending(false);
+  //       });
+  //   } else setLoginError({ phone: "Please Check your number." });
+  // }
 
-  function onOTPVerify() {
-    setVerifying(true);
-    setVia(VIA.PHONE);
-    window.confirmationResult
-      .confirm(otp.join(""))
-      .then(async (res) => {
-        console.log(res);
-        // setUser(res.user);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoginError({ otp: "OTP not valid." });
-      })
-      .finally(() => {
-        setVerifying(false);
-      });
-  }
+  // function onOTPVerify() {
+  //   setVerifying(true);
+  //   setVia(VIA.PHONE);
+  //   window.confirmationResult
+  //     .confirm(otp.join(""))
+  //     .then(async (res) => {
+  //       console.log(res);
+  //       // setUser(res.user);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoginError({ otp: "OTP not valid." });
+  //     })
+  //     .finally(() => {
+  //       setVerifying(false);
+  //     });
+  // }
 
   // Google Sign In handler
+  
   const SignInWithGoogle = () => {
     if (via != VIA.GOOGLE) setVia(VIA.GOOGLE);
     const provider = new GoogleAuthProvider();
@@ -283,7 +303,6 @@ const Header: React.FC = () => {
   const onAuthStateChanged = (user: any) => {
     // console.log('onAuthStateChanged called with user:', user);
     if (user) {
-      console.log("Apple login user", user);
       const userInfo = localStorage.getItem("@user");
 
       // dispatch(setMerchantInfo(JSON.parse(userInfo)))
@@ -304,6 +323,22 @@ const Header: React.FC = () => {
     };
   }, [via]);
 
+  useEffect(() => {
+    // Update background color based on the route path
+    switch (location.pathname) {
+      case '/terms':
+        setHeaderClassname(styles.containerDark);
+        break;
+      case '/privacy':
+        setHeaderClassname(styles.containerDark);
+        break;
+      default:
+        setHeaderClassname(styles.container);
+    }
+  }, [location.pathname]);
+
+
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState(null);
@@ -316,9 +351,11 @@ const Header: React.FC = () => {
     setAnchorEl(null);
   };
 
+  if(location.pathname === '/download')
+      return null
   return (
     <>
-      <div className={styles.container}>
+      <div className={headerClassName ?? styles.container}>
         <div className={styles.logo} onClick={handleLogoClick}>
           <img src={logo} alt="befree logo" onClick={handleLogoClick} />
           BeFree
@@ -440,6 +477,14 @@ const Header: React.FC = () => {
             <SignInwithGoogle signInWithGoogle={SignInWithGoogle} />
           </Box>
         </Modal>
+
+        <ConfirmationDialog
+                    title={`Are you sure you want to logout?`}
+                    open={logoutModal}
+                    onClose={() => dispatch(setLogoutModal(false))}
+                    onConfirm={handleLogout}
+                    oktitle={"Yes"}
+                    />
       </div>
     </>
   );

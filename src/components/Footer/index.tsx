@@ -11,6 +11,10 @@ const Footer: React.FC = () => {
   const handleMailClick: React.MouseEventHandler<HTMLParagraphElement> = () => {
     window.location.href = "mailto:betabefree340@gmail.com";
   };
+
+  const openLinkInNewPage = (url) => {
+    window.open(url, "_blank");
+};
   return (
     <>
       <div className={styles.container}>
@@ -27,17 +31,24 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className={styles.logos}>
-            <svg className={styles.link_icon}>
-              <use xlinkHref="/sprite.svg#icon-facebook" />
+            <svg className={styles.link_icon} >
+              <use xlinkHref="/sprite.svg#icon-facebook" onClick={() =>
+                            openLinkInNewPage(
+                                "https://www.facebook.com/profile.php?id=100095439918491"
+                            )}/>
             </svg>
-            <svg className={styles.link_icon}>
+            {/* <svg className={styles.link_icon}>
               <use xlinkHref="/sprite.svg#icon-twitter" />
             </svg>
             <svg className={styles.link_icon}>
               <use xlinkHref="/sprite.svg#icon-linkedin2" />
-            </svg>
+            </svg> */}
+
             <svg className={styles.link_icon}>
-              <use xlinkHref="/sprite.svg#icon-instagram" />
+              <use xlinkHref="/sprite.svg#icon-instagram" onClick={() =>
+                            openLinkInNewPage(
+                                "https://www.instagram.com/befree_connect/"
+                            )}/>
             </svg>
           </div>
         </div>

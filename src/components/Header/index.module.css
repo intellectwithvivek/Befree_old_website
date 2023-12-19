@@ -7,6 +7,16 @@
   padding-right: 10rem;
 }
 
+.containerDark {
+  display: flex;
+  height: 10rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  background-color: black;
+}
+
 .logo {
   color: var(--primary-color);
   font-size: 3rem;
@@ -70,6 +80,10 @@
     position: relative;
   }
 
+  .containerDark {
+    position: relative;
+  }
+
   .login {
     padding: 8px 16px;
   }
@@ -84,4 +98,10 @@
     padding-left: 2rem;
     padding-right: 2rem;
   }
+
+  .containerDark {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
 }

@@ -29,7 +29,7 @@ import {
 import { stringAvatar } from "../../utils/Image";
 import EditIcon from "@mui/icons-material/Edit";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../firebase";
+import { remoteConfig, storage } from "../../firebase";
 import { setImageUploading, setPlay } from "../../store/reducer/user";
 import { colors } from "../../constants/colors";
 import axios from "axios";
@@ -40,6 +40,8 @@ import created from "../../assets/lottie/accountsetup.json";
 import Footer from "../../components/Footer";
 import { avatarStyles } from "../../components/Offer/commonStyles";
 import { NavLink } from "react-router-dom";
+
+
 
 const defaultOptions = {
   loop: true,
@@ -52,10 +54,10 @@ const defaultOptions = {
 
 type Props = {};
 
-const apiKey = "AIzaSyCPeMZGBtqJzmbkNixvRP1V2nQyu1Ik3rk";
+const apiKey = process.env.REACT_APP_API_KEY;
 const mapApiJs = "https://maps.googleapis.com/maps/api/js";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-const url = "https://us-central1-befree-prod.cloudfunctions.net/getPlaceDetails";
+const url = process.env.REACT_APP_PLACE_DETAILS
 
 // load google map api js
 
@@ -98,6 +100,7 @@ export default function Account({ }: Props) {
   const fileInputRef = useRef();
   const [uploading, setUploading] = useState(false);
 
+
   const createOptions = {
     loop: false,
     autoplay: true,
@@ -137,7 +140,7 @@ export default function Account({ }: Props) {
   const onChangeAddress = (autocomplete) => {
     dispatch(setAppLoading(true));
     const place = autocomplete.getPlace();
-
+      
     const locationInfo = basicLocationInfo(place);
     if (place?.place_id) {
       axios
@@ -147,7 +150,6 @@ export default function Account({ }: Props) {
           },
         })
         .then((response) => {
-          console.log(response.data.result)
           setErrors({});
           setAddress({
             ...merchantInfo,

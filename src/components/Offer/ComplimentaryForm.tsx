@@ -22,6 +22,7 @@ import { subtitle } from '../../utils/offer';
 import Lottie from 'react-lottie';
 import offerAdded from '../../assets/lottie/offeradded.json';
 import { inputStyle, primaryButton } from './commonStyles';
+import userDetailsService from '../../services/apis/userDetailsService';
 
 const predefinedOptions = ['Any Beverages', 'Any Sweet Dish', ...indianBeverages, ...indianSweets];
 
@@ -81,8 +82,9 @@ const ComplimentaryForm = ({ onBack }: Props) => {
           console.log("Document does not exist");
           return setDoc(usernameRef,{ offers: [offerData] })
         }
-      }).then(()=>{
+      }).then(async()=>{
         console.log('Document added successfully');
+        await userDetailsService.broadcast({...userInfo,image:subtitle(offerData)});
         setTiming('All Day (24 hrs)');
         setStartDate('');
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
@@ -104,7 +106,7 @@ const ComplimentaryForm = ({ onBack }: Props) => {
       setAdding(true)
       addDoc(offerCollection, data).then(async (response) => {
         //setting to original
-        // await userDetailsService.broadcast({...userInfo,image:subtitle(data)})
+        await userDetailsService.broadcast({...userInfo,image:subtitle(data)})
         setTiming('All Day (24 hrs)')
         setStartDate('')
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
