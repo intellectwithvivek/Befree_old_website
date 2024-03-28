@@ -105,7 +105,7 @@ export default function Download({ }: Props) {
                     </div>
                 </section>
 
-                {/* <div className={styles.video}>
+                <div className={styles.video}>
                     <iframe
                         width={isMobile?"300":"560"}
                         height="315"
@@ -115,11 +115,11 @@ export default function Download({ }: Props) {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen
                     ></iframe>
-                </div> */}
-
-                <div>
-                <ImageCarousel/>
                 </div>
+
+                {/* <div>
+                <ImageCarousel/>
+                </div> */}
 
                 <div className={styles.promotionPart}>
 
@@ -167,7 +167,7 @@ export default function Download({ }: Props) {
                             src={require('../../assets/images/Akshay.jpg')}     
                             sx={{width:150,height:150}}/>
                             <h5>Akshay</h5>
-                            <h5>[ Founder / Developer ]</h5>
+                            <h5>[ Founder]</h5>
                             <span>
                                 <IconButton onClick={handleInstaClick}>
                                 <Instagram style={{color:'red' , width:30,height:30}}/>
