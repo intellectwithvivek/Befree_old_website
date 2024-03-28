@@ -17,7 +17,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+// import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { validateIntializationMerchantInfo } from "../../utils/validation";
 import { useAppDispatch, useAppSelector } from "../../store/store/store";
 import { initializeMerchantInfo } from "../../store/reducer/user/action";
@@ -55,9 +55,9 @@ const defaultOptions = {
 type Props = {};
 
 const apiKey = process.env.REACT_APP_API_KEY;
-const mapApiJs = "https://maps.googleapis.com/maps/api/js";
-const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-const url = process.env.REACT_APP_PLACE_DETAILS
+const mapApiJs = process.env.REACT_APP_MAP_API_JS;
+const geocodeJson = process.env.REACT_APP_GEOCODE_MAP_API;
+const url = process.env.REACT_APP_PLACE_DETAILS;
 
 // load google map api js
 

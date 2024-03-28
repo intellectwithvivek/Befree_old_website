@@ -205,7 +205,7 @@ export default function Offer({}: Props) {
           </div>
         </div>
 
-        <div className={styles.video}>
+        {/* <div className={styles.video}>
           <iframe
             width="560"
             height="315"
@@ -215,7 +215,7 @@ export default function Offer({}: Props) {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
           ></iframe>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </>

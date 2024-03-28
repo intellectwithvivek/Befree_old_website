@@ -10,16 +10,15 @@ import { getRemoteConfig } from "firebase/remote-config";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDuQcGgrsSKT5B5ic9MIxQ7t0-ZcMLlTdA",
-  authDomain: "befree-prod.firebaseapp.com",
-  databaseURL: "https://befree-prod-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "befree-prod",
-  storageBucket: "befree-prod.appspot.com",
-  messagingSenderId: "833331411230",
-  appId: "1:833331411230:web:269c4336f914877417f10f",
-  measurementId: "G-QTH32N6TML"
+  apiKey: process.env.REACT_APP_API_KEY_FIREBASE,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
-
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

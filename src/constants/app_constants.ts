@@ -294,5 +294,88 @@ export const addPlaceInstructions = ["Search your place or nearby location",
     },
   };
   
+
+export const activityReviews = [
+    {
+      name:'ABS Saurabh',
+      title: "Cycling Adventure",
+      image: "abs.jpg",
+      location:'Noida',
+      review:
+        "Planned a spontaneous cycling adventure using the app and connected with some fantastic people who shared the same passion. The ride was not just about bikes; it was about creating lasting memories with new friends!",
+    },
+    {
+      name:'Prashant',
+      title: "Trekking Expedition",
+      image: "prashant.jpg",
+      location:'Noida',
+      review:
+        "Organized a trekking expedition through the app and ended up hiking with an incredible group. The breathtaking views were matched only by the camaraderie. A perfect blend of adventure and friendship!",
+    },
+    {
+      name:'Sneha',
+      title: "House Party Extravaganza",
+      image: "sneha.jpg",
+      location:'Lucknow',
+      review:
+        "Threw a last-minute house party using the app, and it turned out to be an absolute blast! Met new people, danced the night away, and now have a bunch of friends to plan more events with. Cheers to spontaneous fun!",
+    },
+    {
+      name:'Vivek',
+      title: "Exploring the Town Together",
+      image: "vivek.jpg",
+      location:'Indore',
+      review:
+        "Explored the town with fellow explorers through the app. From hidden gems to local favorites, every discovery was shared with an amazing group. Connecting with like-minded individuals made the experience even more enjoyable!",
+    },
+    {
+      name:'Arun',
+      title: "Badminton Matchup",
+      image: "kari.jpg",
+      location:'Pune',
+      review:
+        "Set up a quick badminton game on the app, and within minutes, had a group ready to play. The friendly competition was a blast, and I left not just with a workout but also with new friends to challenge next time!",
+    },
+    {
+      name:'Shilpa',
+      title: "Movie Night with New Faces",
+      image: "shilpa.jpg",
+      location:'Pune',
+      review:
+        "Planned a movie night through the app and was joined by some awesome individuals. The film was great, but the best part was the post-movie discussions and laughs. Movie nights are so much better with newfound friends!",
+    },
+    {
+      name:'Sarthak',
+      title: "Comedy Show Laughter Fest",
+      image: "sarthak.jpg",
+      location:'Pune',
+      review:
+        "Attended a comedy show with a group of strangers-turned-friends. The shared laughter created an instant bond. Thanks to the app, I not only enjoyed the show but also gained some wonderful connections!",
+    },
+    {
+      name:'Rituraj',
+      title: "Travel Buddies Unite",
+      image: "badshah.jpg",
+      location:'Rishikesh',
+      review:
+        "Used the app to plan a spontaneous trip and found travel buddies who were as excited about exploring as I was. From sightseeing to trying local cuisines, every moment was made better by the company of these amazing people!",
+    },
+    {
+      name:'Baba',
+      title: "Concert Squad Goals",
+      image: "baba.jpg",
+      location:'Goa',
+      review:
+        "Planned to attend a concert through the app and formed a concert squad of music enthusiasts. The energy at the event was contagious, and sharing the experience with newfound friends made it an unforgettable night!",
+    },
+    {
+      name:'Abhilasha',
+      title: "Cafe Hopping Social",
+      image: "chicks.jpg",
+      location:'Hyderabad',
+      review:
+        "Went cafe hopping with a group of coffee and tea lovers I connected with on the app. Each cafe stop was a new adventure, and the conversations flowed as smoothly as the brews. An afternoon well spent with great company!",
+    },
+  ];
   
 
