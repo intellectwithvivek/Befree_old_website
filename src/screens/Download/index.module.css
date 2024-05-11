@@ -152,6 +152,10 @@
     font-size: 2rem;
   }
 
+  .mainText {
+    width: 90%;
+  }
+
   .appInfo {
     margin-top: 2rem;
     background-color: #4a90e2;
@@ -232,5 +236,15 @@
     display: flex;
    flex-direction: column;
     gap: 2.8rem;
+  }
+
+  .download {
+    display: flex;
+   flex-direction: column;
+    gap: 2.8rem;
+  }
+
+  .mainText {
+    width: 85%;
   }
 }

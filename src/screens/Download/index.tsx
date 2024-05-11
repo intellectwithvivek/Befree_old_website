@@ -1,22 +1,16 @@
-import React from 'react'
-import video from '../../assets/video/WebDwnBgsocial.mp4'
-import styles from './index.module.css'
-import apple from "../../assets/svg/apple.svg";
-import android from "../../assets/svg/android.svg";
-import logo from "../../assets/svg/logo.svg";
-import { colors } from '../../constants/colors';
-import ReviewsShowcase from '../../components/Review/ReviewsShowcase';
-import { activityReviews } from '../../constants/app_constants';
 import Forward from '@mui/icons-material/Forward';
 import ArrowDownward from '@mui/icons-material/KeyboardDoubleArrowDown';
-import Instagram from '@mui/icons-material/Instagram';
-import LinkedIn from '@mui/icons-material/LinkedIn';
+import { useMediaQuery, useTheme } from '@mui/material';
+import React from 'react';
+import android from "../../assets/svg/android.svg";
+import apple from "../../assets/svg/apple.svg";
+import logo from "../../assets/svg/logo.svg";
+import video from '../../assets/video/WebDwnBgsocial.mp4';
 import Footer from '../../components/Footer';
-import { Avatar, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { stringAvatar } from '../../utils/Image';
-import ImageCarousel from '../../components/general/ImageCarousel';
-
-
+import ReviewsShowcase from '../../components/Review/ReviewsShowcase';
+import { activityReviews } from '../../constants/app_constants';
+import { colors } from '../../constants/colors';
+import styles from './index.module.css';
 
 
 type Props = {}
@@ -51,7 +45,9 @@ export default function Download({ }: Props) {
                         />
                         <h1>BeFree</h1>
                     </div>
-                    <h3>Plan <span style={{ color: colors.primary }}>Events</span> & Connect with <span style={{ color: colors.primary }}>Like-Minded People ...</span></h3>
+                    <div className={styles.mainText}>
+                    <h3>Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br/>Try <span style={{color:colors.primary}}>" BeFree "</span> to build Genuine Connections! 🌟</h3>
+                    </div>
                     <div className={styles.download}>
                         <img
                             src={apple}
@@ -160,7 +156,7 @@ export default function Download({ }: Props) {
                         </div>
                 </div>
 
-                <div className={styles.founderInfo}>
+                {/* <div className={styles.founderInfo}>
                     
                     <div style={{alignItems:'center',display:'flex',flexDirection:'column',marginBottom:10}}>
                     <Avatar {...stringAvatar("Akshay")}
@@ -187,10 +183,10 @@ export default function Download({ }: Props) {
                      <br/> <br/><span style={{color:colors.primary,fontWeight:'600',fontSize:14}}>"Spread the word, share your experiences, and let's grow BeFree into a community that thrives on innovation and creativity."</span>
                      </Typography>          
 
-                </div>
+                </div> */}
 
                 </div>
-                <Footer /> 
+                <Footer/> 
               </>
 
             )

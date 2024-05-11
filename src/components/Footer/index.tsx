@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import styles from "./index.module.css";
 
+import { Copyright } from "@mui/icons-material";
 import white from "../../assets/svg/logo.svg";
 
 const Footer: React.FC = () => {
@@ -26,8 +27,8 @@ const Footer: React.FC = () => {
 
           <div className={styles.first_content}>
             <p>
-              It is a long established fact that a reader will be distracted
-              lookings.
+            Tired of swiping on Dating Apps? Make real connections with Befree 🤩
+            ... Plan your Activities or Explore the events around you.
             </p>
           </div>
           <div className={styles.logos}>
@@ -97,10 +98,18 @@ const Footer: React.FC = () => {
           </div>
           <div className={styles.address}>
             <h1>Office Address</h1>
-            <p>Sector 63 Road, B Block Noida , Uttar Pradesh</p>
+            <p>Dharbhanga Colony, Prayagraj UttarPradesh (  )</p>
+          </div>
+
+          <div className={styles.address}>
+            <h1>PULSELINK INNOVATIONS Pvt. Ltd.</h1>
+            <p><Copyright/> All Rights Reserved (2023-2024)</p>
           </div>
         </div>
+       
       </div>
+
+     
     </>
   );
 };

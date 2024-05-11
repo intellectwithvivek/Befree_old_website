@@ -4,8 +4,8 @@ import styles from "./index.module.css";
 // Components Here
 import Faq from "../../components/About/Faq/Faq";
 import Team from "../../components/About/Team/Team";
-import Footer from "../../components/Footer";
 import Welcome from "../../components/About/Welcome";
+import Footer from "../../components/Footer";
 
 const About: React.FC = () => {
   const welcomeRef = useRef<HTMLDivElement>(null);
