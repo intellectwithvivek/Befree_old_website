@@ -43,12 +43,39 @@ export default function Download({}: Props) {
 
         <div className={styles.content}>
           <div className={styles.mainText}>
-            <h3 className={styles.titletexta}>
+            <h3
+              style={{
+                color: "white",
+                fontFamily: "Arial, sans-serif",
+                fontSize: "28px",
+                lineHeight: "1.5",
+              }}
+            >
               Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br />
-              Try <span style={{ color: colors.primary }}>" BeFree "</span> to
-              build Genuine Connections! 🌟 BeFree’s AI helps you plan
-              activities and explore events for real, meaningful connections.
+              Try <span style={{ color: "#007BFF" }}>" BeFree "</span> to build
+              Genuine Connections! 🌟 BeFree’s{" "}
+              <span style={{ color: "#007BFF", fontWeight: "bold" }}>AI</span>{" "}
+              helps you plan activities and explore events for real, meaningful
+              connections.
             </h3>
+
+            <h4
+              style={{
+                fontSize: "20px",
+                fontFamily: "Arial, sans-serif",
+                color: "white",
+                lineHeight: "1.5",
+                textAlign: "center",
+              }}
+            >
+              🔮{" "}
+              <span style={{ color: "#007BFF", fontWeight: "bold" }}>AI</span>{" "}
+              Event Recommendation System: Let BeFree's intelligent{" "}
+              <span style={{ color: "#007BFF", fontWeight: "bold" }}>AI</span>{" "}
+              match you with events and activities that suit your interests,
+              location, and availability. Say goodbye to endless scrolling and
+              hello to real-world experiences curated just for you! 🎉
+            </h4>
           </div>
           <div className={styles.download}>
             <img
