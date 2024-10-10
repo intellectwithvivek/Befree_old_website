@@ -94,11 +94,11 @@ const Footer: React.FC = () => {
         <div className={styles.third}>
           <div className={styles.contact}>
             <h1>Contact</h1>
-            <p onClick={handleMailClick}>betabefree340@gmail.com</p>
+            <p onClick={handleMailClick}>pulselink@thebefree.com</p>
           </div>
           <div className={styles.address}>
             <h1>Office Address</h1>
-            <p>Dharbhanga Colony, Prayagraj UttarPradesh (  )</p>
+            <p>Block B , Sector 63 , Noida (201301)</p>
           </div>
 
           <div className={styles.address}>

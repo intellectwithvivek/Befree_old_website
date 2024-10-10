@@ -8,6 +8,7 @@ import Partner from "../../components/Partner";
 import Works from "../../components/Works";
 import FAQ from "../../components/FAQ";
 import Final from "../../components/Final";
+import Download from "../Download";
 
 const Home: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -48,7 +49,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <div ref={heroRef}>
           <Hero />
         </div>
@@ -72,7 +73,8 @@ const Home: React.FC = () => {
         <div ref={footerRef}>
           <Footer />
         </div>
-      </div>
+      </div> */}
+      <Download/>
     </>
   );
 };

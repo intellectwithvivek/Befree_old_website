@@ -16,7 +16,7 @@ import styles from './index.module.css';
 type Props = {}
 
 export default function Download({ }: Props) {
-     const theme = useTheme();
+    const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const openLinkInNewPage = (url) => {
@@ -37,16 +37,9 @@ export default function Download({ }: Props) {
                 <video src={video} autoPlay loop muted />
 
                 <div className={styles.content}>
-                    <div style={{ flexDirection: 'row', marginRight: '2rem', display: 'flex' }}>
-                        <img
-                            src={logo}
-                            alt="logo"
-                            className={styles.logo}
-                        />
-                        <h1>BeFree</h1>
-                    </div>
+                 
                     <div className={styles.mainText}>
-                    <h3>Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br/>Try <span style={{color:colors.primary}}>" BeFree "</span> to build Genuine Connections! 🌟</h3>
+                    <h3 className={styles.titletexta}>Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br/>Try <span style={{color:colors.primary}}>" BeFree "</span> to build Genuine Connections! 🌟 with Activities.</h3>
                     </div>
                     <div className={styles.download}>
                         <img
