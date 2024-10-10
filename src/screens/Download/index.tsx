@@ -1,155 +1,171 @@
-import Forward from '@mui/icons-material/Forward';
-import ArrowDownward from '@mui/icons-material/KeyboardDoubleArrowDown';
-import { useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import Forward from "@mui/icons-material/Forward";
+import ArrowDownward from "@mui/icons-material/KeyboardDoubleArrowDown";
+import { useMediaQuery, useTheme } from "@mui/material";
+import React from "react";
 import android from "../../assets/svg/android.svg";
 import apple from "../../assets/svg/apple.svg";
 import logo from "../../assets/svg/logo.svg";
-import video from '../../assets/video/WebDwnBgsocial.mp4';
-import Footer from '../../components/Footer';
-import ReviewsShowcase from '../../components/Review/ReviewsShowcase';
-import { activityReviews } from '../../constants/app_constants';
-import { colors } from '../../constants/colors';
-import styles from './index.module.css';
+import video from "../../assets/video/WebDwnBgsocial.mp4";
+import Footer from "../../components/Footer";
+import ReviewsShowcase from "../../components/Review/ReviewsShowcase";
+import { activityReviews } from "../../constants/app_constants";
+import { colors } from "../../constants/colors";
+import styles from "./index.module.css";
 
+type Props = {};
 
-type Props = {}
+export default function Download({}: Props) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-export default function Download({ }: Props) {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const openLinkInNewPage = (url) => {
+    window.open(url, "_blank");
+  };
 
-    const openLinkInNewPage = (url) => {
-        window.open(url, "_blank");
-    };
+  const handleInstaClick = () => {
+    window.open(
+      "https://www.instagram.com/smooth_aki?igsh=a2VkaHBsaW8xc285",
+      "_blank"
+    );
+  };
 
-    const handleInstaClick=()=>{
-        window.open('https://www.instagram.com/smooth_aki?igsh=a2VkaHBsaW8xc285', '_blank');
-    }
+  const handleLinkedClick = () => {
+    window.open(
+      "https://www.linkedin.com/in/akshay-tripathi-2b8620149/",
+      "_blank"
+    );
+  };
 
-    const handleLinkedClick=()=>{
-        window.open('https://www.linkedin.com/in/akshay-tripathi-2b8620149/','_blank');
-    }
+  return (
+    <>
+      <div className={styles.main}>
+        <video src={video} autoPlay loop muted />
 
-    return (
-        <>
-            <div className={styles.main}>
-                <video src={video} autoPlay loop muted />
+        <div className={styles.content}>
+          <div className={styles.mainText}>
+            <h3 className={styles.titletexta}>
+              Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br />
+              Try <span style={{ color: colors.primary }}>" BeFree "</span> to
+              build Genuine Connections! 🌟 BeFree’s AI helps you plan
+              activities and explore events for real, meaningful connections.
+            </h3>
+          </div>
+          <div className={styles.download}>
+            <img
+              src={apple}
+              alt="apple"
+              onClick={() =>
+                openLinkInNewPage(
+                  "https://apps.apple.com/in/app/befree/id6463606840"
+                )
+              }
+              className={styles.enlargeOnHover}
+            />
+            <img
+              src={android}
+              alt="android"
+              onClick={() =>
+                openLinkInNewPage(
+                  "https://play.google.com/store/apps/details?id=com.befree"
+                )
+              }
+              className={styles.enlargeOnHover}
+            />
+          </div>
+        </div>
 
-                <div className={styles.content}>
-                 
-                    <div className={styles.mainText}>
-                    <h3 className={styles.titletexta}>Tired of Scrolling Alone or Swiping on Dating Apps? 😩 <br/>Try <span style={{color:colors.primary}}>" BeFree "</span> to build Genuine Connections! 🌟 with Activities.</h3>
-                    </div>
-                    <div className={styles.download}>
-                        <img
-                            src={apple}
-                            alt="apple"
-                            onClick={() =>
-                                openLinkInNewPage(
-                                    "https://apps.apple.com/in/app/befree/id6463606840"
-                                )
-                            }
-                            className={styles.enlargeOnHover}
-                        />
-                        <img
-                            src={android}
-                            alt="android"
-                            onClick={() =>
-                                openLinkInNewPage(
-                                    "https://play.google.com/store/apps/details?id=com.befree"
-                                )
-                            }
-                            className={styles.enlargeOnHover}
-                        />
-                    </div>
-                </div>
+        <section className={styles.appInfo}>
+          <h2>What's unique ? </h2>
+          <p>
+            Unlike other social media platforms, BeFree connects people
+            offline—in real life. Using AI, the app maps out like-minded people
+            nearby, allowing them to easily join, host, and meet each other. You
+            can either select a ‘mood’ and instantly see other people nearby who
+            are up for the same thing, or plan ahead by creating a custom
+            activity and inviting others directly.
+          </p>
+        </section>
 
-                <section className={styles.appInfo}>
-                    <h2>What's unique ? </h2>
-                    <p>
-                    Unlike other social media platforms, BeFree connects people offline - in real life. The app maps out like-minded people nearby, allowing them to easily join, host, and meet each other. You can either select a ‘mood’ and instantly see other people nearby who are up for the same thing. Or you can plan ahead, by creating a custom activity and then inviting others directly.
-                    </p>
-                </section>
+        <section className={styles.reviewContainer}>
+          <h2>Reviews</h2>
+          <ReviewsShowcase reviews={activityReviews} />
+        </section>
 
-                
-                <section className={styles.reviewContainer}>
-                    <h2>Reviews</h2>
-                    <ReviewsShowcase reviews={activityReviews} />
-                </section>
+        <section className={styles.aboutContainer}>
+          <h2>How Befree Works ? </h2>
+          <div className={styles.about}>
+            <div className={styles.aboutCard}>
+              <h4>Plan Activities Using AI</h4>
+            </div>
+            {isMobile ? <ArrowDownward /> : <Forward />}
+            <div className={styles.aboutCard}>
+              <h4>Send or Accept Requests</h4>
+            </div>
+            {isMobile ? <ArrowDownward /> : <Forward />}
+            <div className={styles.aboutCard}>
+              <h4>Chat , Meet & Enjoy.</h4>
+            </div>
+          </div>
+        </section>
 
-                <section className={styles.aboutContainer}>
-                    <h2>How Befree Works ? </h2>
-                    <div className={styles.about}>
+        <div className={styles.video}>
+          <iframe
+            width={isMobile ? "300" : "560"}
+            height="315"
+            src="https://www.youtube.com/embed/DdCrv8gNNcI"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
 
-                        <div className={styles.aboutCard}>
-                            <h4>Plan or Explore Activities</h4>
-                        </div>
-                        {isMobile?<ArrowDownward/>:<Forward />}
-                        <div className={styles.aboutCard}><h4>Send or Accept Requests</h4></div>
-                        {isMobile?<ArrowDownward/>:<Forward />}
-                        <div className={styles.aboutCard}>
-                            <h4>Chat , Meet & Enjoy.</h4>
-                        </div>
-                    </div>
-                </section>
-
-                <div className={styles.video}>
-                    <iframe
-                        width={isMobile?"300":"560"}
-                        height="315"
-                        src="https://www.youtube.com/embed/DdCrv8gNNcI"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                    ></iframe>
-                </div>
-
-                {/* <div>
+        {/* <div>
                 <ImageCarousel/>
                 </div> */}
 
-                <div className={styles.promotionPart}>
+        <div className={styles.promotionPart}>
+          <div className={styles.promotionPart1}>
+            <h3>Download App Now</h3>
+            <h4> ( 100% Free | 30+ Activities ) </h4>
+            <div className={styles.promotiondownload}>
+              <img
+                src={apple}
+                alt="apple"
+                onClick={() =>
+                  openLinkInNewPage(
+                    "https://apps.apple.com/in/app/befree/id6463606840"
+                  )
+                }
+                className={styles.enlargeOnHover}
+              />
+              <img
+                src={android}
+                alt="android"
+                onClick={() =>
+                  openLinkInNewPage(
+                    "https://play.google.com/store/apps/details?id=com.befree"
+                  )
+                }
+                className={styles.enlargeOnHover}
+              />
+            </div>
+          </div>
 
-                    <div className={styles.promotionPart1}>
-                        <h3>Download App Now</h3>
-                        <h4> ( 100% Free | 30+ Activities ) </h4>
-                        <div className={styles.promotiondownload}>
-                            <img
-                                src={apple}
-                                alt="apple"
-                                onClick={() =>
-                                    openLinkInNewPage(
-                                        "https://apps.apple.com/in/app/befree/id6463606840"
-                                    )
-                                }
-                                className={styles.enlargeOnHover}
-                            />
-                            <img
-                                src={android}
-                                alt="android"
-                                onClick={() =>
-                                    openLinkInNewPage(
-                                        "https://play.google.com/store/apps/details?id=com.befree"
-                                    )
-                                }
-                                className={styles.enlargeOnHover}
-                            />
-                        </div>
-                        
-                    </div>  
+          <div className={styles.video}>
+            <iframe
+              width={isMobile ? "250" : "315"}
+              height="560"
+              src="https://www.youtube.com/embed/Jc9Nnm_TIjM"
+              title="Real Connections with BeFree - Live Real  #activity #adventure  #houseparty #concerts #meet #social"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
 
-                        <div className={styles.video}>
-                            <iframe width={isMobile?"250":"315"} height="560" 
-                                     src="https://www.youtube.com/embed/Jc9Nnm_TIjM" 
-                                     title="Real Connections with BeFree - Live Real  #activity #adventure  #houseparty #concerts #meet #social" 
-                                     frameborder="0" 
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        </div>
-                </div>
-
-                {/* <div className={styles.founderInfo}>
+        {/* <div className={styles.founderInfo}>
                     
                     <div style={{alignItems:'center',display:'flex',flexDirection:'column',marginBottom:10}}>
                     <Avatar {...stringAvatar("Akshay")}
@@ -177,10 +193,8 @@ export default function Download({ }: Props) {
                      </Typography>          
 
                 </div> */}
-
-                </div>
-                <Footer/> 
-              </>
-
-            )
+      </div>
+      <Footer />
+    </>
+  );
 }

@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
 
   const openLinkInNewPage = (url) => {
     window.open(url, "_blank");
-};
+  };
   return (
     <>
       <div className={styles.container}>
@@ -27,16 +27,24 @@ const Footer: React.FC = () => {
 
           <div className={styles.first_content}>
             <p>
-            Tired of swiping on Dating Apps? Make real connections with Befree 🤩
-            ... Plan your Activities or Explore the events around you.
+              Tired of swiping? BeFree's{" "}
+              <strong>Artificial Intelligence</strong> suggests personalized
+              activities based on your interests and location. Meet new people,
+              join local events, or host your own—experience authentic
+              interactions and build lasting connections with like-minded
+              individuals in your community!
             </p>
           </div>
           <div className={styles.logos}>
-            <svg className={styles.link_icon} >
-              <use xlinkHref="/sprite.svg#icon-facebook" onClick={() =>
-                            openLinkInNewPage(
-                                "https://www.facebook.com/profile.php?id=100095439918491"
-                            )}/>
+            <svg className={styles.link_icon}>
+              <use
+                xlinkHref="/sprite.svg#icon-facebook"
+                onClick={() =>
+                  openLinkInNewPage(
+                    "https://www.facebook.com/profile.php?id=100095439918491"
+                  )
+                }
+              />
             </svg>
             {/* <svg className={styles.link_icon}>
               <use xlinkHref="/sprite.svg#icon-twitter" />
@@ -46,10 +54,12 @@ const Footer: React.FC = () => {
             </svg> */}
 
             <svg className={styles.link_icon}>
-              <use xlinkHref="/sprite.svg#icon-instagram" onClick={() =>
-                            openLinkInNewPage(
-                                "https://www.instagram.com/befree_connect/"
-                            )}/>
+              <use
+                xlinkHref="/sprite.svg#icon-instagram"
+                onClick={() =>
+                  openLinkInNewPage("https://www.instagram.com/befree_connect/")
+                }
+              />
             </svg>
           </div>
         </div>
@@ -96,20 +106,35 @@ const Footer: React.FC = () => {
             <h1>Contact</h1>
             <p onClick={handleMailClick}>pulselink@thebefree.com</p>
           </div>
+          <br />
           <div className={styles.address}>
             <h1>Office Address</h1>
-            <p>Block B , Sector 63 , Noida (201301)</p>
+            <p>Fourth Floor Rameshwar Dayal Complex</p>
+            <p>Noida U.P (201301)</p>
           </div>
-
+          <br />
           <div className={styles.address}>
-            <h1>PULSELINK INNOVATIONS Pvt. Ltd.</h1>
-            <p><Copyright/> All Rights Reserved (2023-2024)</p>
+            <a
+              href="https://pulselink.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "orange",
+                textDecoration: "none",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
+              PULSELINK INNOVATIONS Pvt. Ltd.
+            </a>
+
+            <h1>AI Startup Company</h1>
+            <p>
+              <Copyright /> All Rights Reserved (2024-2025)
+            </p>
           </div>
         </div>
-       
       </div>
-
-     
     </>
   );
 };
