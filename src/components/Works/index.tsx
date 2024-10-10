@@ -25,7 +25,7 @@ const Works: React.FC = () => {
           <div className={styles.card}>
             <img src={work3} alt="work 3" />
             <h2>Step 3</h2>
-            <p>Add Offers & Reach out </p>
+            <p>Add Offers & Reach out to nearby users</p>
           </div>
         </div>
       </div>

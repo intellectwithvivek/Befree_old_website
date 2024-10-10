@@ -23,6 +23,7 @@ import {
   setAppLoading,
   setIsAuthenticated,
   setIsInitialized,
+  setLoginModal,
   setPopup,
   setValidtyForBoth,
   setVerified,
@@ -45,6 +46,8 @@ export const registerUser =
           dispatch(setMerchantInfo(data.user));
           dispatch(setUsername(data?.user?.username ?? user?.username));
           savetokenStorage(data.token);
+          // const {username,email,name,image} = data.user
+          // const newUserVariables = { username, email, name, image };
           localStorage.setItem("@user", JSON.stringify(data.user));
 
           if (data.user.deleted) {
@@ -58,11 +61,13 @@ export const registerUser =
         //dispatch userData to store
         //set isAuth to true
       }
+      dispatch(setLoginModal(false))
     } catch (error: any) {
       dispatch(setUserError(error)); // dispatch an action to inform the component that an error occurred while fetching the location data
     } finally {
       dispatch(setUserLoading(false));
       dispatch(setAppLoading(false));
+      
     }
   };
 

@@ -6,16 +6,16 @@ import Button from '@mui/material/Button';
 import { colors } from '../../constants/colors';
 import { Typography } from '@mui/material';
 
-const ConfirmationDialog = ({ open, onClose, onConfirm ,offer}) => {
+const ConfirmationDialog = ({ title , open , onClose, onConfirm ,oktitle}) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{color:colors.primary}}>Are you sure you want to delete the {offer?.title} offer?</DialogTitle>
+      <DialogTitle sx={{color:colors.primary}}>{title}</DialogTitle>
       <DialogActions>
         <Button onClick={onClose} color="info">
           Cancel
         </Button>
         <Button onClick={onConfirm} color="warning" >
-         Delete
+         {oktitle}
         </Button>
       </DialogActions>
     </Dialog>

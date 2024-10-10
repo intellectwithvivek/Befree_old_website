@@ -1,42 +1,59 @@
-import React, { ChangeEvent, useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "./index.module.css";
 import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  Divider,
   Avatar,
+  Box,
   IconButton,
   Menu,
   MenuItem,
+  Modal,
   Tooltip,
-  CircularProgress,
+  Typography,
 } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import styles from "./index.module.css";
 // import { Alert,  Card, CardContent, CircularProgress, InputAdornment, } from '@mui/material';
-import India from "../../assets/svg/India.svg";
+import {
+  GoogleAuthProvider,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  signInWithPopup,
+} from "firebase/auth";
 import logo from "../../assets/svg/logo.svg";
-import SignInwithGoogle from "../SignInWithGoogle";
-import { useAppDispatch, useAppSelector } from "../../store/store/store";
-import { setLogoutModal } from "../../store/reducer/user";
-import { stringAvatar } from "../../utils/Image";
-import OrDivider from "../general/OrDivider";
-import { otpValidator, phoneValidator } from "../../utils/validation";
-import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../../firebase";
-import { load } from "recaptcha-v3";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getMerchantInfo, registerUser } from "../../store/reducer/user/action";
 import { VIA } from "../../constants/app_constants";
-import { colors } from "../../constants/colors";
+import { auth } from "../../firebase";
+import { setLogoutModal } from "../../store/reducer/user";
+import { getMerchantInfo, registerUser } from "../../store/reducer/user/action";
+import { useAppDispatch, useAppSelector } from "../../store/store/store";
+import { stringAvatar } from "../../utils/Image";
+import { phoneValidator } from "../../utils/validation";
+import SignInwithGoogle from "../SignInWithGoogle";
+import Lottie from "react-lottie";
+import hello from "../../assets/lottie/loginn.json";
+
+
+
+import { useTheme } from "@mui/system";
+import { useMediaQuery } from "@mui/material";
+import { setAppLoading, setLoginModal } from "../../store/reducer/app-data";
+import ConfirmationDialog from "../Offer/ConfirmationDialog";
+
+const menuItemStyles = {fontSize:'1.4rem',fontWeight:'500'}
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: hello,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 
 auth.settings.appVerificationDisabledForTesting = true;
 
 const recaptcha_site_key = "6LdZ7yUpAAAAAJYf_mCpCLwwJDug23F6zHrPn_R4";
 
-const settings = ["Account", "Logout"];
+const settings = ["Account","Track Offers", "Logout"];
+
 const numberOfDigits = 6;
 
 const Header: React.FC = () => {
@@ -44,13 +61,14 @@ const Header: React.FC = () => {
   const location = useLocation();
   const {
     userInfo,
-    isVerifying,
-    loading,
-    verificationError,
-    imageLoading,
-    verificationSuccess,
+    // isVerifying,
+    // loading,
+    // verificationError,
+    // imageLoading,
+    // verificationSuccess,
     logoutModal,
   } = useAppSelector((state) => state.user);
+  const {isAuth,isInitialized ,loginModal } = useAppSelector(state=>state.appData)
   const [resendTimer, setResendTimer] = useState(60);
 
   const [open, setOpen] = useState(false);
@@ -62,13 +80,16 @@ const Header: React.FC = () => {
   const otpInputRefs = useRef(
     Array.from({ length: 6 }, () => React.createRef())
   );
-  const [sending, setSending] = useState(false);
-  const [verifying, setVerifying] = useState(false);
-  const [confirmation, setConfirmation] = useState(null);
+  // const [sending, setSending] = useState(false);
+  // const [verifying, setVerifying] = useState(false);
+  // const [confirmation, setConfirmation] = useState(null);
   const [via, setVia] = useState<VIA>(VIA.GOOGLE);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   const dispatch = useAppDispatch();
+  const [headerClassName,setHeaderClassname] = useState(styles.container)
+  
+  
   // const handleOtpChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   const inputValue = e.target.value;
 
@@ -82,17 +103,35 @@ const Header: React.FC = () => {
   //   // setOtp(sanitizedValue);
   // };
 
-  const handleResendOTP = () => {
-    setResendTimer(60);
-    // Clear existing OTP values
-    setOtp(["", "", "", "", "", ""]);
-    otpInputRefs.current[0].current.focus();
-  };
+
+  const handleLogout =() => {
+      dispatch(setAppLoading(true))
+       auth.signOut().then(()=>{
+          console.log('sign out successfully');
+          localStorage.clear(); 
+          navigate("/")
+          dispatch({ type: 'RESET_APP' })
+       }).catch(error=>{
+      console.error('Error during logout:', error);
+    }).finally(()=>{
+      dispatch(setAppLoading(false))
+    }) 
+}
+
+
+  // const handleResendOTP = () => {
+  //   setResendTimer(60);
+  //   // Clear existing OTP values
+  //   setOtp(["", "", "", "", "", ""]);
+  //   otpInputRefs.current[0].current.focus();
+  // };
 
   //Login modal
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () =>{
+     dispatch(setLoginModal(true));
+    }
+  const handleClose = () => dispatch(setLoginModal(false));
 
   const handleLogoClick = () => {
     navigate("/");
@@ -107,7 +146,11 @@ const Header: React.FC = () => {
     setAnchorElUser(null);
     if (item === "Account") {
       navigate("/account");
-    } else if (item === "Logout") {
+    }
+    if (item === "Track Offers") {
+      navigate("/trackOffers");
+    } 
+    else if (item === "Logout") {
       dispatch(setLogoutModal(true));
     }
   };
@@ -140,6 +183,7 @@ const Header: React.FC = () => {
     if (loginErrors?.phone) setLoginError(null);
   };
 
+
   const handleBackPress = (e) => {
     if (e.key === "Backspace" && e.target.value.length == 1) {
       setPhoneNumber("");
@@ -169,66 +213,67 @@ const Header: React.FC = () => {
   };
 
   // Phone Signin Handlers
-  function onCaptchVerify() {
-    if (!window.recaptchaVerifier) {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
-        "recaptcha-container",
-        {
-          size: "normal",
-          callback: (response) => {
-            onSignup();
-          },
-          "expired-callback": () => {},
-        }
-      );
-    }
-  }
+  // function onCaptchVerify() {
+  //   if (!window.recaptchaVerifier) {
+  //     window.recaptchaVerifier = new RecaptchaVerifier(
+  //       auth,
+  //       "recaptcha-container",
+  //       {
+  //         size: "normal",
+  //         callback: (response) => {
+  //           onSignup();
+  //         },
+  //         "expired-callback": () => {},
+  //       }
+  //     );
+  //   }
+  // }
 
-  function onSignup() {
-    if (phoneValidator(phone)) {
-      setSending(true);
-      onCaptchVerify();
+  // function onSignup() {
+  //   if (phoneValidator(phone)) {
+  //     setSending(true);
+  //     onCaptchVerify();
 
-      const appVerifier = window.recaptchaVerifier;
+  //     const appVerifier = window.recaptchaVerifier;
 
-      const formatPh = "+91" + phone;
-      console.log(formatPh);
+  //     const formatPh = "+91" + phone;
+  //     console.log(formatPh);
 
-      signInWithPhoneNumber(auth, formatPh, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setConfirmation(confirmationResult);
-          setSending(false);
-          // setShowOTP(true);
-          // toast.success("OTP sended successfully!");
-        })
-        .catch((error) => {
-          console.log(error);
-          setSending(false);
-        });
-    } else setLoginError({ phone: "Please Check your number." });
-  }
+  //     signInWithPhoneNumber(auth, formatPh, appVerifier)
+  //       .then((confirmationResult) => {
+  //         window.confirmationResult = confirmationResult;
+  //         setConfirmation(confirmationResult);
+  //         setSending(false);
+  //         // setShowOTP(true);
+  //         // toast.success("OTP sended successfully!");
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         setSending(false);
+  //       });
+  //   } else setLoginError({ phone: "Please Check your number." });
+  // }
 
-  function onOTPVerify() {
-    setVerifying(true);
-    setVia(VIA.PHONE);
-    window.confirmationResult
-      .confirm(otp.join(""))
-      .then(async (res) => {
-        console.log(res);
-        // setUser(res.user);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoginError({ otp: "OTP not valid." });
-      })
-      .finally(() => {
-        setVerifying(false);
-      });
-  }
+  // function onOTPVerify() {
+  //   setVerifying(true);
+  //   setVia(VIA.PHONE);
+  //   window.confirmationResult
+  //     .confirm(otp.join(""))
+  //     .then(async (res) => {
+  //       console.log(res);
+  //       // setUser(res.user);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoginError({ otp: "OTP not valid." });
+  //     })
+  //     .finally(() => {
+  //       setVerifying(false);
+  //     });
+  // }
 
   // Google Sign In handler
+  
   const SignInWithGoogle = () => {
     if (via != VIA.GOOGLE) setVia(VIA.GOOGLE);
     const provider = new GoogleAuthProvider();
@@ -258,16 +303,15 @@ const Header: React.FC = () => {
   const onAuthStateChanged = (user: any) => {
     // console.log('onAuthStateChanged called with user:', user);
     if (user) {
-      console.log("Apple login user", user);
       const userInfo = localStorage.getItem("@user");
 
       // dispatch(setMerchantInfo(JSON.parse(userInfo)))
       if (userInfo) {
-        // const merchant = JSON.parse(userInfo);
-        // console.log(merchant?.username);
-        // if (merchant?.username) {
-        //   dispatch(getMerchantInfo(merchant));
-        // } else dispatch(registerUser(user, via, "Auth"));
+        const merchant = JSON.parse(userInfo);
+        console.log(merchant?.username);
+        if (merchant?.username) {
+          dispatch(getMerchantInfo(merchant));
+        } else dispatch(registerUser(user, via, "Auth"));
       } else dispatch(registerUser(user, via, "Auth"));
     }
   };
@@ -279,33 +323,112 @@ const Header: React.FC = () => {
     };
   }, [via]);
 
+  useEffect(() => {
+    // Update background color based on the route path
+    switch (location.pathname) {
+      case '/terms':
+        setHeaderClassname(styles.containerDark);
+        break;
+      case '/privacy':
+        setHeaderClassname(styles.containerDark);
+        break;
+      default:
+        setHeaderClassname(styles.container);
+    }
+  }, [location.pathname]);
+
+
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloses = () => {
+    setAnchorEl(null);
+  };
+
+  if(location.pathname === '/download')
+      return null
   return (
     <>
-      <div className={styles.container}>
+      <div className={headerClassName ?? styles.container}>
         <div className={styles.logo} onClick={handleLogoClick}>
           <img src={logo} alt="befree logo" onClick={handleLogoClick} />
           BeFree
         </div>
 
-        <div className={styles.navigation}>
-          <Link
-            to="/"
-            className={location.pathname === "/" ? styles.active : ""}
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className={location.pathname === "/about" ? styles.active : ""}
-          >
-            About
-          </Link>
-          <Link
-            to="/contact"
-            className={location.pathname === "/contact" ? styles.active : ""}
-          >
-            Contact Us
-          </Link>
+        <div>
+          {isMobile ? (
+            <div>
+              <button className={styles.login} onClick={handleClick}>
+                Menu
+              </button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleCloses}
+              >
+                <MenuItem
+                sx={menuItemStyles}
+                  component={Link}
+                  to="/"
+                  selected={location.pathname === "/"}
+                >
+                  Home
+                </MenuItem>
+                <MenuItem
+                  sx={menuItemStyles}
+                  component={Link}
+                  to="/offers"
+                  selected={location.pathname === "/"}
+                >
+                  Offers
+                </MenuItem>
+                <MenuItem
+                sx={menuItemStyles}
+                  component={Link}
+                  to="/about"
+                  selected={location.pathname === "/about"}
+                >
+                  About
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <div className={styles.navigation}>
+              <Link
+                to="/"
+                className={location.pathname === "/" ? styles.active : ""}
+              >
+                Home
+              </Link>
+              <Link
+                to="/about"
+                className={location.pathname === "/about" ? styles.active : ""}
+              >
+                About
+              </Link>
+              {isAuth?<Link
+                to="/offers"
+                className={
+                  location.pathname === "/offers" ? styles.active : ""
+                }
+              >
+                Offers
+              </Link>:<Link
+                to="/contact"
+                className={
+                  location.pathname === "/contact" ? styles.active : ""
+                }
+              >
+                Contact Us
+              </Link>}
+            </div>
+          )}
         </div>
 
         {!userInfo ? (
@@ -339,174 +462,29 @@ const Header: React.FC = () => {
                 <MenuItem
                   key={setting}
                   onClick={() => handleCloseUserMenu(setting)}
+                  sx={menuItemStyles}
                 >
-                  <Typography textAlign="center">{setting}</Typography>
+                  {setting}
                 </MenuItem>
               ))}
             </Menu>
           </Box>
         )}
 
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={loginModal} onClose={handleClose}>
           <Box sx={style}>
-            <Typography
-              variant="h5"
-              component="h2"
-              mb={2}
-              sx={{ color: colors.primary, fontWeight: 700 }}
-            >
-              Login
-            </Typography>
-
-            {confirmation && (
-              <h6 className={styles.sentNumber}>OTP sent to +91-{phone}</h6>
-            )}
-
-            <Box display="flex" flexDirection={"column"} alignItems={"center"}>
-              <TextField
-                error={loginErrors?.phone ? true : false}
-                label="Phone Number"
-                variant="outlined"
-                placeholder="Enter Your Phone Number"
-                type="tel"
-                fullWidth
-                value={phone}
-                onChange={handlePhoneInput}
-                onKeyUp={handleBackPress}
-                inputProps={{
-                  maxLength: 10,
-                  style: { fontSize: "1.5rem" },
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      sx={{ marginRight: "1rem" }}
-                    >
-                      <img src={India} width={15} height={15} />
-                      <Typography
-                        variant="inherit"
-                        sx={{ marginLeft: ".5rem", fontSize: "1.2rem" }}
-                      >
-                        +91
-                      </Typography>
-                      {/* Add your flag icon here */}
-                    </Box>
-                  ),
-                }}
-                helperText={
-                  loginErrors?.phone ? "Please check your number." : null
-                }
-              />
-
-              <div id="recaptcha-container"></div>
-
-              {/* Button for Send OTP */}
-              {!confirmation ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={sending}
-                  onClick={onSignup}
-                  sx={{ marginTop: "1.5rem" }}
-                >
-                  {sending && (
-                    <CircularProgress size={15} sx={{ marginRight: ".5rem" }} />
-                  )}{" "}
-                  Send OTP
-                </Button>
-              ) : (
-                <div>
-                  <Box
-                    display="flex"
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                  >
-                    {otp.map((digit, index) => (
-                      <TextField
-                        key={index}
-                        variant="outlined"
-                        type="text"
-                        value={digit}
-                        onChange={(e) => handleChange(e.target.value, index)}
-                        onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
-                        style={{
-                          width: "5rem",
-                          marginBottom: "3.5rem",
-                          margin: "2rem",
-                          fontSize: "1.5rem",
-                        }}
-                        inputRef={otpInputRefs.current[index]}
-                        inputProps={{
-                          maxLength: 1,
-                          style: { fontSize: "1.3rem", fontWeight: 400 },
-                        }}
-                      />
-                    ))}
-                  </Box>
-                  {loginErrors?.otp && (
-                    <Typography
-                      variant="inherit"
-                      sx={{
-                        color: colors.error,
-                        fontSize: "1.2rem",
-                        marginTop: "0.8rem",
-                        marginBottom: "0.8rem",
-                      }}
-                    >
-                      OTP is not correct
-                    </Typography>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={onOTPVerify}
-                    disabled={!otpValidator(otp.join("")) || verifying}
-                    sx={{ textAlign: "center", marginTop: "1rem" }} // Add marginTop for spacing
-                  >
-                    {verifying && (
-                      <CircularProgress
-                        size={15}
-                        sx={{ marginRight: ".5rem" }}
-                      />
-                    )}{" "}
-                    {verifying ? "Verifying .." : "Verify OTP"}
-                  </Button>
-
-                  {/* Resend OTP and Timer */}
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <div></div>
-                    <Typography variant="body2" color="textSecondary">
-                      {resendTimer > 0 ? (
-                        `Resend in ${resendTimer} seconds`
-                      ) : (
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          disabled={resendTimer > 0}
-                          onClick={handleResendOTP}
-                        >
-                          Resend OTP
-                        </Button>
-                      )}
-                    </Typography>
-                  </Box>
-                </div>
-              )}
-            </Box>
-
-            {/* Divider */}
-            <OrDivider />
-
-            {/* Sign In with Google Button */}
+            <Lottie options={defaultOptions} />
             <SignInwithGoogle signInWithGoogle={SignInWithGoogle} />
           </Box>
         </Modal>
+
+        <ConfirmationDialog
+                    title={`Are you sure you want to logout?`}
+                    open={logoutModal}
+                    onClose={() => dispatch(setLogoutModal(false))}
+                    onConfirm={handleLogout}
+                    oktitle={"Yes"}
+                    />
       </div>
     </>
   );

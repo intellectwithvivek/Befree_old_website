@@ -8,19 +8,21 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { indianBeverages, indianSweets } from '../../constants/app_constants';
 import { colors } from '../../constants/colors';
 import { db } from '../../firebase';
 import { setPopup } from '../../store/reducer/app-data';
 import { useAppDispatch, useAppSelector } from '../../store/store/store';
-import { getCurrentDate } from '../../utils/date';
-import { label } from './DiscountForm';
+import { generateUniqueString, getCurrentDate } from '../../utils/date';
+import { label, timings } from './DiscountForm';
 import styles from './offer.module.css'
 import { subtitle } from '../../utils/offer';
 import Lottie from 'react-lottie';
 import offerAdded from '../../assets/lottie/offeradded.json';
+import { inputStyle, primaryButton } from './commonStyles';
+import userDetailsService from '../../services/apis/userDetailsService';
 
 const predefinedOptions = ['Any Beverages', 'Any Sweet Dish', ...indianBeverages, ...indianSweets];
 
@@ -39,7 +41,7 @@ const ComplimentaryForm = ({ onBack }: Props) => {
   const [errors, setErrors] = useState({});
 
   const { userInfo } = useAppSelector(state => state.user)
-  const offerCollection = collection(db, 'offers');//collection(db, 'offers', userInfo?.country, userInfo?.state, userInfo?.division,userInfo?.district, userInfo?.username,'alloffers');
+  const offerCollection = collection(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '',userInfo?.district|| '',userInfo?.username || '','alloffers');
   const dispatch = useAppDispatch();
   const [adding, setAdding] = useState(false)
   const [play,setPlayAnimation] = useState(false);
@@ -54,6 +56,49 @@ const ComplimentaryForm = ({ onBack }: Props) => {
     },
   };
 
+  
+
+  const usernameRef = doc(db, 'offers', userInfo?.country || '', userInfo?.state || '', userInfo?.division || '', userInfo?.district || '',userInfo?.username || '');
+  
+
+  const handleDataSaveUpdated=(offerData)=>{
+    if(offerData)
+    {
+      setAdding(true);
+      getDoc(usernameRef)
+      .then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          // Document data is available
+          const data = docSnapshot.data();
+          console.log("Document data:", data);
+          const currentOffers = data.offers || [];
+         
+          // Update the array with the new offer
+          currentOffers.push(offerData);
+    
+          // Update the 'offers' field in the username document
+          return updateDoc(usernameRef, { offers: currentOffers });
+        } else {
+          console.log("Document does not exist");
+          return setDoc(usernameRef,{ offers: [offerData] })
+        }
+      }).then(async()=>{
+        console.log('Document added successfully');
+        await userDetailsService.broadcast({...userInfo,image:subtitle(offerData)});
+        setTiming('All Day (24 hrs)');
+        setStartDate('');
+        dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
+        setPlayAnimation(true)
+      })
+      .catch((error) => {
+        console.error("Error :", error);
+        dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" }))
+      }).finally(()=>{
+        setAdding(false);
+      });
+    }
+  }
+
   const handleDataSave = (data) => {
     // const docRef = doc(db, docRefrenc,);
 
@@ -61,12 +106,15 @@ const ComplimentaryForm = ({ onBack }: Props) => {
       setAdding(true)
       addDoc(offerCollection, data).then(async (response) => {
         //setting to original
-        // await userDetailsService.broadcast({...userInfo,image:subtitle(data)})
+        await userDetailsService.broadcast({...userInfo,image:subtitle(data)})
         setTiming('All Day (24 hrs)')
         setStartDate('')
         dispatch(setPopup({ open: true, severity: "success", message: "Offer Added Successfully🥳" }));
-
-      }).catch(err => dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" })))
+        setPlayAnimation(true);
+      }).catch(err => 
+          {
+            dispatch(setPopup({ open: true, severity: "error", message: "Something went Wrong!" }))
+            })
         .finally(() => {
           setAdding(false)
         });
@@ -118,10 +166,10 @@ const ComplimentaryForm = ({ onBack }: Props) => {
       minOrder,
       active: true,
       offer_type: "Complimentary",
-      place_type: userInfo?.type
+      place_type: userInfo?.type,
+      id: generateUniqueString()
     }
 
-    console.log("offer", offer)
 
     // Basic validation
     const newErrors = {};
@@ -137,7 +185,7 @@ const ComplimentaryForm = ({ onBack }: Props) => {
 
     if (Object.keys(newErrors).length === 0) {
       // Submit the form or perform other actions here
-      handleDataSave(offer)
+      handleDataSaveUpdated(offer)
     } else {
       setErrors(newErrors);
     }
@@ -211,7 +259,8 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                         setComplimentaryItem(event.target.value)
                       }}
                       helperText={errors?.complimentaryItem ? "Complementary Item is Required." : null}
-                    />
+                      
+                      />
                   )}
                 />
               </div>
@@ -228,6 +277,9 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                   onChange={handleQuantityChange}
                   error={errors?.quantity ? true : false}
                   helperText={errors?.quantity ? errors?.quantity : undefined}
+                  inputProps={{
+                    style: inputStyle
+                  }}
                 />
               </div>
 
@@ -239,12 +291,22 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                 <Select
                   value={timing}
                   onChange={handleTimingChange}
+                  MenuProps={{
+                    style: {
+                      fontSize: '1.8rem', // Adjust the font size as needed
+                      color: 'red', // Adjust the color as needed
+                    },
+                  }}
+                  sx={{ fontSize: '1.4rem' }}
                 >
-                  <MenuItem value="All Day (24 hrs)">All Day (24 hrs)</MenuItem>
-                  <MenuItem value="Morning (7am - 12pm)">Morning (7 - 12)</MenuItem>
-                  <MenuItem value="Afternoon">Afternoon (12 - 4)</MenuItem>
-                  <MenuItem value="Evening (4pm - 8pm)">Evening (4 - 8)</MenuItem>
-                  <MenuItem value="Night (8pm - 12pm)">Night (8 - 12)</MenuItem>
+                  {timings?.map(item => {
+                    return (<MenuItem
+                      sx={{
+                        fontSize: '1.4rem',
+                        color: item.trim() === timing.trim() ? 'red' : colors.black, // Customize the color for the selected item
+                      }}
+                      value={item}>{item}</MenuItem>)
+                  })}
                 </Select>
               </div>
             </div>
@@ -265,6 +327,9 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                     inputProps: { min: getCurrentDate() }, // Pass the minimum date
                   }}
                   helperText={errors.startDate ? "Start Date is Required." : null}
+                  inputProps={{
+                    style: inputStyle
+                  }}
                 />
 
               </div>
@@ -305,6 +370,9 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                         </InputAdornment>
                       ),
                     }}
+                    inputProps={{
+                      style: inputStyle
+                    }}
                   />
                 )}
                 {minOrderType === 'quantity' && (
@@ -314,6 +382,9 @@ const ComplimentaryForm = ({ onBack }: Props) => {
                     label="Minimum Order Quantity"
                     value={minOrder}
                     onChange={handleMinOrderChange}
+                    inputProps={{
+                      style: inputStyle
+                    }}
                   />
                 )}
                 {errors.minOrder && <div>{errors.minOrder}</div>}
@@ -321,7 +392,7 @@ const ComplimentaryForm = ({ onBack }: Props) => {
             </div>
             <div style={{ textAlign: 'center', marginTop: '1.3rem' }}>
               <Button type="submit" variant="contained"
-                color="primary" disabled={adding} style={{ width: '20%' }}>
+                color="primary" disabled={adding} style={primaryButton}>
                 {adding ? <CircularProgress size={16} color='inherit' /> : 'Submit'}
               </Button>
             </div>
@@ -351,8 +422,6 @@ const ComplimentaryForm = ({ onBack }: Props) => {
             </div>
           </div>
         </div>
-
-
 
       </form></>
 

@@ -13,6 +13,8 @@ import { indianBeverages, indianSweets } from '../../constants/app_constants';
 import { useAppSelector } from '../../store/store/store';
 import { getCurrentDate } from '../../utils/date';
 import { subtitle } from '../../utils/offer';
+import { colors } from '../../constants/colors';
+import { editHeading, lableStyle, subeditHead } from './commonStyles';
 
 const predefinedOptions = ['Any Beverages', 'Any Sweet Dish', ...indianBeverages , ...indianSweets];
 
@@ -79,7 +81,8 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
       minOrderType,
       minOrder,
       active:true,
-      offer_type:"Complimentary"
+      offer_type:"Complimentary",
+      id:offer.id
   } as Offer
 
   console.log("offer",updatedOffer)
@@ -105,22 +108,25 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
     }
   };
 
+  
+
 
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid item xs={12}>
-      <Typography variant="h4" align="center">
+      <Typography variant="h4" align="center" sx={editHeading}>
             {offer.title}
           </Typography>
-          <Typography variant="body2" align="center">
-            {subtitle(offer)}
+          <Typography variant="body2" align="center" color={colors.lightblue} 
+            style={subeditHead}>
+            [{subtitle(offer)}]
           </Typography>
         </Grid>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="complimentary">Complimentary Item</InputLabel>
+            <InputLabel htmlFor="complimentary" sx={lableStyle}>Complimentary Item</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -152,7 +158,7 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="quantity">Quantity</InputLabel>
+            <InputLabel htmlFor="quantity" sx={lableStyle}>Quantity</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -167,7 +173,7 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="timing">Timing</InputLabel>
+            <InputLabel htmlFor="timing" sx={lableStyle}>Timing</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -184,7 +190,7 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="startDate">Start Date</InputLabel>
+            <InputLabel htmlFor="startDate" sx={lableStyle}>Start Date</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -205,7 +211,7 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="minOrderType">Minimum Order</InputLabel>
+            <InputLabel htmlFor="minOrderType" sx={lableStyle}>Minimum Order</InputLabel>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -256,14 +262,14 @@ const EditComplimentaryForm = ({offer,onSubmit,onAbort,saving}:Props) => {
       </Grid>
       {saving ? <div style={{textAlign:"center",marginTop:20,marginBottom:20}}>
           <CircularProgress size={20}/></div> :
-      <>
-        <Button type="button" variant="outlined" color="secondary" onClick={onAbort}>
+      <div style={{textAlign:"center",marginTop:20,marginBottom:20}}>
+        <Button type="button" variant="outlined" color="primary" onClick={onAbort} sx={{marginRight:10}}>
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>
-        </>}
+        </div>}
     </form>
   );
 

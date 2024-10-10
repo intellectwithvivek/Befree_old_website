@@ -12,10 +12,11 @@
 }
 
 .faq h2 {
-     color:var(--grey);
-    margin-bottom: 2rem;
+    color: var(--heading);
+    margin-bottom: 1.5rem;
     text-align: center;
-    font-size: 2rem;
+    font-size: 3.6rem;
+    font-weight: 600;
 }
 
 .faqCard {

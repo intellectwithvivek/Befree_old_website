@@ -1,11 +1,14 @@
 .container {
     display:flex;
+    overflow: hidden;
+    max-width: 100vw;
+    overflow-y: hidden;
     /* align-items: center; */
 
 }
 
 .innerContainer {
-    width: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -13,6 +16,7 @@
 
 .search {
     position: relative;
+    width: 48vw;
   }
   
   .search button,
@@ -25,9 +29,10 @@
   .search > * > svg {
     display: block;
   }
+ 
   
   .search span {
-    left: 20px;
+    left: 1.5rem;
     opacity: .5;
     margin-top: 1px;
   }
@@ -50,7 +55,7 @@
   .search input {
     box-sizing: border-box;
     display: block;
-    width: 60rem;
+    width: 47vw;
     height: 50px;
     border-radius: 5px;
     padding: 0 50px 0 45px;
@@ -60,17 +65,21 @@
     background: white;
   }
 
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+  }
 
-  .inside {
+  .inside{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100vh;
+    width: 50vw;
   }
 
-  .insideElement {
-    width: 48vh;
-  } 
+
 
   .lottie {
     height: 20rem;
@@ -94,8 +103,60 @@
 
   .popper {
     position: absolute;
-    top: 20%;
+    top: 40%;
     bottom: 0;
     left: 30%;
     z-index: 100;
+}
+
+.uploadImage {
+  margin-top: 2rem;
+  align-items: center;
+}
+
+.uploadImage p{
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: var(--grey);
+}
+
+.innerContainer h4  {
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+
+@media only screen and (max-width: 555px) {
+
+  .container {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+    .inside {
+      width: 80vw;
+    }  
+    
+    .searchContainer {
+      width: 80vw;
+    }
+
+    .innerContainer ul{
+      width: 85vw;
+    }
+
+    .search {
+      width: 80vw;
+    }
+    .search input {
+      width: 80vw;
+    }
+ 
+}
+
+@media only screen and (max-width: 768px) {
+  
 }

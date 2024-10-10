@@ -4,29 +4,29 @@ export const Offer_Types = {
   DISCOUNT: {
     title: "Discount Based",
     subtitle: "Reward customers with discounts.",
-    eg: "eg.Flat 20%  or 40% OFF upto 100 ...etc"
+    eg: "eg.Flat 20%  or 40% OFF upto 100 ...etc",
   },
   COMPLIMENTARY: {
     title: "Complimentary  Based",
     subtitle: "Delight customers with complimentary items.",
-    eg: " Buy 2 get 1 / Spend Rs150 and get free appetizer!"
-  }
-}
+    eg: " Buy 2 get 1 / Spend Rs150 and get free appetizer!",
+  },
+};
 
 export const boostYourBusinessContent = [
   {
     title: "Unlock New Opportunities with Befree:",
     description: [
       "Showcase your exclusive discounts and complimentary offers on our app.",
-      "Gain visibility among a vast user base in your local region."
-    ]
+      "Gain visibility among a vast user base in your local region.",
+    ],
   },
   {
     title: "Attract New Customers:",
     description: [
       "Reach potential customers actively seeking local deals and experiences.",
-      "Increase foot traffic to your establishment through app-driven discovery."
-    ]
+      "Increase foot traffic to your establishment through app-driven discovery.",
+    ],
   },
   // {
   //   title: "Leverage Limited-Time Offers:",
@@ -53,8 +53,8 @@ export const boostYourBusinessContent = [
     title: "Plan Events at Your Place:",
     description: [
       "Enable users to plan events at your establishment directly through the app.",
-      "Increase reservations and bookings for parties, gatherings, and special occasions."
-    ]
+      "Increase reservations and bookings for parties, gatherings, and special occasions.",
+    ],
   },
   // {
   //   title: "By partnering with BeFree",
@@ -65,20 +65,21 @@ export const boostYourBusinessContent = [
   // }
 ];
 
-
 export const OffersWork = {
-  Discount: ["Specify the Discount Percentage (min 10%, max 60%).%",
+  Discount: [
+    "Specify the Discount Percentage (min 10%, max 60%).%",
     "Decide whether there's a limit on the discount amount or if it's unlimited.",
     "Set the timing for when the discount offer is active, including start date.",
-    "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the discount."],
+    "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the discount.",
+  ],
 
-    Complimentary:[
-      "Specify the Complimentary Item (eg tea,pizza,coffe,drinks,mojito ...etc).",
-      "Set the Quantity of the complimentary item.",
-      "Choose the timing for when the complimentary offer is active, including the start date.",
-      "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the complimentary item."],
-    
-  }
+  Complimentary: [
+    "Specify the Complimentary Item (eg tea,pizza,coffe,drinks,mojito ...etc).",
+    "Set the Quantity of the complimentary item.",
+    "Choose the timing for when the complimentary offer is active, including the start date.",
+    "Set a minimum spending threshold or a minimum number of items that customers need to purchase to qualify for the complimentary item.",
+  ],
+};
 
 export const FAQS = {
   "What is Befree ?":
@@ -241,58 +242,143 @@ export const discount_styles = {
   60: { color: "#2E7D32", fontSize: "3.0rem" }, // Increased by 1rem
 };
 
-
-export const addPlaceInstructions = ["Search your place or nearby location",
+export const addPlaceInstructions = [
+  "Search your place or nearby location",
   "Upload an image of your place",
   "Add Place Name and Owners name",
-   "Select Type of place (restaurant/bar/pub/cafe ..etc)"
-  ,"Check the remaining details (state,region,country,zipcode) & submit"]
+  "Select Type of place (restaurant/bar/pub/cafe ..etc)",
+  "Check the remaining details (state,region,country,zipcode) & submit",
+];
 
-  export const beFreeInformation = {
-    "About BeFree": {
-      content:
-        "At BeFree, we've reimagined the way people connect and plan their outings. Founded by a group of passionate and visionary individuals, our platform goes beyond discovering offers — it's a space where users can plan events at their favorite places and invite others to join them. We believe in creating meaningful connections and unforgettable experiences for both users and merchants.",
-    },
-    "Mission": {
-      content:
-        "Our mission is to revolutionize the way people experience their cities. By providing a platform where users can not only discover great deals but also plan and host events, we're shaping a community where connections flourish, and experiences are cherished.",
-    },
-    "What Sets Us Apart?": {
-      content: [
-        {
-          title: "Event Planning Redefined",
-          description: "BeFree empowers users to take charge of their social calendar by seamlessly planning events at their preferred places. Whether it's a casual meet-up at a local cafe or a lively night out at a pub, our platform makes event planning effortless",
-          url:require('../assets/images/event.png')  
-        },
-        {
-          title: "Building Connections",
-          description: "We're more than just a deals platform; we're a community hub. BeFree facilitates connections between people, making every event an opportunity to forge new friendships.",
-          url:require('../assets/images/connection.png')
-        },
-        {
-          title: "Empowering Merchants",
-          description: "From a merchant's perspective, BeFree provides a unique platform. Showcase your venue for events, attract a dynamic crowd, and enhance visibility. Utilize our tools and insights to create engaging experiences, maximizing your business potential and fostering customer loyalty.",
-          url:require('../assets/images/growth.png')
-        },
-      ],
-    },
-    "Meet the Team": {
-      content:
-        "BeFree is the brainchild of a passionate individual - me! I am Akshay, the founder and developer, working tirelessly to bring this platform to life. Committed to expanding the reach and ensuring that every event on our platform is a success. As a solo creator, I'm dedicated to providing you with the best experience on BeFree."
-    },
-    "Get Involved": {
-      content:
-        "Join us on this exciting journey of connection and experience creation. Merchants, showcase your venue for events and attract a dynamic crowd. Users, plan your next memorable event and invite others to join you. Together, let's build a community where every event is an opportunity to connect and create lasting memories.",
-    },
-    "Contact Us": {
-      content:
-        "Have questions or feedback? Reach out to us at [Your Email Address]. Follow us on [Social Media Links] for the latest updates and special announcements.",
-    },
-    "Thank You": {
-      content:
-        "Thank you for being a part of BeFree. Let's connect, plan, and create experiences together!",
-    },
-  };
-  
-  
+export const beFreeInformation = {
+  "About BeFree": {
+    content:
+      "At BeFree, we've reimagined the way people connect and plan their outings. Founded by a group of passionate and visionary individuals, our platform goes beyond discovering offers — it's a space where users can plan events at their favorite places and invite others to join them. We believe in creating meaningful connections and unforgettable experiences for both users and merchants.",
+  },
+  Mission: {
+    content:
+      "Our mission is to revolutionize the way people experience their cities. By leveraging AI, we provide a platform where users can discover personalized deals, plan, and host events. We're shaping a community where connections flourish, and experiences are cherished.",
+  },
 
+  "What Sets Us Apart?": {
+    content: [
+      {
+        title: "Event Planning Redefined",
+        description:
+          "BeFree empowers users to take charge of their social calendar by seamlessly planning events at their preferred places. Whether it's a casual meet-up at a local cafe or a lively night out at a pub, our platform makes event planning effortless",
+        url: require("../assets/images/event.png"),
+      },
+      {
+        title: "Building Connections",
+        description:
+          "We're more than just a deals platform; we're a community hub. BeFree facilitates connections between people, making every event an opportunity to forge new friendships.",
+        url: require("../assets/images/connection.png"),
+      },
+      {
+        title: "Empowering Merchants",
+        description:
+          "From a merchant's perspective, BeFree provides a unique platform. Showcase your venue for events, attract a dynamic crowd, and enhance visibility. Utilize our tools and insights to create engaging experiences, maximizing your business potential and fostering customer loyalty.",
+        url: require("../assets/images/growth.png"),
+      },
+    ],
+  },
+  "Meet the Team": {
+    content:
+      "BeFree is the brainchild of a team of passionate individuals led by Akshay. We're a group of crazy, hardworking innovators using AI to personalize and enhance event planning. Our commitment is to expand our reach and ensure every event on our platform is a success.",
+  },
+  "Get Involved": {
+    content:
+      "Join us on this exciting journey of connection and experience creation. Merchants, showcase your venue for events and attract a dynamic crowd. Users, plan your next memorable event and invite others to join you. Together, let's build a community where every event is an opportunity to connect and create lasting memories.",
+  },
+  "Contact Us": {
+    content:
+      "Have questions or feedback? Reach out to us at [Your Email Address]. Follow us on [Social Media Links] for the latest updates and special announcements.",
+  },
+  "Thank You": {
+    content:
+      "Thank you for being a part of BeFree. Let's connect, plan, and create experiences together!",
+  },
+};
+
+export const activityReviews = [
+  {
+    name: "ABS Saurabh",
+    title: "Cycling Adventure",
+    image: "abs.jpg",
+    location: "Noida",
+    review:
+      "Planned a spontaneous cycling adventure using the app and connected with some fantastic people who shared the same passion. The ride was not just about bikes; it was about creating lasting memories with new friends!",
+  },
+  {
+    name: "Prashant",
+    title: "Trekking Expedition",
+    image: "prashant.jpg",
+    location: "Noida",
+    review:
+      "Organized a trekking expedition through the app and ended up hiking with an incredible group. The breathtaking views were matched only by the camaraderie. A perfect blend of adventure and friendship!",
+  },
+  {
+    name: "Sneha",
+    title: "House Party Extravaganza",
+    image: "sneha.jpg",
+    location: "Lucknow",
+    review:
+      "Threw a last-minute house party using the app, and it turned out to be an absolute blast! Met new people, danced the night away, and now have a bunch of friends to plan more events with. Cheers to spontaneous fun!",
+  },
+  {
+    name: "Vivek",
+    title: "Exploring the Town Together",
+    image: "vivek.jpg",
+    location: "Indore",
+    review:
+      "Explored the town with fellow explorers through the app. From hidden gems to local favorites, every discovery was shared with an amazing group. Connecting with like-minded individuals made the experience even more enjoyable!",
+  },
+  {
+    name: "Arun",
+    title: "Badminton Matchup",
+    image: "kari.jpg",
+    location: "Pune",
+    review:
+      "Set up a quick badminton game on the app, and within minutes, had a group ready to play. The friendly competition was a blast, and I left not just with a workout but also with new friends to challenge next time!",
+  },
+  {
+    name: "Shilpa",
+    title: "Movie Night with New Faces",
+    image: "shilpa.jpg",
+    location: "Pune",
+    review:
+      "Planned a movie night through the app and was joined by some awesome individuals. The film was great, but the best part was the post-movie discussions and laughs. Movie nights are so much better with newfound friends!",
+  },
+  {
+    name: "Sarthak",
+    title: "Comedy Show Laughter Fest",
+    image: "sarthak.jpg",
+    location: "Pune",
+    review:
+      "Attended a comedy show with a group of strangers-turned-friends. The shared laughter created an instant bond. Thanks to the app, I not only enjoyed the show but also gained some wonderful connections!",
+  },
+  {
+    name: "Rituraj",
+    title: "Travel Buddies Unite",
+    image: "badshah.jpg",
+    location: "Rishikesh",
+    review:
+      "Used the app to plan a spontaneous trip and found travel buddies who were as excited about exploring as I was. From sightseeing to trying local cuisines, every moment was made better by the company of these amazing people!",
+  },
+  {
+    name: "Baba",
+    title: "Concert Squad Goals",
+    image: "baba.jpg",
+    location: "Goa",
+    review:
+      "Planned to attend a concert through the app and formed a concert squad of music enthusiasts. The energy at the event was contagious, and sharing the experience with newfound friends made it an unforgettable night!",
+  },
+  {
+    name: "Abhilasha",
+    title: "Cafe Hopping Social",
+    image: "chicks.jpg",
+    location: "Hyderabad",
+    review:
+      "Went cafe hopping with a group of coffee and tea lovers I connected with on the app. Each cafe stop was a new adventure, and the conversations flowed as smoothly as the brews. An afternoon well spent with great company!",
+  },
+];

@@ -12,6 +12,10 @@ import Offer from "./screens/Offers/Offer"
 import { store } from "./store/store/store"; 
 import { Provider } from 'react-redux';
 import Account from "./screens/Account";
+import TrackOffers from "./components/Offer/TrackOffers";
+import PrivacyPolicyScreen from "./screens/privacy/PrivacyPolicyScreen";
+import TermsConditionScreen from "./screens/terms/TermsConditionScreen";
+import Download from "./screens/Download";
 
 const router = createBrowserRouter([
   {path:'/',element: <Root/>,
@@ -22,6 +26,10 @@ const router = createBrowserRouter([
     {path:'/about',element:<About/>},
     {path:'/offers',element:<Offer/>},
     {path:'/account',element:<Account/>},
+    {path:'/trackOffers',element:<TrackOffers/>},
+    {path:'/terms',element:<TermsConditionScreen/>},
+    {path:'/privacy',element:<PrivacyPolicyScreen/>},
+    {path:'/download',element:<Download/>},
   ]},
 ])  
 

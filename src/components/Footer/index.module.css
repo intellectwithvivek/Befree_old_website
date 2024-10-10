@@ -26,8 +26,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  width: 20vw;
-  margin-top: 5rem;
+  width: 35vw;
+  margin-top: 1.5rem;
 }
 
 .logos {
@@ -119,4 +119,31 @@
   color: var(--grey2);
   font-size: 1.8rem;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 480px) {
+  .first_content {
+    width: 90vw;
+  }
+
+  .third {
+    width: 100vw !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    gap: 4rem;
+  }
+
+  .contact p {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .third {
+    width: 20vw;
+  }
 }
